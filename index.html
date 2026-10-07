@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Threestrand · Less phone, more people</title>
+<meta name="description" content="We don't think the fix for phones is a better app. It's other people. Threestrand lets you block what wastes your time and gives someone you trust the say on when it opens. That's it.">
+<meta property="og:title" content="Threestrand · Less phone, more people">
+<meta property="og:description" content="Use your phone less, with people who are working on it too.">
+<meta property="og:image" content="assets/photos/lattes-together.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/brand/favicon-64.png">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F7F2E9;
+    --paper-2: #EFE8DB;
+    --ink: #1C1A18;
+    --ink-2: #4B4541;
+    --muted: #7D7569;
+    --line: #E3DACB;
+    --peri: #5468D4;
+    --peri-deep: #3C4DB3;
+    --peri-wash: #E9ECFA;
+    --peri-light: #7C8FE8;
+    --radius: 22px;
+    --maxw: 1120px;
+    --gutter: 16px;
+    --font: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  /* The page is light on purpose: restate the tokens so a dark-mode viewer sees the same warm paper. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --paper: #F7F2E9; --paper-2: #EFE8DB; --ink: #1C1A18; --ink-2: #4B4541; --muted: #7D7569; --line: #E3DACB; }
+  }
+  :root[data-theme="dark"] { --paper: #F7F2E9; --paper-2: #EFE8DB; --ink: #1C1A18; --ink-2: #4B4541; --muted: #7D7569; --line: #E3DACB; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  p { margin: 0 0 1em; }
+  h1, h2, h3 { margin: 0; line-height: 1.12; letter-spacing: -0.02em; font-weight: 700; }
+  h1 { font-size: clamp(2.5rem, 6.4vw, 4.6rem); }
+  h2 { font-size: clamp(1.9rem, 4.2vw, 3rem); }
+  h3 { font-size: 1.2rem; letter-spacing: -0.01em; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
+  .lead { font-size: clamp(1.1rem, 1.9vw, 1.35rem); color: var(--ink-2); line-height: 1.55; }
+  .eyebrow { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--peri-deep); margin-bottom: 14px; }
+  .muted { color: var(--muted); }
+  section { padding: clamp(64px, 9vw, 120px) 0; }
+
+  /* ---------- brand lockup ---------- */
+  .lockup { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -0.03em; font-size: 1.45rem; line-height: 1; }
+  .lockup svg { width: 30px; height: 31px; }
+  .lockup .wm-strand { color: var(--peri); }
+
+  /* ---------- nav ---------- */
+  .nav {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(247, 242, 233, 0.82);
+    backdrop-filter: saturate(140%) blur(12px);
+    -webkit-backdrop-filter: saturate(140%) blur(12px);
+    border-bottom: 1px solid rgba(227, 218, 203, 0.6);
+  }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .nav-links { display: flex; align-items: center; gap: 26px; font-weight: 500; font-size: 0.95rem; color: var(--ink-2); }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links .links { display: flex; gap: 26px; }
+  @media (max-width: 720px) { .nav-links .links { display: none; } }
+
+  /* ---------- buttons ---------- */
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 13px 20px; border-radius: 999px;
+    font-weight: 600; font-size: 0.98rem; line-height: 1;
+    border: 1.5px solid transparent;
+    transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    white-space: nowrap;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn svg { width: 20px; height: 20px; flex: none; }
+  .btn-ink { background: var(--ink); color: var(--paper); }
+  .btn-ink:hover { background: #2a2724; }
+  .btn-peri { background: var(--peri); color: #fff; }
+  .btn-peri:hover { background: var(--peri-deep); }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+  .btn-ghost:hover { background: rgba(28, 26, 24, 0.06); }
+  .btn-sm { padding: 10px 16px; font-size: 0.9rem; }
+  .stores { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .stores-note { font-size: 0.9rem; color: var(--muted); margin-top: 14px; }
+  .stores-note a { text-decoration: underline; text-underline-offset: 3px; }
+  /* platform awareness: phones see the one store that matters */
+  html.is-ios .store-android, html.is-android .store-ios { display: none; }
+  html.is-ios .other-ios, html.is-android .other-android { display: none; }
+  html.is-desktop .stores-other, html.is-unknown .stores-other { display: none; }
+
+  /* ---------- hero ---------- */
+  .hero {
+    position: relative; min-height: min(86vh, 780px); display: flex; align-items: center;
+    padding: clamp(56px, 8vw, 110px) 0;
+    isolation: isolate; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: -2;
+    background: url("assets/photos/cafe-window.jpg") center / cover no-repeat;
+    filter: saturate(0.85);
+    transform: scale(1.02);
+  }
+  .hero-wash {
+    position: absolute; inset: 0; z-index: -1;
+    background:
+      linear-gradient(90deg, rgba(247,242,233,0.97) 0%, rgba(247,242,233,0.92) 38%, rgba(247,242,233,0.55) 65%, rgba(247,242,233,0.25) 100%),
+      linear-gradient(180deg, rgba(247,242,233,0.2) 0%, rgba(247,242,233,0) 40%, rgba(247,242,233,0.9) 100%);
+  }
+  .hero-inner { max-width: 620px; }
+  .hero h1 { margin-bottom: 20px; }
+  .hero .lead { margin-bottom: 30px; max-width: 540px; }
+  @media (max-width: 720px) {
+    .hero { min-height: 0; }
+    .hero-wash {
+      background:
+        linear-gradient(180deg, rgba(247,242,233,0.94) 0%, rgba(247,242,233,0.9) 55%, rgba(247,242,233,0.98) 100%);
+    }
+  }
+
+  /* ---------- three strands ---------- */
+  .strands { background: var(--paper); }
+  .strands-head { max-width: 640px; margin-bottom: 44px; }
+  .strand-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .strand {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 28px 26px 26px;
+  }
+  .strand h3 { margin-bottom: 8px; }
+  .strand p { color: var(--ink-2); margin: 0; font-size: 1rem; }
+  @media (max-width: 820px) { .strand-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- photo band ---------- */
+  .band {
+    position: relative; isolation: isolate; color: #fff;
+    padding: clamp(80px, 12vw, 160px) 0;
+  }
+  .band-bg { position: absolute; inset: 0; z-index: -2; background-size: cover; background-position: center; }
+  .band-wash { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(20,18,16,0.25), rgba(20,18,16,0.6)); }
+  .band .wrap { max-width: 860px; text-align: center; }
+  .band h2 { color: #fff; text-shadow: 0 2px 24px rgba(0,0,0,0.25); }
+  .band p { color: rgba(255,255,255,0.9); font-size: clamp(1.05rem, 1.8vw, 1.25rem); max-width: 620px; margin: 18px auto 0; }
+
+  /* ---------- table (coffee shop) ---------- */
+  .table-section { background: var(--paper-2); }
+  .two { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
+  .two .photo { border-radius: var(--radius); overflow: hidden; aspect-ratio: 5 / 4; box-shadow: 0 30px 60px -30px rgba(28,26,24,0.35); }
+  .two .photo img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.9); }
+  .steps { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 18px; }
+  .steps li { display: grid; grid-template-columns: 34px 1fr; gap: 14px; align-items: start; }
+  .steps .dot {
+    width: 34px; height: 34px; border-radius: 50%; background: var(--peri); color: #fff;
+    display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; margin-top: 2px;
+  }
+  .steps.uses li { grid-template-columns: 22px 1fr; }
+  .steps.uses .dot { width: 10px; height: 10px; margin: 10px 6px 0; }
+  .steps strong { display: block; margin-bottom: 2px; }
+  .steps span { color: var(--ink-2); }
+  .aside { margin-top: 30px; padding: 18px 20px; background: #fff; border: 1px solid var(--line); border-radius: 16px; font-size: 0.98rem; color: var(--ink-2); }
+  .aside a { color: var(--peri-deep); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+  @media (max-width: 860px) {
+    .two { grid-template-columns: 1fr; }
+    .two .photo { aspect-ratio: 4 / 3; order: -1; }
+  }
+
+  /* ---------- how it works ---------- */
+  .how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
+  .how {
+    padding: 28px 26px; border-radius: var(--radius);
+    background: var(--peri-wash); color: var(--ink);
+  }
+  .how h3 { margin: 14px 0 8px; }
+  .how p { margin: 0; color: var(--ink-2); font-size: 1rem; }
+  .how svg { width: 28px; height: 28px; color: var(--peri-deep); }
+  .sees { margin-top: 28px; display: flex; gap: 14px; align-items: flex-start; padding: 22px 24px; border-radius: 16px; background: #fff; border: 1px solid var(--line); }
+  .sees svg { width: 24px; height: 24px; flex: none; color: var(--peri-deep); margin-top: 3px; }
+  .sees p { margin: 0; color: var(--ink-2); }
+  @media (max-width: 820px) { .how-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- what we're after ---------- */
+  .about { background: var(--paper); }
+  .about .photo { aspect-ratio: 4 / 5; }
+  .about .about-p { color: var(--ink-2); font-size: 1.05rem; margin-top: 4px; }
+  @media (max-width: 860px) { .about .photo { aspect-ratio: 4 / 3; } }
+
+  /* ---------- close ---------- */
+  .close { position: relative; isolation: isolate; padding: clamp(90px, 13vw, 170px) 0; color: var(--ink); }
+  .close .band-bg { background-image: url("assets/photos/cafe-plants.jpg"); filter: saturate(0.8); }
+  .close .band-wash { background: linear-gradient(180deg, rgba(247,242,233,0.9), rgba(247,242,233,0.84)); }
+  .close .wrap { max-width: 720px; text-align: center; }
+  .close h2 { margin-bottom: 16px; }
+  .close .lead { margin-bottom: 30px; }
+  .close .stores { justify-content: center; }
+
+  /* ---------- footer ---------- */
+  footer { background: var(--paper); border-top: 1px solid var(--line); padding: 40px 0 48px; font-size: 0.92rem; color: var(--muted); }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 18px; }
+  footer .links { display: flex; flex-wrap: wrap; gap: 20px; }
+  footer .links a:hover { color: var(--ink); }
+  footer .lockup { font-size: 1.15rem; color: var(--ink); }
+  footer .lockup svg { width: 24px; height: 25px; }
+  footer .formerly { width: 100%; font-size: 0.85rem; }
+
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn { transition: none; } }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap">
+    <a class="lockup" href="#top" aria-label="Threestrand home">
+      <svg viewBox="90 88 1612 1667" aria-hidden="true"><g transform="translate(0,1840) scale(0.1,-0.1)" fill="#5468D4"><path d="M1682 17508 c-396 -56 -717 -381 -771 -781 -15 -105 -15 -1059 0 -1164 56 -409 383 -733 790 -782 52 -6 772 -12 1884 -15 1881 -6 1871 -5 1937 -49 71 -48 81 -89 89 -370 33 -1125 315 -1850 995 -2556 411 -427 890 -751 1589 -1076 546 -254 922 -402 2460 -972 215 -79 476 -176 580 -215 237 -88 640 -248 805 -321 636 -280 823 -373 1184 -589 435 -261 709 -469 1036 -784 437 -424 714 -825 942 -1369 126 -300 180 -364 297 -353 90 9 153 84 216 260 100 280 154 601 176 1043 38 786 -138 1541 -500 2143 -435 726 -1205 1358 -2186 1797 -209 93 -348 151 -840 352 -1260 513 -2237 961 -2775 1273 -564 328 -885 681 -1039 1145 -86 259 -95 471 -23 556 47 57 97 71 282 80 91 4 1779 8 3752 8 2523 1 3610 4 3665 12 407 56 727 376 782 782 15 105 15 1059 0 1164 -55 406 -375 726 -782 782 -99 14 -14449 13 -14545 -1z"/><path d="M4499 13561 c-229 -90 -656 -556 -866 -946 -517 -961 -477 -2010 112 -2986 290 -479 798 -944 1473 -1348 588 -351 1682 -846 2677 -1211 834 -305 1641 -612 1988 -754 943 -388 1360 -615 1789 -972 667 -556 1048 -1112 1218 -1779 71 -278 95 -519 79 -785 -16 -254 2 -343 79 -395 107 -73 250 -6 549 258 277 244 485 487 647 756 278 459 401 895 400 1421 -1 772 -248 1384 -822 2033 -472 534 -1346 1054 -2552 1517 -342 131 -1606 605 -2000 750 -762 279 -1296 509 -1718 737 -1173 633 -1889 1320 -2361 2261 -161 321 -231 537 -321 989 -27 138 -58 272 -67 296 -59 150 -173 209 -304 158z"/><path d="M3515 8148 c-97 -36 -143 -122 -173 -323 -27 -191 -24 -855 6 -1055 139 -931 529 -1669 1162 -2195 518 -430 812 -585 2235 -1172 431 -178 970 -403 1235 -515 596 -254 959 -483 1285 -812 252 -253 397 -473 545 -821 182 -428 316 -479 866 -324 355 99 670 254 870 426 518 448 661 1332 340 2094 -189 446 -613 942 -1066 1244 -239 160 -715 408 -1075 562 -307 131 -1523 592 -2260 858 -1608 580 -2696 1144 -3610 1874 -190 152 -277 190 -360 159z"/></g></svg>
+      <span>three<span class="wm-strand">strand</span></span>
+    </a>
+    <nav class="nav-links">
+      <div class="links">
+        <a href="#together">Together</a>
+        <a href="#how">How it works</a>
+        <a href="#values">Why</a>
+      </div>
+      <a class="btn btn-ink btn-sm" href="#get">Get the app</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="hero-bg" role="img" aria-label="A sunny coffee shop table by the window"></div>
+  <div class="hero-wash"></div>
+  <div class="wrap">
+    <div class="hero-inner">
+      <h1>Less phone. More people.</h1>
+      <p class="lead">We don't think the fix for phones is a better app. It's other people. Threestrand lets you block what wastes your time and gives someone you trust the say on when it opens. That's it.</p>
+      <div class="stores">
+        <a class="btn btn-ink store-ios" href="https://apps.apple.com/app/id6790784303?pt=129028331&ct=site_hero&mt=8">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.73c-.02-2.3 1.88-3.4 1.96-3.45-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.83-.81-3-.79-1.55.02-2.97.9-3.77 2.28-1.61 2.79-.41 6.92 1.16 9.18.77 1.11 1.68 2.35 2.88 2.31 1.16-.05 1.6-.75 3-.75s1.79.75 3.01.73c1.24-.02 2.03-1.13 2.79-2.24.88-1.29 1.24-2.54 1.26-2.6-.03-.01-2.42-.93-2.44-3.7zM14.08 6c.64-.78 1.07-1.85.95-2.93-.92.04-2.04.61-2.7 1.39-.59.69-1.11 1.79-.97 2.84 1.03.08 2.08-.52 2.72-1.3z"/></svg>
+          Download on the App Store
+        </a>
+        <a class="btn btn-ink store-android" href="https://play.google.com/store/apps/details?id=com.anchorapp.focus&referrer=utm_source%3Dthreestrand%26utm_medium%3Dwebsite%26utm_campaign%3Dhero">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 3.6v16.8c0 .5.5.8.9.6l9.3-8.4L4.9 3C4.5 2.8 4 3.1 4 3.6zm11.3 7.9 2.6-1.5c.5-.3.5-1 0-1.3l-2.3-1.3-2.6 2.4 2.3 1.7zm-2.3 1.8-2.6 2.4 2.6 1.5 2.3-1.3c.5-.3.5-1 0-1.3l-2.3-1.3z"/></svg>
+          Get it on Google Play
+        </a>
+      </div>
+      <p class="stores-note">
+        <span class="stores-both">Android and iPhone. Partners can be on either.</span>
+        <span class="stores-other">Your partner can be on <a class="other-android" href="https://play.google.com/store/apps/details?id=com.anchorapp.focus">Android</a><a class="other-ios" href="https://apps.apple.com/app/id6790784303?pt=129028331&ct=site_hero&mt=8">iPhone</a> too.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE NAME ============ -->
+<section class="strands">
+  <div class="wrap">
+    <div class="strands-head">
+      <div class="eyebrow">Why the name</div>
+      <h2>A cord of three strands is not quickly broken.</h2>
+      <p class="lead" style="margin-top:18px">A strand on its own wears thin. Woven in with others, it holds. That's the whole idea behind Threestrand. Not a stronger lock. More people in it with you.</p>
+    </div>
+    <div class="strand-grid">
+      <div class="strand">
+        <h3>Someone to answer to</h3>
+        <p>When you want in to something you blocked, you ask someone you chose. They say yes, or not this time. That small moment of asking is what changes things.</p>
+      </div>
+      <div class="strand">
+        <h3>Phones away, together</h3>
+        <p>Put phones away with whoever you're with, for as long as you all said. A dinner, a study night, a living room, a table.</p>
+      </div>
+      <div class="strand">
+        <h3>On the phone you already have</h3>
+        <p>Android or iPhone, old or new. Built for the $60 phone as much as the $1,000 one. Nothing to buy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PHOTO BAND ============ -->
+<div class="band" aria-hidden="false">
+  <div class="band-bg" style="background-image:url('assets/photos/lattes-together.jpg')"></div>
+  <div class="band-wash"></div>
+  <div class="wrap">
+    <h2>Human connection, without all the noise.</h2>
+    <p>That's what Threestrand is for.</p>
+  </div>
+</div>
+
+<!-- ============ TOGETHER ============ -->
+<section class="table-section" id="together">
+  <div class="wrap two">
+    <div>
+      <div class="eyebrow">Together</div>
+      <h2>Tap to join.</h2>
+      <p class="lead" style="margin-top:16px">Threestrand has a physical side: a small tag, on the back of a phone or on a table. Hold your phone to it and you're in. A partner's tag says yes to a request on the spot. A table's tag puts phones away with whoever's there.</p>
+      <div class="aside">
+        A few tables in the Texas Hill Country and around San Antonio have one. Want one for your shop or your group? <a href="mailto:support@anchorph.one?subject=A%20Threestrand%20tag%20for%20my%20table">Request a call</a>.
+      </div>
+    </div>
+    <div class="photo"><img src="assets/photos/dinner-table.jpg" alt="Friends sharing a candlelit dinner table"></div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section id="how">
+  <div class="wrap">
+    <div class="eyebrow">Every day</div>
+    <h2>People, not willpower.</h2>
+    <p class="lead" style="max-width:640px;margin-top:16px">A limit you can lift by yourself isn't much of a limit. Threestrand puts people you chose between you and the apps that waste your time.</p>
+    <div class="how-grid">
+      <div class="how">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17.5" cy="9" r="2.5"/><path d="M15.5 14.5c3 0 6 1.8 6 5.5"/></svg>
+        <h3>Pick your people</h3>
+        <p>Send a link to someone you trust. One tap and you're paired. A spouse, a roommate, a friend, or a few of them.</p>
+      </div>
+      <div class="how">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M10.5 18.5h3"/><path d="M4 9l-1.5 1.5L4 12M20 9l1.5 1.5L20 12"/></svg>
+        <h3>Choose what to block</h3>
+        <p>The apps that take your time without giving much back. They stay blocked everywhere on the phone, not just on the home screen.</p>
+      </div>
+      <div class="how">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5h16v10H9l-5 4v-14z"/><path d="M9 10.5h.01M12 10.5h.01M15 10.5h.01"/></svg>
+        <h3>Ask when you need it</h3>
+        <p>Open something blocked and send a quick request. They say yes, or not this time, and it opens for as long as they said.</p>
+      </div>
+    </div>
+    <div class="sees">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12s3.5-6.5 9.5-6.5 9.5 6.5 9.5 6.5-3.5 6.5-9.5 6.5S2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/></svg>
+      <p><strong>What your people see:</strong> that your blocking is on, and the requests you send. Not which apps you use, not for how long, not what you browse. And deleting Threestrand always works. It stays an emergency exit, and your people are simply told.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT WE'RE AFTER ============ -->
+<section class="about" id="values">
+  <div class="wrap two">
+    <div class="photo"><img src="assets/photos/cafe-room.jpg" alt="A quiet, sunlit café with empty wooden tables"></div>
+    <div>
+      <div class="eyebrow">What we're after</div>
+      <h2>A little more of each other.</h2>
+      <p class="lead" style="margin-top:16px">Phones are useful. The map, the bank, the camera, the calls. The time worth protecting is the time that serves the phone instead of you.</p>
+      <p class="about-p">We don't think an algorithm can hold you to a promise. People can. So Threestrand is small on purpose: no ads, no streaks, no scores, nothing that shames you for a bad day. The people you choose are on your side of the table, not across it. It works on whatever phone you already have.</p>
+      <p class="about-p">The best thing it can do is get out of your way. We measure success by how little you need us.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOSE ============ -->
+<section class="close" id="get">
+  <div class="band-bg"></div>
+  <div class="band-wash"></div>
+  <div class="wrap">
+    <h2>Pick your people. Put the phone down.</h2>
+    <p class="lead">It takes a few minutes to set up, and it stays out of your way after that.</p>
+    <div class="stores">
+      <a class="btn btn-peri store-ios" href="https://apps.apple.com/app/id6790784303?pt=129028331&ct=site_close&mt=8">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.73c-.02-2.3 1.88-3.4 1.96-3.45-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.83-.81-3-.79-1.55.02-2.97.9-3.77 2.28-1.61 2.79-.41 6.92 1.16 9.18.77 1.11 1.68 2.35 2.88 2.31 1.16-.05 1.6-.75 3-.75s1.79.75 3.01.73c1.24-.02 2.03-1.13 2.79-2.24.88-1.29 1.24-2.54 1.26-2.6-.03-.01-2.42-.93-2.44-3.7zM14.08 6c.64-.78 1.07-1.85.95-2.93-.92.04-2.04.61-2.7 1.39-.59.69-1.11 1.79-.97 2.84 1.03.08 2.08-.52 2.72-1.3z"/></svg>
+        Download on the App Store
+      </a>
+      <a class="btn btn-peri store-android" href="https://play.google.com/store/apps/details?id=com.anchorapp.focus&referrer=utm_source%3Dthreestrand%26utm_medium%3Dwebsite%26utm_campaign%3Dclose">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 3.6v16.8c0 .5.5.8.9.6l9.3-8.4L4.9 3C4.5 2.8 4 3.1 4 3.6zm11.3 7.9 2.6-1.5c.5-.3.5-1 0-1.3l-2.3-1.3-2.6 2.4 2.3 1.7zm-2.3 1.8-2.6 2.4 2.6 1.5 2.3-1.3c.5-.3.5-1 0-1.3l-2.3-1.3z"/></svg>
+        Get it on Google Play
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <a class="lockup" href="#top" aria-label="Threestrand">
+      <svg viewBox="90 88 1612 1667" aria-hidden="true"><g transform="translate(0,1840) scale(0.1,-0.1)" fill="#5468D4"><path d="M1682 17508 c-396 -56 -717 -381 -771 -781 -15 -105 -15 -1059 0 -1164 56 -409 383 -733 790 -782 52 -6 772 -12 1884 -15 1881 -6 1871 -5 1937 -49 71 -48 81 -89 89 -370 33 -1125 315 -1850 995 -2556 411 -427 890 -751 1589 -1076 546 -254 922 -402 2460 -972 215 -79 476 -176 580 -215 237 -88 640 -248 805 -321 636 -280 823 -373 1184 -589 435 -261 709 -469 1036 -784 437 -424 714 -825 942 -1369 126 -300 180 -364 297 -353 90 9 153 84 216 260 100 280 154 601 176 1043 38 786 -138 1541 -500 2143 -435 726 -1205 1358 -2186 1797 -209 93 -348 151 -840 352 -1260 513 -2237 961 -2775 1273 -564 328 -885 681 -1039 1145 -86 259 -95 471 -23 556 47 57 97 71 282 80 91 4 1779 8 3752 8 2523 1 3610 4 3665 12 407 56 727 376 782 782 15 105 15 1059 0 1164 -55 406 -375 726 -782 782 -99 14 -14449 13 -14545 -1z"/><path d="M4499 13561 c-229 -90 -656 -556 -866 -946 -517 -961 -477 -2010 112 -2986 290 -479 798 -944 1473 -1348 588 -351 1682 -846 2677 -1211 834 -305 1641 -612 1988 -754 943 -388 1360 -615 1789 -972 667 -556 1048 -1112 1218 -1779 71 -278 95 -519 79 -785 -16 -254 2 -343 79 -395 107 -73 250 -6 549 258 277 244 485 487 647 756 278 459 401 895 400 1421 -1 772 -248 1384 -822 2033 -472 534 -1346 1054 -2552 1517 -342 131 -1606 605 -2000 750 -762 279 -1296 509 -1718 737 -1173 633 -1889 1320 -2361 2261 -161 321 -231 537 -321 989 -27 138 -58 272 -67 296 -59 150 -173 209 -304 158z"/><path d="M3515 8148 c-97 -36 -143 -122 -173 -323 -27 -191 -24 -855 6 -1055 139 -931 529 -1669 1162 -2195 518 -430 812 -585 2235 -1172 431 -178 970 -403 1235 -515 596 -254 959 -483 1285 -812 252 -253 397 -473 545 -821 182 -428 316 -479 866 -324 355 99 670 254 870 426 518 448 661 1332 340 2094 -189 446 -613 942 -1066 1244 -239 160 -715 408 -1075 562 -307 131 -1523 592 -2260 858 -1608 580 -2696 1144 -3610 1874 -190 152 -277 190 -360 159z"/></g></svg>
+      <span>three<span class="wm-strand">strand</span></span>
+    </a>
+    <div class="links">
+      <a href="https://anchorph.one/privacy">Privacy</a>
+      <a href="https://anchorph.one/terms">Terms</a>
+      <a href="mailto:support@anchorph.one">Support</a>
+      <span>© 2026 Anchor Digital LLC</span>
+    </div>
+    <div class="formerly">Threestrand is the new name for Anchor. Same app, same people, same account.</div>
+  </div>
+</footer>
+
+<script>
+  // Platform awareness: a phone sees the store that applies to it; desktop sees both.
+  (function () {
+    var ua = navigator.userAgent || "";
+    var isIOS = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    var isAndroid = /Android/.test(ua);
+    var cls = isIOS ? "is-ios" : isAndroid ? "is-android" : "is-desktop";
+    document.documentElement.classList.add(cls);
+    if (cls !== "is-desktop") {
+      document.querySelectorAll(".stores-both").forEach(function (el) { el.style.display = "none"; });
+    }
+  })();
+</script>
+</body>
+</html>
