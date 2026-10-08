@@ -5,8 +5,9 @@ use; the filing date sets priority) and after the domain is bought. One switch, 
 hour, mostly DNS waiting.
 
 ## 1. Domain (Harry)
-Buy the domain. threestrand.one screened free on 2026-10-08; threestrand.app had just been
-registered by someone (Namecheap nameservers), so check whose it is before assuming.
+Buy threestrand.one. The .one registry had no record for it on 2026-10-08. threestrand.app
+has been registered since June 2025 (Namecheap, parked, no site, no use): not a competitor,
+just not available.
 
 ## 2. DNS at the registrar
 GitHub Pages, same as anchorph.one today:
