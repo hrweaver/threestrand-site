@@ -4,30 +4,61 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<link rel="icon" href="/assets/brand/favicon-32.png">
 <title>Get Threestrand</title>
+<link rel="icon" href="/assets/brand/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root { color-scheme: dark; }
-  body { margin:0; background:#121212; color:#fff; font:16px/1.5 -apple-system, system-ui, Roboto, sans-serif; }
-  main { max-width: 420px; margin: 0 auto; padding: 48px 24px 64px; }
-  .wordmark { display:block; height:40px; width:auto; margin-bottom: 32px; }
-  h1 { font-size: 26px; line-height: 1.25; margin: 0 0 8px; }
-  .sub { color:#AAAAAA; margin: 0 0 28px; }
-  .btn { display:block; text-align:center; text-decoration:none; padding: 16px; border-radius: 14px; font-weight: 600; margin-bottom: 12px; }
-  .primary { background:#7B8CDE; color:#121212; }
-  .secondary { background:#2D2D2D; color:#fff; }
-  .muted { color:#888; font-size: 13px; margin-top: 24px; }
-  .hidden { display:none; }
+  :root {
+    --paper: #F7F2E9; --ink: #1C1A18; --ink-2: #4B4541; --muted: #7D7569; --peri-deep: #3C4DB3;
+    --font: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  /* Light on purpose, like the landing page: a dark-mode viewer sees the same warm paper. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --paper: #F7F2E9; --ink: #1C1A18; --ink-2: #4B4541; --muted: #7D7569; }
+  }
+  :root[data-theme="dark"] { --paper: #F7F2E9; --ink: #1C1A18; --ink-2: #4B4541; --muted: #7D7569; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font); font-size: 17px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  main { max-width: 440px; margin: 0 auto; padding: 56px 16px 72px; }
+  .wordmark { display: block; height: 34px; width: auto; margin-bottom: 40px; }
+  h1 { margin: 0 0 12px; font-size: 2.1rem; line-height: 1.12; letter-spacing: -0.02em; font-weight: 700; text-wrap: balance; }
+  .lead { margin: 0 0 28px; color: var(--ink-2); font-size: 1.1rem; line-height: 1.55; }
+  .stores { display: flex; flex-direction: column; gap: 12px; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 20px; border-radius: 999px; text-decoration: none;
+    font-weight: 600; font-size: 0.98rem; line-height: 1; border: 1.5px solid transparent;
+    background: var(--ink); color: var(--paper); transition: transform .15s ease, background .15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); background: #2a2724; }
+  .btn:focus-visible { outline: 3px solid var(--peri-deep); outline-offset: 3px; }
+  .btn svg { width: 20px; height: 20px; flex: none; }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+  .btn-ghost:hover { background: rgba(28, 26, 24, 0.06); }
+  .note { color: var(--muted); font-size: 0.9rem; margin: 24px 0 0; }
+  .note a { color: var(--peri-deep); }
+  .hidden { display: none; }
+  @media (prefers-reduced-motion: reduce) { .btn { transition: none; } .btn:hover { transform: none; } }
 </style>
 </head>
 <body>
 <main>
-  <img class="wordmark" src="/assets/brand/threestrand-lockup-horizontal-dark.svg" alt="Threestrand">
-  <h1>Less phone, with your people.</h1>
-  <p class="sub">Threestrand blocks the apps you choose, and a partner says yes when you need one. Get it here.</p>
-  <a id="getIos" class="btn primary hidden" href="https://apps.apple.com/app/id6790784303?pt=129028331&ct=tag&mt=8">Get Threestrand on the App Store</a>
-  <a id="getAndroid" class="btn primary hidden" href="https://play.google.com/store/apps/details?id=com.anchorapp.focus&referrer=utm_source%3Dtag">Get Threestrand on Google Play</a>
-  <p class="muted">Already have Threestrand? Someone can invite you by holding your phone to their Threestrand Tag.</p>
+  <a href="/"><img class="wordmark" src="/assets/brand/threestrand-lockup-horizontal-light.svg" alt="Threestrand"></a>
+  <h1>Less phone. More people.</h1>
+  <p class="lead">Threestrand lets you block what wastes your time and gives someone you trust the say on when it opens. Get it here.</p>
+  <div class="stores">
+    <a id="getIos" class="btn hidden" href="https://apps.apple.com/app/id6790784303?pt=129028331&ct=get&mt=8">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.73c-.02-2.3 1.88-3.4 1.96-3.45-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.83-.81-3-.79-1.55.02-2.97.9-3.77 2.28-1.61 2.79-.41 6.92 1.16 9.18.77 1.11 1.68 2.35 2.88 2.31 1.16-.05 1.6-.75 3-.75s1.79.75 3.01.73c1.24-.02 2.03-1.13 2.79-2.24.88-1.29 1.24-2.54 1.26-2.6-.03-.01-2.42-.93-2.44-3.7zM14.08 6c.64-.78 1.07-1.85.95-2.93-.92.04-2.04.61-2.7 1.39-.59.69-1.11 1.79-.97 2.84 1.03.08 2.08-.52 2.72-1.3z"/></svg>
+      Download on the App Store
+    </a>
+    <a id="getAndroid" class="btn hidden" href="https://play.google.com/store/apps/details?id=com.anchorapp.focus&referrer=utm_source%3Dthreestrand%26utm_medium%3Dget">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 3.6v16.8c0 .5.5.8.9.6l9.3-8.4L4.9 3C4.5 2.8 4 3.1 4 3.6zm11.3 7.9 2.6-1.5c.5-.3.5-1 0-1.3l-2.3-1.3-2.6 2.4 2.3 1.7zm-2.3 1.8-2.6 2.4 2.6 1.5 2.3-1.3c.5-.3.5-1 0-1.3l-2.3-1.3z"/></svg>
+      Get it on Google Play
+    </a>
+  </div>
+  <p class="note">Android and iPhone. Partners can be on either. Already have Threestrand? Someone can invite you by holding your phone to their Threestrand Tag. <a href="/">About Threestrand</a></p>
 </main>
 <script>
 (function () {
@@ -37,7 +68,7 @@
   var gi = document.getElementById('getIos'), ga = document.getElementById('getAndroid');
   if (ios) { gi.classList.remove('hidden'); location.replace(gi.href); }
   else if (android) { ga.classList.remove('hidden'); location.replace(ga.href); }
-  else { gi.classList.remove('hidden'); ga.classList.remove('hidden'); ga.classList.add('secondary'); ga.classList.remove('primary'); }
+  else { gi.classList.remove('hidden'); ga.classList.remove('hidden'); ga.classList.add('btn-ghost'); }
 })();
 </script>
 </body>
