@@ -1,11 +1,11 @@
-# Cut-over: threestrand.one (or .app) becomes the site
+# Cut-over: getthreestrand.com becomes the site
 
 Prepared 2026-10-08. Do this after the trademark application is filed (the site is public
 use; the filing date sets priority) and after the domain is bought. One switch, about an
 hour, mostly DNS waiting.
 
 ## 1. Domain (Harry)
-Buy threestrand.one. The .one registry had no record for it on 2026-10-08. threestrand.app
+Bought getthreestrand.com on 2026-10-09 (Namecheap). threestrand.app
 has been registered since June 2025 (Namecheap, parked, no site, no use): not a competitor,
 just not available.
 
@@ -19,7 +19,7 @@ GitHub Pages, same as anchorph.one today:
     CNAME www   hrweaver.github.io
 
 ## 3. This repo
-1. `echo threestrand.one > CNAME` (the bare domain), commit, push.
+1. `echo getthreestrand.com > CNAME` (the bare domain), commit, push.
 2. GitHub repo Settings > Pages > Custom domain: the same domain; wait for the DNS check,
    then tick Enforce HTTPS (the certificate takes a few minutes to an hour).
 3. `node build-legal.js` whenever ~/anchor-legal changes; privacy/ and terms/ are generated
@@ -43,4 +43,4 @@ once the new domain serves. Redirected: /, /privacy/, /terms/, /pilot/. NOT redi
 - Google Search Console: add the new domain, submit the sitemap, and use Change of Address
   from anchorph.one so rankings follow.
 - The coffee cards print the new domain from then on (table-card-threestrand.py already
-  says threestrand.one in the footer).
+  says getthreestrand.com in the footer).

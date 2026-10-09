@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/assets/brand/favicon-32.png">
+<title>Get Threestrand</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#fff; font:16px/1.5 -apple-system, system-ui, Roboto, sans-serif; }
+  main { max-width: 420px; margin: 0 auto; padding: 48px 24px 64px; }
+  .wordmark { display:block; height:40px; width:auto; margin-bottom: 32px; }
+  h1 { font-size: 26px; line-height: 1.25; margin: 0 0 8px; }
+  .sub { color:#AAAAAA; margin: 0 0 28px; }
+  .btn { display:block; text-align:center; text-decoration:none; padding: 16px; border-radius: 14px; font-weight: 600; margin-bottom: 12px; }
+  .primary { background:#7B8CDE; color:#121212; }
+  .secondary { background:#2D2D2D; color:#fff; }
+  .muted { color:#888; font-size: 13px; margin-top: 24px; }
+  .hidden { display:none; }
+</style>
+</head>
+<body>
+<main>
+  <img class="wordmark" src="/assets/brand/threestrand-lockup-horizontal-dark.svg" alt="Threestrand">
+  <h1>Less phone, with your people.</h1>
+  <p class="sub">Threestrand blocks the apps you choose, and a partner says yes when you need one. Get it here.</p>
+  <a id="getIos" class="btn primary hidden" href="https://apps.apple.com/app/id6790784303?pt=129028331&ct=tag&mt=8">Get Threestrand on the App Store</a>
+  <a id="getAndroid" class="btn primary hidden" href="https://play.google.com/store/apps/details?id=com.anchorapp.focus&referrer=utm_source%3Dtag">Get Threestrand on Google Play</a>
+  <p class="muted">Already have Threestrand? Someone can invite you by holding your phone to their Threestrand Tag.</p>
+</main>
+<script>
+(function () {
+  var ua = navigator.userAgent || '';
+  var ios = /iPhone|iPad|iPod/.test(ua);
+  var android = /Android/.test(ua);
+  var gi = document.getElementById('getIos'), ga = document.getElementById('getAndroid');
+  if (ios) { gi.classList.remove('hidden'); location.replace(gi.href); }
+  else if (android) { ga.classList.remove('hidden'); location.replace(ga.href); }
+  else { gi.classList.remove('hidden'); ga.classList.remove('hidden'); ga.classList.add('secondary'); ga.classList.remove('primary'); }
+})();
+</script>
+</body>
+</html>
