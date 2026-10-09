@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Phones down, coffee up</title>
+<link rel="icon" href="/assets/brand/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F7F2E9; --paper-2: #EFE8DB; --ink: #1C1A18; --ink-2: #4B4541; --muted: #7D7569; --line: #E3DACB;
+    --peri: #5468D4; --peri-deep: #3C4DB3; --peri-wash: #E9ECFA;
+    --font: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  /* Light on purpose, like the landing page: a dark-mode viewer sees the same warm paper. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --paper: #F7F2E9; --paper-2: #EFE8DB; --ink: #1C1A18; --ink-2: #4B4541; --muted: #7D7569; --line: #E3DACB; }
+  }
+  :root[data-theme="dark"] { --paper: #F7F2E9; --paper-2: #EFE8DB; --ink: #1C1A18; --ink-2: #4B4541; --muted: #7D7569; --line: #E3DACB; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font); font-size: 17px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  main { max-width: 480px; margin: 0 auto; padding: 56px 16px 72px; }
+  .wordmark { display: block; height: 34px; width: auto; margin-bottom: 40px; }
+  h1 { margin: 0 0 12px; font-size: 2.2rem; line-height: 1.12; letter-spacing: -0.02em; font-weight: 700; text-wrap: balance; }
+  .lead { margin: 0 0 32px; color: var(--ink-2); font-size: 1.1rem; line-height: 1.55; }
+  ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px; }
+  li { display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: start; }
+  .num { width: 40px; height: 40px; border-radius: 999px; background: var(--peri-wash); color: var(--peri-deep); font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+  li h2 { margin: 6px 0 4px; font-size: 1.15rem; letter-spacing: -0.01em; font-weight: 700; }
+  li p { margin: 0; color: var(--ink-2); }
+  .stores { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 20px; border-radius: 999px; text-decoration: none;
+    font-weight: 600; font-size: 0.98rem; line-height: 1; border: 1.5px solid transparent;
+    background: var(--ink); color: var(--paper); transition: transform .15s ease, background .15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); background: #2a2724; }
+  .btn:focus-visible { outline: 3px solid var(--peri-deep); outline-offset: 3px; }
+  .btn svg { width: 20px; height: 20px; flex: none; }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+  .btn-ghost:hover { background: rgba(28, 26, 24, 0.06); }
+  .hidden { display: none; }
+  .fine { margin: 36px 0 0; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.9rem; }
+  .fine a { color: var(--peri-deep); }
+  @media (prefers-reduced-motion: reduce) { .btn { transition: none; } .btn:hover { transform: none; } }
+</style>
+</head>
+<body>
+<main>
+  <a href="/"><img class="wordmark" src="/assets/brand/threestrand-lockup-horizontal-light.svg" alt="Threestrand"></a>
+  <h1>Phones down, coffee up.</h1>
+  <p class="lead">You're at a table with a Threestrand card. This is the whole thing. Already have the app? Skip to step 3.</p>
+  <ol>
+    <li>
+      <span class="num">1</span>
+      <div>
+        <h2>Get Threestrand</h2>
+        <p>Android or iPhone.</p>
+        <div class="stores">
+          <a id="getIos" class="btn hidden" href="https://apps.apple.com/app/id6790784303?pt=129028331&ct=table&mt=8">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.73c-.02-2.3 1.88-3.4 1.96-3.45-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.83-.81-3-.79-1.55.02-2.97.9-3.77 2.28-1.61 2.79-.41 6.92 1.16 9.18.77 1.11 1.68 2.35 2.88 2.31 1.16-.05 1.6-.75 3-.75s1.79.75 3.01.73c1.24-.02 2.03-1.13 2.79-2.24.88-1.29 1.24-2.54 1.26-2.6-.03-.01-2.42-.93-2.44-3.7zM14.08 6c.64-.78 1.07-1.85.95-2.93-.92.04-2.04.61-2.7 1.39-.59.69-1.11 1.79-.97 2.84 1.03.08 2.08-.52 2.72-1.3z"/></svg>
+            Download on the App Store
+          </a>
+          <a id="getAndroid" class="btn hidden" href="https://play.google.com/store/apps/details?id=com.anchorapp.focus&referrer=utm_source%3Dthreestrand%26utm_medium%3Dtable">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 3.6v16.8c0 .5.5.8.9.6l9.3-8.4L4.9 3C4.5 2.8 4 3.1 4 3.6zm11.3 7.9 2.6-1.5c.5-.3.5-1 0-1.3l-2.3-1.3-2.6 2.4 2.3 1.7zm-2.3 1.8-2.6 2.4 2.6 1.5 2.3-1.3c.5-.3.5-1 0-1.3l-2.3-1.3z"/></svg>
+            Get it on Google Play
+          </a>
+        </div>
+      </div>
+    </li>
+    <li>
+      <span class="num">2</span>
+      <div>
+        <h2>Open it and pick “I'm at a table with a tag”</h2>
+        <p>About two minutes. It asks for a couple of permissions so it can actually hold your apps closed.</p>
+      </div>
+    </li>
+    <li>
+      <span class="num">3</span>
+      <div>
+        <h2>Hold the top of your phone on the card</h2>
+        <p>Pick how long. Your apps stay closed for the length of a coffee. Calls still work.</p>
+      </div>
+    </li>
+    <li>
+      <span class="num">4</span>
+      <div>
+        <h2>Across from someone?</h2>
+        <p>Their phone goes on the card too, and the table goes quiet.</p>
+      </div>
+    </li>
+  </ol>
+  <p class="fine">That's it. Enjoy your coffee. If you want the longer version, with a partner who has the say on your apps every day, that's <a href="/">the rest of Threestrand</a>.</p>
+</main>
+<script>
+(function () {
+  var ua = navigator.userAgent || '';
+  var ios = /iPhone|iPad|iPod/.test(ua);
+  var android = /Android/.test(ua);
+  var gi = document.getElementById('getIos'), ga = document.getElementById('getAndroid');
+  if (ios) { gi.classList.remove('hidden'); }
+  else if (android) { ga.classList.remove('hidden'); }
+  else { gi.classList.remove('hidden'); ga.classList.remove('hidden'); ga.classList.add('btn-ghost'); }
+})();
+</script>
+</body>
+</html>
