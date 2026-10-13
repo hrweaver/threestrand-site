@@ -22,7 +22,7 @@ The live page is one screen per idea. Scroll, or use Page Down on a clicker:
 
 1. QR code plus a live "N people so far" count
 2. What we said is healthy (average)
-3. What our phones say (average) and the gap
+3. What our phones say (average), the gap, and the gap as a movie ("one more Forrest Gump, every day"; list and runtimes in `MOVIES` in live/index.html)
 4. "X of N" of us are over our own number
 5. Hour histogram, healthy next to actual
 6. Days a year, per person

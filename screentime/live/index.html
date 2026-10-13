@@ -92,6 +92,7 @@
   <p class="eyebrow">What our phones say</p>
   <p class="big accent" id="avgA">–</p>
   <p class="sub" id="gap">a day, on average.</p>
+  <p class="sub" id="movie" style="color:var(--ink);font-weight:600" hidden></p>
 </section>
 
 <section class="dark">
@@ -171,12 +172,33 @@
     $("avgA").textContent = fmt(avgA);
     $("gap").textContent = avgA > avgG ? `a day, on average. That's ${fmt(avgA - avgG)} more than we said is healthy.` : "a day, on average.";
     $("over").textContent = over;
+    const mv = movieFor(avgA - avgG);
+    $("movie").textContent = mv; $("movie").hidden = !mv;
     $("days").textContent = Math.round(avgA * 365 / 1440);
     // minutes a day × 365 days ÷ minutes in a year = years
     const yrs = sumA / 1440;
     $("years").textContent = yrs < 10 ? yrs.toFixed(1) : Math.round(yrs);
     drawChart(rows);
   });
+
+  // The daily gap as a movie. Runtimes in minutes, theatrical cuts. "The" dropped so
+  // "one more ___" reads right. Family-friendly on purpose: it's a church crowd.
+  const MOVIES = [
+    ["Toy Story", 81], ["Lion King", 88], ["Up", 96], ["Elf", 97], ["Princess Bride", 98],
+    ["Finding Nemo", 100], ["Frozen", 102], ["Home Alone", 103], ["Remember the Titans", 113],
+    ["Incredibles", 115], ["Back to the Future", 116], ["Cars", 117], ["Jurassic Park", 127],
+    ["Mary Poppins", 139], ["Apollo 13", 140], ["Forrest Gump", 142], ["Dark Knight", 152],
+    ["Avatar", 162], ["Sound of Music", 174], ["Fellowship of the Ring", 178], ["Titanic", 194],
+    ["Return of the King", 201], ["Ben-Hur", 212], ["Ten Commandments", 220], ["Gone with the Wind", 238],
+  ];
+  function movieFor(gap) {
+    gap = Math.round(gap);
+    if (gap < 45) return "";
+    if (gap < 75) return `That's most of Toy Story, every day.`;
+    if (gap > 250) return `That's all of Gone with the Wind and then some, every day.`;
+    const [title, rt] = MOVIES.reduce((best, m) => Math.abs(m[1] - gap) < Math.abs(best[1] - gap) ? m : best);
+    return `That's one more ${title} (${fmt(rt)}), every day.`;
+  }
 
   // Counts per hour, never individual people. Everything 7h and up shares one bar,
   // so one heavy user never sits alone at the far right.
