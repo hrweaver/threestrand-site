@@ -28,7 +28,7 @@ The live page is one screen per idea. Scroll, or use Page Down on a clicker:
 6. Days a year, per person
 7. Years of phone time, the whole room
 8. Ecclesiastes 4:12 (NIV)
-9. "Less phone, more people." and "Find me at the table in the back."
+9. "Less phone, more people.", "Find me at the table in the back.", and a "Get the app" QR code (`qr-get.svg`, points at getthreestrand.com/get)
 
 ## Choices made on purpose (don't undo without a reason)
 

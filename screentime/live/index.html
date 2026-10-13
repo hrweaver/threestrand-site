@@ -54,7 +54,8 @@
   .legend i { width: 0.8em; height: 0.8em; border-radius: 99px; display: inline-block; }
 
   .test { position: fixed; top: 12px; right: 12px; background: #FBEFD9; color: #6B4A12; font: 700 14px var(--font); padding: 6px 12px; border-radius: 99px; z-index: 5; }
-  .closer img { height: clamp(40px, 7vh, 96px); width: auto; align-self: flex-start; }
+  .closer .brand { display: block; height: clamp(40px, 7vh, 96px); width: auto; margin-bottom: 4vh; }
+  .qr .label { margin: 0 0 1.4vh; font-size: clamp(18px, 1.9vw, 38px); font-weight: 700; color: var(--peri-deep); }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .count .dot { animation: none; } }
   @media (max-width: 760px) { .join { grid-template-columns: 1fr; } .qr img { width: 70vw; } }
 </style>
@@ -123,9 +124,18 @@
 </section>
 
 <section class="closer">
-  <img src="/assets/brand/threestrand-lockup-horizontal-light.svg" alt="Threestrand">
-  <h1>Less phone, more people.</h1>
-  <p class="sub">Find me at the table in the back.</p>
+  <div class="join">
+    <div>
+      <img class="brand" src="/assets/brand/threestrand-lockup-horizontal-light.svg" alt="Threestrand">
+      <h1>Less phone, more people.</h1>
+      <p class="sub" style="margin-top:3vh">Find me at the table in the back.</p>
+    </div>
+    <div class="qr">
+      <p class="label">Get the app</p>
+      <img src="/screentime/qr-get.svg" alt="QR code for getthreestrand.com/get">
+      <p>getthreestrand.com/get</p>
+    </div>
+  </div>
 </section>
 
 <script type="module">
