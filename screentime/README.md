@@ -20,18 +20,18 @@ Nothing is saved until the second answer is sent, so only complete pairs are cou
 
 The live page is one screen per idea. Scroll, or use Page Down on a clicker:
 
-3. "Grab your phone." QR code and the anonymity promise, nothing else (showing every step up front made people balk)
-4. Question 1 on its own, small QR in the corner for latecomers
-5. Question 2 with iPhone/Android directions, the live "N people so far" count, small QR
-6. What we said is healthy (average)
-7. What our phones say (average) and the gap
-8. The gap as a movie, with a movie ticket: "The extra 2h 24m we spend each day? That's Forrest Gump." (picks the closest runtime from `MOVIES` in live/index.html; skipped if the gap is under 45 min)
-9. "X of N" of us are over our own number
-10. Hour histogram, healthy next to actual
-11. Days a year, per person
-12. Years of phone time, the whole room
-13. Ecclesiastes 4:12 (NIV)
-14. "Less phone, more people.", "Find me at the table in the back.", and a "Get the app" QR code (`qr-get.svg`, points at getthreestrand.com/get)
+1. "Grab your phone." QR code and the anonymity promise, nothing else (showing every step up front made people balk)
+2. Question 1 on its own, small QR in the corner for latecomers
+3. Question 2 with iPhone/Android directions, the live "N people so far" count, small QR
+4. What we said is healthy (average)
+5. What our phones say (average) and the gap
+6. The gap as a movie, with a movie ticket: "The extra 2h 24m we spend each day? That's Forrest Gump." (picks the closest runtime from `MOVIES` in live/index.html; skipped if the gap is under 45 min)
+7. "X of N" of us are over our own number
+8. Hour histogram, healthy next to actual
+9. Days a year, per person
+10. Years of phone time, the whole room
+11. Ecclesiastes 4:12 (NIV)
+12. "Less phone, more people.", "Find me at the table in the back.", and a "Get the app" QR code (`qr-get.svg`, points at getthreestrand.com/get)
 
 ## Choices made on purpose (don't undo without a reason)
 
