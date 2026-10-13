@@ -36,6 +36,10 @@
   .how { background: var(--paper-2); border-radius: 16px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
   .how p { margin: 0; color: var(--ink-2); font-size: 0.97rem; }
   .how b { color: var(--ink); }
+  .how .os { font-weight: 700; color: var(--ink); font-size: 1rem; }
+  .how ol { margin: 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 6px; color: var(--ink-2); font-size: 0.97rem; }
+  .yday { background: #FBEFD9; color: #6B4A12 !important; border-radius: 12px; padding: 12px 14px; font-weight: 600; font-size: 1.02rem !important; }
+  .yday b { color: #6B4A12 !important; text-transform: uppercase; letter-spacing: 0.04em; }
   .btn {
     display: inline-flex; align-items: center; justify-content: center; width: 100%;
     padding: 17px 20px; border-radius: 999px; border: 0; cursor: pointer;
@@ -76,11 +80,28 @@
    <div id="step2" class="step" hidden>
     <p class="eyebrow">Question 2 of 2</p>
     <h1>Now look it up.</h1>
-    <div class="how">
-      <p><b>iPhone:</b> Settings › Screen Time › See All App &amp; Website Activity. Use the <b>Daily Average</b>.</p>
-      <p><b>Android:</b> Settings › Digital Wellbeing &amp; parental controls. Go back one day and use <b>yesterday's</b> total. Today isn't over yet, so it reads low.</p>
+    <div class="how" data-os="ios">
+      <p class="os">On your iPhone</p>
+      <ol>
+        <li>Open <b>Settings</b></li>
+        <li>Tap <b>Screen Time</b></li>
+        <li>Tap <b>See All App &amp; Website Activity</b></li>
+        <li>Make sure <b>Week</b> is selected at the top</li>
+        <li>Use the <b>Daily Average</b> number</li>
+      </ol>
     </div>
-    <p style="margin:0;font-size:1.2rem;font-weight:600">What does your phone say?</p>
+    <div class="how" data-os="android">
+      <p class="os">On your Android</p>
+      <p class="yday">Use <b>yesterday</b>, not today. Today isn't over yet, so it will read low.</p>
+      <ol>
+        <li>Open <b>Settings</b></li>
+        <li>Tap <b>Digital Wellbeing &amp; parental controls</b></li>
+        <li>Tap the chart to see each day</li>
+        <li>Go back to <b>yesterday</b>: tap yesterday's bar, or the <b>‹</b> arrow next to the date</li>
+        <li>Use <b>yesterday's</b> total</li>
+      </ol>
+    </div>
+    <p id="askA" style="margin:0;font-size:1.2rem;font-weight:600">What does your phone say?</p>
     <div class="row">
       <label>Hours<select id="aH" required></select></label>
       <label>Minutes<select id="aM" required></select></label>
@@ -186,6 +207,15 @@
     $("youA").textContent = fmt(a);
     form.hidden = true; $("done").hidden = false;
     window.scrollTo(0, 0);
+  }
+
+  // Show only this phone's directions. Desktop or unknown: show both.
+  const ua = navigator.userAgent;
+  const os = /android/i.test(ua) ? "android"
+    : (/iphone|ipad|ipod/i.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1)) ? "ios" : "";
+  if (os) {
+    for (const el of document.querySelectorAll(".how[data-os]")) el.hidden = el.dataset.os !== os;
+    $("askA").textContent = os === "android" ? "What was yesterday's total?" : "What's your Daily Average?";
   }
 
   // One entry per phone, so a refresh doesn't count twice. ?reset clears it (for rehearsals).
