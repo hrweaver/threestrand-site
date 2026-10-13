@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>How much do we really use our phones?</title>
+<link rel="icon" href="/assets/brand/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* Projector page: one idea per screen, scroll (or clicker Page Down) to move on. */
+  :root {
+    --paper: #F7F2E9; --paper-2: #EFE8DB; --ink: #1C1A18; --ink-2: #4B4541; --muted: #7D7569; --line: #E3DACB;
+    --peri: #5468D4; --peri-deep: #3C4DB3; --peri-wash: #E9ECFA;
+    --font: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font); -webkit-font-smoothing: antialiased; color-scheme: light; }
+  section { min-height: 100vh; scroll-snap-align: start; padding: 6vh 6vw; display: flex; flex-direction: column; justify-content: center; gap: 3vh; }
+  section.alt { background: var(--paper-2); }
+  section.dark { background: var(--ink); color: var(--paper); }
+  .eyebrow { margin: 0; font-size: clamp(16px, 1.6vw, 30px); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--peri-deep); }
+  .dark .eyebrow { color: #AEB8F0; }
+  h1 { margin: 0; font-size: clamp(36px, 4.6vw, 96px); line-height: 1.05; letter-spacing: -0.03em; font-weight: 800; text-wrap: balance; }
+  .big { margin: 0; font-size: clamp(80px, 15vw, 300px); line-height: 0.95; letter-spacing: -0.05em; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .sub { margin: 0; font-size: clamp(20px, 2.2vw, 44px); line-height: 1.3; color: var(--ink-2); max-width: 32ch; text-wrap: balance; }
+  .dark .sub { color: #CFC7BA; }
+  .accent { color: var(--peri); }
+  .dark .accent { color: #AEB8F0; }
+
+  /* Screen 1: join */
+  .join { display: grid; grid-template-columns: 1fr auto; gap: 5vw; align-items: center; }
+  .steps { list-style: none; margin: 4vh 0 0; padding: 0; display: flex; flex-direction: column; gap: 2vh; }
+  .steps li { display: flex; gap: 1.2vw; align-items: baseline; font-size: clamp(20px, 2.2vw, 44px); font-weight: 600; }
+  .steps b { flex: none; width: 1.7em; height: 1.7em; border-radius: 999px; background: var(--peri-wash); color: var(--peri-deep); display: inline-flex; align-items: center; justify-content: center; font-size: 0.8em; }
+  .qr { background: #FFFDF9; padding: 2vw; border-radius: 28px; border: 2px solid var(--line); text-align: center; }
+  .qr img { display: block; width: min(34vw, 62vh); height: auto; }
+  .qr p { margin: 1.4vh 0 0; font-size: clamp(18px, 1.9vw, 38px); font-weight: 700; letter-spacing: -0.01em; }
+  .count { display: flex; align-items: center; gap: 1vw; font-size: clamp(18px, 2vw, 40px); font-weight: 600; color: var(--ink-2); margin-top: 4vh; }
+  .count .dot { width: 0.6em; height: 0.6em; border-radius: 99px; background: var(--peri); animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: 0.3; } }
+  .count b { color: var(--ink); font-variant-numeric: tabular-nums; }
+  .wordmark { position: absolute; top: 5vh; left: 6vw; height: clamp(24px, 3vh, 44px); }
+  #join { position: relative; }
+
+  /* Strip chart */
+  .chart { width: 100%; }
+  .chart svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .legend { display: flex; gap: 3vw; font-size: clamp(16px, 1.6vw, 32px); font-weight: 600; color: var(--ink-2); }
+  .legend span { display: inline-flex; align-items: center; gap: 0.5em; }
+  .legend i { width: 0.8em; height: 0.8em; border-radius: 99px; display: inline-block; }
+
+  .test { position: fixed; top: 12px; right: 12px; background: #FBEFD9; color: #6B4A12; font: 700 14px var(--font); padding: 6px 12px; border-radius: 99px; z-index: 5; }
+  .closer img { height: clamp(40px, 7vh, 96px); width: auto; align-self: flex-start; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .count .dot { animation: none; } }
+  @media (max-width: 760px) { .join { grid-template-columns: 1fr; } .qr img { width: 70vw; } }
+</style>
+</head>
+<body>
+<p id="test" class="test" hidden></p>
+
+<section id="join">
+  <img class="wordmark" src="/assets/brand/threestrand-lockup-horizontal-light.svg" alt="Threestrand">
+  <div class="join">
+    <div>
+      <h1>How much do we really use our phones?</h1>
+      <ol class="steps">
+        <li><b>1</b>Pick what feels like a healthy amount</li>
+        <li><b>2</b>Look up your real number</li>
+        <li><b>3</b>Add both. No names.</li>
+      </ol>
+      <p class="count"><span class="dot"></span><span><b id="n">0</b> <span id="nWord">people</span> so far</span></p>
+    </div>
+    <div class="qr">
+      <img src="/screentime/qr.svg" alt="QR code for getthreestrand.com/screentime">
+      <p>getthreestrand.com/screentime</p>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <p class="eyebrow">What we said is healthy</p>
+  <p class="big" id="avgG">–</p>
+  <p class="sub">a day, on average, across <span id="n2">0</span> of us.</p>
+</section>
+
+<section>
+  <p class="eyebrow">What our phones say</p>
+  <p class="big accent" id="avgA">–</p>
+  <p class="sub" id="gap">a day, on average.</p>
+</section>
+
+<section class="dark">
+  <p class="eyebrow">Over our own number</p>
+  <p class="big"><span id="over">–</span> <span style="font-size:0.4em;letter-spacing:-0.02em">of <span id="n3">0</span></span></p>
+  <p class="sub">of us spend more time on our phones than we said is healthy.</p>
+</section>
+
+<section class="alt">
+  <p class="eyebrow">Every dot is one of us</p>
+  <div class="legend"><span><i style="border:3px solid var(--muted)"></i>What feels healthy</span><span><i style="background:var(--peri)"></i>Phone says</span></div>
+  <div class="chart" id="chart"></div>
+</section>
+
+<section class="alt">
+  <p class="eyebrow">Over a year</p>
+  <p class="big"><span id="days">–</span> <span style="font-size:0.4em;letter-spacing:-0.02em">days</span></p>
+  <p class="sub">That's how many full days each of us spends on our phone every year.</p>
+</section>
+
+<section class="dark">
+  <p class="eyebrow">This room, together</p>
+  <p class="big accent"><span id="years">–</span> <span style="font-size:0.4em;letter-spacing:-0.02em">years</span></p>
+  <p class="sub">of phone time, every single year.</p>
+</section>
+
+<section class="closer">
+  <img src="/assets/brand/threestrand-lockup-horizontal-light.svg" alt="Threestrand">
+  <h1>Less phone, more people.</h1>
+  <p class="sub">Find me at the table in the back.</p>
+</section>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const app = initializeApp({
+    apiKey: "AIzaSyAm1PeCXzvmKK3hd5uoKK9QoCRserGCMCU",
+    authDomain: "threestrand-poll.firebaseapp.com",
+    projectId: "threestrand-poll",
+    appId: "1:221240066260:web:8a54f38374b1be67a03b41",
+  });
+  const db = getFirestore(app);
+  const event = (new URLSearchParams(location.search).get("e") || "stpeters").replace(/[^a-z0-9-]/gi, "").slice(0, 40) || "stpeters";
+  if (event !== "stpeters") { const t = document.getElementById("test"); t.textContent = "Practice run: " + event; t.hidden = false; }
+
+  const $ = id => document.getElementById(id);
+  const fmt = mins => { mins = Math.round(mins); const h = Math.floor(mins / 60), m = mins % 60; return h ? (m ? `${h}h ${m}m` : `${h}h`) : `${m}m`; };
+  const MAX = 16 * 60; // the form and the database rules both cap at 16 hours
+  const ok = v => Number.isInteger(v) && v >= 0 && v <= MAX;
+
+  onSnapshot(collection(db, "polls", event, "entries"), snap => {
+    const rows = snap.docs.map(d => d.data()).filter(r => ok(r.healthy) && ok(r.actual) && r.actual >= 5);
+    const n = rows.length;
+    $("n").textContent = n; $("n2").textContent = n; $("n3").textContent = n;
+    $("nWord").textContent = n === 1 ? "person" : "people";
+    if (!n) return;
+    const avgG = rows.reduce((s, r) => s + r.healthy, 0) / n;
+    const sumA = rows.reduce((s, r) => s + r.actual, 0);
+    const avgA = sumA / n;
+    const over = rows.filter(r => r.actual > r.healthy).length;
+    $("avgG").textContent = fmt(avgG);
+    $("avgA").textContent = fmt(avgA);
+    $("gap").textContent = avgA > avgG ? `a day, on average. That's ${fmt(avgA - avgG)} more than we said is healthy.` : "a day, on average.";
+    $("over").textContent = over;
+    $("days").textContent = Math.round(avgA * 365 / 1440);
+    // minutes a day × 365 days ÷ minutes in a year = years
+    const yrs = sumA / 1440;
+    $("years").textContent = yrs < 10 ? yrs.toFixed(1) : Math.round(yrs);
+    drawChart(rows, avgG, avgA);
+  });
+
+  function drawChart(rows, avgG, avgA) {
+    const W = 1600, H = 440, L = 40, R = 40;
+    const top = Math.max(...rows.map(r => Math.max(r.healthy, r.actual)));
+    const hMax = Math.max(6, Math.ceil(top / 60));
+    const x = m => L + (m / (hMax * 60)) * (W - L - R);
+    const rowY = { healthy: 120, actual: 300 };
+    const jitter = i => ((i * 37) % 11 - 5) * 7; // spread stacked dots a little, same every redraw
+    let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Healthy versus actual daily phone time, one dot per person">`;
+    for (let h = 0; h <= hMax; h++) {
+      s += `<line x1="${x(h * 60)}" x2="${x(h * 60)}" y1="40" y2="380" stroke="#E3DACB" stroke-width="2"/>`;
+      s += `<text x="${x(h * 60)}" y="${H - 10}" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="28" font-weight="600" fill="#7D7569">${h}h</text>`;
+    }
+    rows.forEach((r, i) => {
+      s += `<circle cx="${x(r.healthy)}" cy="${rowY.healthy + jitter(i)}" r="14" fill="none" stroke="#7D7569" stroke-width="4" opacity="0.8"/>`;
+      s += `<circle cx="${x(r.actual)}" cy="${rowY.actual + jitter(i)}" r="14" fill="#5468D4" opacity="0.75"/>`;
+    });
+    for (const [k, v, c] of [["healthy", avgG, "#1C1A18"], ["actual", avgA, "#3C4DB3"]]) {
+      s += `<line x1="${x(v)}" x2="${x(v)}" y1="${rowY[k] - 70}" y2="${rowY[k] + 70}" stroke="${c}" stroke-width="6" stroke-linecap="round"/>`;
+      s += `<text x="${x(v)}" y="${rowY[k] - 82}" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="30" font-weight="800" fill="${c}">avg ${fmt(v)}</text>`;
+    }
+    s += `</svg>`;
+    $("chart").innerHTML = s;
+  }
+</script>
+</body>
+</html>

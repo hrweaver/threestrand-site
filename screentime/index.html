@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>How much do we use our phones?</title>
+<link rel="icon" href="/assets/brand/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F7F2E9; --paper-2: #EFE8DB; --ink: #1C1A18; --ink-2: #4B4541; --muted: #7D7569; --line: #E3DACB;
+    --peri: #5468D4; --peri-deep: #3C4DB3; --peri-wash: #E9ECFA;
+    --font: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  /* Light on purpose, like the landing page. */
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font); font-size: 17px; line-height: 1.5; -webkit-font-smoothing: antialiased; color-scheme: light; }
+  main { max-width: 480px; margin: 0 auto; padding: 40px 16px 72px; }
+  .wordmark { display: block; height: 30px; width: auto; margin-bottom: 36px; }
+  h1 { margin: 0 0 10px; font-size: 2rem; line-height: 1.15; letter-spacing: -0.02em; font-weight: 700; text-wrap: balance; }
+  .lead { margin: 0 0 28px; color: var(--ink-2); font-size: 1.05rem; }
+  .step { display: flex; flex-direction: column; gap: 14px; }
+  .eyebrow { margin: 0; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--peri-deep); }
+  .row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+  label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; font-size: 0.95rem; }
+  select {
+    appearance: none; -webkit-appearance: none; width: 100%;
+    font: inherit; font-size: 1.25rem; font-weight: 600; color: var(--ink);
+    background: #FFFDF9 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%237D7569' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 16px center;
+    border: 1.5px solid var(--line); border-radius: 14px; padding: 14px 40px 14px 16px;
+  }
+  select:focus-visible { outline: 3px solid var(--peri-deep); outline-offset: 2px; }
+  .how { background: var(--paper-2); border-radius: 16px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+  .how p { margin: 0; color: var(--ink-2); font-size: 0.97rem; }
+  .how b { color: var(--ink); }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; width: 100%;
+    padding: 17px 20px; border-radius: 999px; border: 0; cursor: pointer;
+    font: inherit; font-weight: 600; font-size: 1.05rem; line-height: 1;
+    background: var(--ink); color: var(--paper);
+  }
+  .btn:disabled { opacity: 0.35; cursor: default; }
+  .btn:focus-visible { outline: 3px solid var(--peri-deep); outline-offset: 3px; }
+  .btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); }
+  .warn { margin: 0; padding: 14px 16px; border-radius: 14px; background: #FBEFD9; color: #6B4A12; font-size: 0.97rem; }
+  .err { margin: 0; color: #9A2B1F; font-size: 0.95rem; }
+  .result { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 8px 0 24px; }
+  .tile { background: #FFFDF9; border: 1.5px solid var(--line); border-radius: 16px; padding: 16px; }
+  .tile span { display: block; font-size: 0.85rem; color: var(--muted); font-weight: 600; }
+  .tile strong { display: block; font-size: 1.6rem; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .fine { margin: 32px 0 0; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.88rem; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <img class="wordmark" src="/assets/brand/threestrand-lockup-horizontal-light.svg" alt="Threestrand">
+
+  <form id="form" class="step" novalidate>
+    <h1>How much do we really use our phones?</h1>
+    <p class="lead">Two quick numbers. No name, nothing that identifies you. They just add to the totals on the screen up front.</p>
+
+    <p class="eyebrow">1 · Before you look</p>
+    <p style="margin:0">How much phone time a day feels healthy to you?</p>
+    <div class="row">
+      <label>Hours<select id="gH" required></select></label>
+      <label>Minutes<select id="gM" required></select></label>
+    </div>
+
+    <p class="eyebrow" style="margin-top:22px">2 · Now look it up</p>
+    <div class="how">
+      <p><b>iPhone:</b> Settings › Screen Time › See All App &amp; Website Activity. Use the <b>Daily Average</b>.</p>
+      <p><b>Android:</b> Settings › Digital Wellbeing &amp; parental controls. Use the daily average if you see one, otherwise yesterday's total.</p>
+    </div>
+    <p style="margin:0">What does your phone say?</p>
+    <div class="row">
+      <label>Hours<select id="aH" required></select></label>
+      <label>Minutes<select id="aM" required></select></label>
+    </div>
+
+    <p id="warn" class="warn" hidden></p>
+    <p id="err" class="err" hidden></p>
+    <button id="send" class="btn" type="submit" disabled>Add my numbers</button>
+  </form>
+
+  <section id="done" class="step" hidden>
+    <h1>Thanks. Look up front.</h1>
+    <div class="result">
+      <div class="tile"><span>You said healthy is</span><strong id="youG"></strong></div>
+      <div class="tile"><span>Your phone says</span><strong id="youA"></strong></div>
+    </div>
+    <p class="lead" style="margin:0 0 20px">If you want help changing that number, find me at the table in the back.</p>
+    <a class="btn btn-ghost" href="/" style="text-decoration:none">What is Threestrand?</a>
+  </section>
+
+  <p class="fine">Anonymous. We store two numbers and the time you sent them, nothing else.</p>
+</main>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const app = initializeApp({
+    apiKey: "AIzaSyAm1PeCXzvmKK3hd5uoKK9QoCRserGCMCU",
+    authDomain: "threestrand-poll.firebaseapp.com",
+    projectId: "threestrand-poll",
+    appId: "1:221240066260:web:8a54f38374b1be67a03b41",
+  });
+  const db = getFirestore(app);
+
+  // ?e=test for rehearsals; the night itself uses the default.
+  const event = (new URLSearchParams(location.search).get("e") || "stpeters").replace(/[^a-z0-9-]/gi, "").slice(0, 40) || "stpeters";
+  const doneKey = "ts-poll-" + event;
+
+  // Dropdowns only, capped at 16 hours, so nobody can fat-finger 4000.
+  const MAX_H = 16;
+  function fill(sel, values, fmt) {
+    sel.add(new Option("Pick", "", true, true));
+    sel.options[0].disabled = true;
+    for (const v of values) sel.add(new Option(fmt(v), v));
+  }
+  const hours = [...Array(MAX_H + 1).keys()];
+  const mins = [...Array(12).keys()].map(i => i * 5);
+  for (const id of ["gH", "aH"]) fill(document.getElementById(id), hours, h => h + (h === 1 ? " hour" : " hours"));
+  for (const id of ["gM", "aM"]) fill(document.getElementById(id), mins, m => m + " min");
+
+  const $ = id => document.getElementById(id);
+  const form = $("form"), send = $("send"), warn = $("warn"), err = $("err");
+  const val = (h, m) => ($(h).value === "" || $(m).value === "") ? null : Number($(h).value) * 60 + Number($(m).value);
+  const fmt = mins => { const h = Math.floor(mins / 60), m = mins % 60; return h ? (m ? `${h}h ${m}m` : `${h}h`) : `${m}m`; };
+
+  let confirmed = false;
+  function check() {
+    const g = val("gH", "gM"), a = val("aH", "aM");
+    err.hidden = true;
+    let msg = "";
+    if (a !== null && a > MAX_H * 60) msg = "That's more than 16 hours. Check the number again.";
+    else if (a !== null && a < 5) msg = "That's under 5 minutes. Check the number again.";
+    else if (g !== null && g > MAX_H * 60) msg = "Pick 16 hours or less for the healthy number.";
+    const big = !msg && ((a !== null && a > 12 * 60) || (g !== null && g > 12 * 60));
+    if (big && !confirmed) msg = "Over 12 hours a day. Double-check it, then tap again to send.";
+    warn.textContent = msg;
+    warn.hidden = !msg;
+    send.disabled = g === null || a === null || (!!msg && !(big && !confirmed));
+    return { g, a, big };
+  }
+  form.addEventListener("change", () => { confirmed = false; check(); });
+
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    const { g, a, big } = check();
+    if (g === null || a === null) return;
+    if (big && !confirmed) { confirmed = true; warn.textContent = "Tap again if that's right."; return; }
+    send.disabled = true; send.textContent = "Sending…";
+    try {
+      await addDoc(collection(db, "polls", event, "entries"), { healthy: g, actual: a, at: serverTimestamp() });
+      try { localStorage.setItem(doneKey, JSON.stringify({ g, a })); } catch {}
+      showDone(g, a);
+    } catch (x) {
+      err.textContent = "That didn't go through. Check your signal and tap again.";
+      err.hidden = false;
+      send.disabled = false; send.textContent = "Add my numbers";
+    }
+  });
+
+  function showDone(g, a) {
+    $("youG").textContent = fmt(g);
+    $("youA").textContent = fmt(a);
+    form.hidden = true; $("done").hidden = false;
+    window.scrollTo(0, 0);
+  }
+
+  // One entry per phone, so a refresh doesn't count twice.
+  try { const prev = JSON.parse(localStorage.getItem(doneKey)); if (prev) showDone(prev.g, prev.a); } catch {}
+</script>
+</body>
+</html>
