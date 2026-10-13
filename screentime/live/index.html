@@ -60,6 +60,14 @@
   .t-title { font-size: clamp(32px, 3.6vw, 72px); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; text-wrap: balance; }
   .t-meta { font-size: clamp(18px, 1.8vw, 36px); font-weight: 600; color: #CFC7BA; font-variant-numeric: tabular-nums; }
   .t-show { font-size: clamp(16px, 1.5vw, 30px); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding-top: 2vh; border-top: 3px dashed #4B4541; }
+  section { position: relative; }
+  .how { display: flex; flex-direction: column; gap: 1.4vh; max-width: 58vw; }
+  .how p { margin: 0; font-size: clamp(18px, 1.9vw, 38px); line-height: 1.35; color: var(--ink-2); }
+  .how b { color: var(--ink); }
+  /* For latecomers: a small QR stays in the corner while the questions are up */
+  .mini-qr { position: absolute; right: 6vw; bottom: 6vh; background: #FFFDF9; border: 2px solid var(--line); border-radius: 18px; padding: 1.4vw; text-align: center; }
+  .mini-qr img { display: block; width: min(13vw, 22vh); height: auto; }
+  .mini-qr p { margin: 1vh 0 0; font-size: clamp(12px, 1vw, 20px); font-weight: 700; line-height: 1.25; }
   .test { position: fixed; top: 12px; right: 12px; background: #FBEFD9; color: #6B4A12; font: 700 14px var(--font); padding: 6px 12px; border-radius: 99px; z-index: 5; }
   .closer .brand { display: block; height: clamp(40px, 7vh, 96px); width: auto; margin-bottom: 4vh; }
   .qr .label { margin: 0 0 1.4vh; font-size: clamp(18px, 1.9vw, 38px); font-weight: 700; color: var(--peri-deep); }
@@ -74,19 +82,32 @@
   <img class="wordmark" src="/assets/brand/threestrand-lockup-horizontal-light.svg" alt="Threestrand">
   <div class="join">
     <div>
-      <h1>How much do we really use our phones?</h1>
-      <ol class="steps">
-        <li><b>1</b>Pick what feels like a healthy amount</li>
-        <li><b>2</b>Look up your real number</li>
-        <li><b>3</b>Add both. No names.</li>
-      </ol>
-      <p class="count"><span class="dot"></span><span><b id="n">0</b> <span id="nWord">people</span> so far</span></p>
+      <h1>Grab your phone.</h1>
+      <p class="sub" style="margin-top:3vh">Two quick questions. Totally anonymous. No names, no sign-in, nothing tied to you.</p>
     </div>
     <div class="qr">
       <img src="/screentime/qr.svg" alt="QR code for getthreestrand.com/screentime">
       <p>getthreestrand.com/screentime</p>
     </div>
   </div>
+</section>
+
+<section class="alt">
+  <p class="eyebrow">Question 1</p>
+  <h1 style="max-width:18ch">How much phone time a day feels healthy to you?</h1>
+  <p class="sub">Just your gut. There's no right answer.</p>
+  <div class="mini-qr"><img src="/screentime/qr.svg" alt=""><p>getthreestrand.com/<br>screentime</p></div>
+</section>
+
+<section>
+  <p class="eyebrow">Question 2</p>
+  <h1 style="max-width:18ch">Now look it up. What does your phone say?</h1>
+  <div class="how">
+    <p><b>iPhone:</b> Settings › Screen Time › See All App &amp; Website Activity › Daily Average</p>
+    <p><b>Android:</b> Settings › Digital Wellbeing &amp; parental controls</p>
+  </div>
+  <p class="count"><span class="dot"></span><span><b id="n">0</b> <span id="nWord">people</span> so far</span></p>
+  <div class="mini-qr"><img src="/screentime/qr.svg" alt=""><p>getthreestrand.com/<br>screentime</p></div>
 </section>
 
 <section class="alt">
