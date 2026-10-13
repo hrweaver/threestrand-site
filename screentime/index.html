@@ -188,7 +188,8 @@
     window.scrollTo(0, 0);
   }
 
-  // One entry per phone, so a refresh doesn't count twice.
+  // One entry per phone, so a refresh doesn't count twice. ?reset clears it (for rehearsals).
+  if (new URLSearchParams(location.search).has("reset")) { try { localStorage.removeItem(doneKey); } catch {} history.replaceState(null, "", location.pathname + (event === "stpeters" ? "" : "?e=" + event)); }
   try { const prev = JSON.parse(localStorage.getItem(doneKey)); if (prev) showDone(prev.g, prev.a); } catch {}
 </script>
 </body>
