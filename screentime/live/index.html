@@ -71,6 +71,10 @@
   .test { position: fixed; top: 12px; right: 12px; background: #FBEFD9; color: #6B4A12; font: 700 14px var(--font); padding: 6px 12px; border-radius: 99px; z-index: 5; }
   .closer .brand { display: block; height: clamp(40px, 7vh, 96px); width: auto; margin-bottom: 4vh; }
   .qr .label { margin: 0 0 1.4vh; font-size: clamp(18px, 1.9vw, 38px); font-weight: 700; color: var(--peri-deep); }
+  /* The verse lands first, then the name fades in under it a beat later. */
+  .verse-mark { width: clamp(220px, 26vw, 560px); margin-top: 4vh; opacity: 0; transform: translateY(1.5vh); transition: opacity 1.2s ease 1.4s, transform 1.2s ease 1.4s; }
+  .verse.in .verse-mark { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .verse-mark { opacity: 1; transform: none; transition: none; } }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .count .dot { animation: none; } }
   @media (max-width: 760px) { .join { grid-template-columns: 1fr; } .qr img { width: 70vw; } }
 </style>
@@ -161,9 +165,10 @@
   <p class="sub">of phone time, every single year.</p>
 </section>
 
-<section>
+<section class="verse">
   <p class="eyebrow">Ecclesiastes 4:12</p>
-  <h1 style="max-width:22ch">Though one may be overpowered, two can defend themselves. A cord of three strands is not quickly broken.</h1>
+  <h1 style="max-width:22ch">Though one may be overpowered, two can defend themselves. A cord of <span class="accent">three strands</span> is not quickly broken.</h1>
+  <img class="verse-mark" src="/assets/brand/threestrand-wordmark-light.svg" alt="Threestrand">
 </section>
 
 <section class="closer">
@@ -269,6 +274,10 @@
     s += `</svg>`;
     $("chart").innerHTML = s;
   }
+
+  // Fade the wordmark in each time the verse screen comes up.
+  new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle("in", e.isIntersecting)), { threshold: 0.6 })
+    .observe(document.querySelector(".verse"));
 </script>
 </body>
 </html>

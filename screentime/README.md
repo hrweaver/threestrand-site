@@ -30,7 +30,7 @@ The live page is one screen per idea. Scroll, or use Page Down on a clicker:
 8. Hour histogram, healthy next to actual
 9. Days a year, per person
 10. Years of phone time, the whole room
-11. Ecclesiastes 4:12 (NIV)
+11. Ecclesiastes 4:12 (NIV), with "three strands" in blue and the threestrand wordmark fading in under it a beat later
 12. "Less phone, more people.", "Find me at the table in the back.", and a "Get the app" QR code (`qr-get.svg`, points at getthreestrand.com/get)
 
 ## Choices made on purpose (don't undo without a reason)
