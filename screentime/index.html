@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>How much do we use our phones?</title>
+<title>Threestrand</title>
 <link rel="icon" href="/assets/brand/favicon-32.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,11 +65,8 @@
 
   <form id="form" novalidate>
    <div id="step1" class="step">
-    <h1>How much do we really use our phones?</h1>
-    <p class="lead">Two quick questions. No name, nothing that identifies you. Your answers just add to the totals on the screen up front.</p>
-
     <p class="eyebrow">Question 1 of 2</p>
-    <p style="margin:0;font-size:1.2rem;font-weight:600">How much phone time a day feels healthy to you?</p>
+    <h1>How much phone time a day feels healthy to you?</h1>
     <div class="row">
       <label>Hours<select id="gH" required></select></label>
       <label>Minutes<select id="gM" required></select></label>
@@ -79,7 +76,7 @@
 
    <div id="step2" class="step" hidden>
     <p class="eyebrow">Question 2 of 2</p>
-    <h1>Now look it up.</h1>
+    <h1 id="askA">What does your phone say?</h1>
     <div class="how" data-os="ios">
       <p class="os">On your iPhone</p>
       <ol>
@@ -101,7 +98,6 @@
         <li>Use <b>yesterday's</b> total</li>
       </ol>
     </div>
-    <p id="askA" style="margin:0;font-size:1.2rem;font-weight:600">What does your phone say?</p>
     <div class="row">
       <label>Hours<select id="aH" required></select></label>
       <label>Minutes<select id="aM" required></select></label>
