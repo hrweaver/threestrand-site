@@ -59,23 +59,28 @@
 <main>
   <img class="wordmark" src="/assets/brand/threestrand-lockup-horizontal-light.svg" alt="Threestrand">
 
-  <form id="form" class="step" novalidate>
+  <form id="form" novalidate>
+   <div id="step1" class="step">
     <h1>How much do we really use our phones?</h1>
-    <p class="lead">Two quick numbers. No name, nothing that identifies you. They just add to the totals on the screen up front.</p>
+    <p class="lead">Two quick questions. No name, nothing that identifies you. Your answers just add to the totals on the screen up front.</p>
 
-    <p class="eyebrow">1 · Before you look</p>
-    <p style="margin:0">How much phone time a day feels healthy to you?</p>
+    <p class="eyebrow">Question 1 of 2</p>
+    <p style="margin:0;font-size:1.2rem;font-weight:600">How much phone time a day feels healthy to you?</p>
     <div class="row">
       <label>Hours<select id="gH" required></select></label>
       <label>Minutes<select id="gM" required></select></label>
     </div>
+    <button id="next" class="btn" type="button" disabled>Next</button>
+   </div>
 
-    <p class="eyebrow" style="margin-top:22px">2 · Now look it up</p>
+   <div id="step2" class="step" hidden>
+    <p class="eyebrow">Question 2 of 2</p>
+    <h1>Now look it up.</h1>
     <div class="how">
       <p><b>iPhone:</b> Settings › Screen Time › See All App &amp; Website Activity. Use the <b>Daily Average</b>.</p>
       <p><b>Android:</b> Settings › Digital Wellbeing &amp; parental controls. Use the daily average if you see one, otherwise yesterday's total.</p>
     </div>
-    <p style="margin:0">What does your phone say?</p>
+    <p style="margin:0;font-size:1.2rem;font-weight:600">What does your phone say?</p>
     <div class="row">
       <label>Hours<select id="aH" required></select></label>
       <label>Minutes<select id="aM" required></select></label>
@@ -84,6 +89,7 @@
     <p id="warn" class="warn" hidden></p>
     <p id="err" class="err" hidden></p>
     <button id="send" class="btn" type="submit" disabled>Add my numbers</button>
+   </div>
   </form>
 
   <section id="done" class="step" hidden>
@@ -124,7 +130,10 @@
   }
   const hours = [...Array(MAX_H + 1).keys()];
   const mins = [...Array(12).keys()].map(i => i * 5);
-  for (const id of ["gH", "aH"]) fill(document.getElementById(id), hours, h => h + (h === 1 ? " hour" : " hours"));
+  const hourLabel = h => h + (h === 1 ? " hour" : " hours");
+  // Healthy tops out at 15h 55m so it can never trip the 16 hour cap after Next.
+  fill(document.getElementById("gH"), hours.slice(0, MAX_H), hourLabel);
+  fill(document.getElementById("aH"), hours, hourLabel);
   for (const id of ["gM", "aM"]) fill(document.getElementById(id), mins, m => m + " min");
 
   const $ = id => document.getElementById(id);
@@ -147,7 +156,13 @@
     send.disabled = g === null || a === null || (!!msg && !(big && !confirmed));
     return { g, a, big };
   }
-  form.addEventListener("change", () => { confirmed = false; check(); });
+  form.addEventListener("change", () => { confirmed = false; check(); $("next").disabled = val("gH", "gM") === null; });
+  // One question per screen, and no going back, so the first answer stands on its own.
+  $("next").addEventListener("click", () => {
+    if (val("gH", "gM") === null) return;
+    $("step1").hidden = true; $("step2").hidden = false;
+    window.scrollTo(0, 0);
+  });
 
   form.addEventListener("submit", async e => {
     e.preventDefault();
