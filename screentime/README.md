@@ -8,6 +8,7 @@ People answer on their phones, and the room's totals build on the big screen.
 | `index.html` | getthreestrand.com/screentime | Phones, via the QR code |
 | `live/index.html` | getthreestrand.com/screentime/live | The projector |
 | `qr.svg` | | QR code for the phone page, shown on the live page |
+| `qr-demo.svg`, `qr-test.svg` | | QR codes the live page swaps in on `?e=demo` and `?e=test`, so practice scans stay out of the real night |
 
 ## How it works
 

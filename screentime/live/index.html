@@ -199,6 +199,11 @@
   const db = getFirestore(app);
   const event = (new URLSearchParams(location.search).get("e") || "stpeters").replace(/[^a-z0-9-]/gi, "").slice(0, 40) || "stpeters";
   if (event !== "stpeters") { const t = document.getElementById("test"); t.textContent = "Practice run: " + event; t.hidden = false; }
+  // Practice events get their own QR codes, so a scan from a practice screen never lands in the real night.
+  if (event === "demo" || event === "test") {
+    for (const img of document.querySelectorAll('img[src="/screentime/qr.svg"]')) img.src = `/screentime/qr-${event}.svg`;
+    for (const p of document.querySelectorAll(".qr p, .mini-qr p")) p.innerHTML = p.innerHTML.replace(/screentime$/, `screentime?e=${event}`);
+  }
 
   const $ = id => document.getElementById(id);
   const fmt = mins => { mins = Math.round(mins); const h = Math.floor(mins / 60), m = mins % 60; return h ? (m ? `${h}h ${m}m` : `${h}h`) : `${m}m`; };
