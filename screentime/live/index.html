@@ -53,6 +53,13 @@
   .legend span { display: inline-flex; align-items: center; gap: 0.5em; }
   .legend i { width: 0.8em; height: 0.8em; border-radius: 99px; display: inline-block; }
 
+  /* Movie ticket: the punchline card */
+  .ticket { width: min(34vw, 600px); background: var(--ink); color: var(--paper); border-radius: 22px; padding: 4vh 3vw; transform: rotate(-3deg); box-shadow: 0 24px 60px rgba(28, 26, 24, 0.18); display: flex; flex-direction: column; gap: 2.2vh; }
+  .ticket p { margin: 0; }
+  .t-admit { font-size: clamp(14px, 1.3vw, 26px); font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #AEB8F0; padding-bottom: 2vh; border-bottom: 3px dashed #4B4541; }
+  .t-title { font-size: clamp(32px, 3.6vw, 72px); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; text-wrap: balance; }
+  .t-meta { font-size: clamp(18px, 1.8vw, 36px); font-weight: 600; color: #CFC7BA; font-variant-numeric: tabular-nums; }
+  .t-show { font-size: clamp(16px, 1.5vw, 30px); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding-top: 2vh; border-top: 3px dashed #4B4541; }
   .test { position: fixed; top: 12px; right: 12px; background: #FBEFD9; color: #6B4A12; font: 700 14px var(--font); padding: 6px 12px; border-radius: 99px; z-index: 5; }
   .closer .brand { display: block; height: clamp(40px, 7vh, 96px); width: auto; margin-bottom: 4vh; }
   .qr .label { margin: 0 0 1.4vh; font-size: clamp(18px, 1.9vw, 38px); font-weight: 700; color: var(--peri-deep); }
@@ -92,7 +99,21 @@
   <p class="eyebrow">What our phones say</p>
   <p class="big accent" id="avgA">–</p>
   <p class="sub" id="gap">a day, on average.</p>
-  <p class="sub" id="movie" style="color:var(--ink);font-weight:600" hidden></p>
+</section>
+
+<section class="alt" id="movieScreen" hidden>
+  <div class="join">
+    <div>
+      <p class="eyebrow">Put another way</p>
+      <h1 id="movieLine" style="margin-top:3vh;max-width:16ch"></h1>
+    </div>
+    <div class="ticket" aria-hidden="true">
+      <p class="t-admit">Admit one</p>
+      <p class="t-title" id="tTitle"></p>
+      <p class="t-meta" id="tMeta"></p>
+      <p class="t-show">Now showing: daily</p>
+    </div>
+  </div>
 </section>
 
 <section class="dark">
@@ -172,8 +193,7 @@
     $("avgA").textContent = fmt(avgA);
     $("gap").textContent = avgA > avgG ? `a day, on average. That's ${fmt(avgA - avgG)} more than we said is healthy.` : "a day, on average.";
     $("over").textContent = over;
-    const mv = movieFor(avgA - avgG);
-    $("movie").textContent = mv; $("movie").hidden = !mv;
+    showMovie(avgA - avgG);
     $("days").textContent = Math.round(avgA * 365 / 1440);
     // minutes a day × 365 days ÷ minutes in a year = years
     const yrs = sumA / 1440;
@@ -181,23 +201,29 @@
     drawChart(rows);
   });
 
-  // The daily gap as a movie. Runtimes in minutes, theatrical cuts. "The" dropped so
-  // "one more ___" reads right. Family-friendly on purpose: it's a church crowd.
+  // The daily gap as a movie. Theatrical runtimes in minutes. Family-friendly on purpose.
   const MOVIES = [
-    ["Toy Story", 81], ["Lion King", 88], ["Up", 96], ["Elf", 97], ["Princess Bride", 98],
-    ["Finding Nemo", 100], ["Frozen", 102], ["Home Alone", 103], ["Remember the Titans", 113],
-    ["Incredibles", 115], ["Back to the Future", 116], ["Cars", 117], ["Jurassic Park", 127],
-    ["Mary Poppins", 139], ["Apollo 13", 140], ["Forrest Gump", 142], ["Dark Knight", 152],
-    ["Avatar", 162], ["Sound of Music", 174], ["Fellowship of the Ring", 178], ["Titanic", 194],
-    ["Return of the King", 201], ["Ben-Hur", 212], ["Ten Commandments", 220], ["Gone with the Wind", 238],
+    ["Toy Story", 1995, 81], ["The Lion King", 1994, 88], ["Up", 2009, 96], ["Elf", 2003, 97],
+    ["The Princess Bride", 1987, 98], ["Finding Nemo", 2003, 100], ["Frozen", 2013, 102],
+    ["Home Alone", 1990, 103], ["Remember the Titans", 2000, 113], ["The Incredibles", 2004, 115],
+    ["Back to the Future", 1985, 116], ["Cars", 2006, 117], ["Jurassic Park", 1993, 127],
+    ["Mary Poppins", 1964, 139], ["Apollo 13", 1995, 140], ["Forrest Gump", 1994, 142],
+    ["The Dark Knight", 2008, 152], ["Avatar", 2009, 162], ["The Sound of Music", 1965, 174],
+    ["The Fellowship of the Ring", 2001, 178], ["Titanic", 1997, 194], ["The Return of the King", 2003, 201],
+    ["Ben-Hur", 1959, 212], ["The Ten Commandments", 1956, 220], ["Gone with the Wind", 1939, 238],
   ];
-  function movieFor(gap) {
+  function showMovie(gap) {
     gap = Math.round(gap);
-    if (gap < 45) return "";
-    if (gap < 75) return `That's most of Toy Story, every day.`;
-    if (gap > 250) return `That's all of Gone with the Wind and then some, every day.`;
-    const [title, rt] = MOVIES.reduce((best, m) => Math.abs(m[1] - gap) < Math.abs(best[1] - gap) ? m : best);
-    return `That's one more ${title} (${fmt(rt)}), every day.`;
+    const screen = $("movieScreen");
+    if (gap < 45) { screen.hidden = true; return; }
+    let m, line;
+    if (gap < 75) { m = MOVIES[0]; line = `That's most of ${m[0]}.`; }
+    else if (gap > 250) { m = MOVIES[MOVIES.length - 1]; line = `That's ${m[0]}, and then some.`; }
+    else { m = MOVIES.reduce((best, x) => Math.abs(x[2] - gap) < Math.abs(best[2] - gap) ? x : best); line = `That's ${m[0]}.`; }
+    $("movieLine").textContent = `The extra ${fmt(gap)} we spend each day? ${line}`;
+    $("tTitle").textContent = m[0];
+    $("tMeta").textContent = `${m[1]} · ${fmt(m[2])}`;
+    screen.hidden = false;
   }
 
   // Counts per hour, never individual people. Everything 7h and up shares one bar,

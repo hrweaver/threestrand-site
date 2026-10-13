@@ -22,19 +22,21 @@ The live page is one screen per idea. Scroll, or use Page Down on a clicker:
 
 1. QR code plus a live "N people so far" count
 2. What we said is healthy (average)
-3. What our phones say (average), the gap, and the gap as a movie ("one more Forrest Gump, every day"; list and runtimes in `MOVIES` in live/index.html)
-4. "X of N" of us are over our own number
-5. Hour histogram, healthy next to actual
-6. Days a year, per person
-7. Years of phone time, the whole room
-8. Ecclesiastes 4:12 (NIV)
-9. "Less phone, more people.", "Find me at the table in the back.", and a "Get the app" QR code (`qr-get.svg`, points at getthreestrand.com/get)
+3. What our phones say (average) and the gap
+4. The gap as a movie, with a movie ticket: "The extra 2h 24m we spend each day? That's Forrest Gump." (picks the closest runtime from `MOVIES` in live/index.html; skipped if the gap is under 45 min)
+5. "X of N" of us are over our own number
+6. Hour histogram, healthy next to actual
+7. Days a year, per person
+8. Years of phone time, the whole room
+9. Ecclesiastes 4:12 (NIV)
+10. "Less phone, more people.", "Find me at the table in the back.", and a "Get the app" QR code (`qr-get.svg`, points at getthreestrand.com/get)
 
 ## Choices made on purpose (don't undo without a reason)
 
 - **Healthy vs actual, not guess vs actual.** People guess high when they can tell what the exercise is. Nobody can game "what feels healthy," and nearly everyone ends up over their own number.
 - **No per-person marks.** The chart is counts per hour. Everything 7h and up shares one "7h+" bar, and there are no count labels, so one heavy user never stands out. It's meant to feel like "we," not "you."
 - **The verse comes after the data.** The numbers show the problem and the verse turns to the answer. Opening with it makes the numbers feel like a sermon.
+- **No movie posters.** They're copyrighted and this is a public company page; the ticket card is drawn in CSS.
 - **No Claude or other vendor branding.** It's a plain page on our own domain.
 
 ## Bad input
