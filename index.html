@@ -399,6 +399,32 @@
       document.querySelectorAll(".stores-both").forEach(function (el) { el.style.display = "none"; });
     }
   })();
+
+  // Campaign pass-through: a visitor who arrived from an ad (?utm_source=...) carries that
+  // source into the store. Play gets it in the install referrer, which the app reads on first
+  // launch; the App Store gets a ct= campaign tag that App Store Connect reports downloads by.
+  // The button's own spot on the page (hero, close) rides along as utm_content.
+  (function () {
+    var q = new URLSearchParams(location.search);
+    var src = q.get("utm_source");
+    if (!src) return;
+    var keep = ["utm_source", "utm_medium", "utm_campaign", "utm_term"];
+    document.querySelectorAll('a[href*="play.google.com"][href*="referrer="]').forEach(function (a) {
+      var u = new URL(a.href);
+      var spot = new URLSearchParams(u.searchParams.get("referrer") || "").get("utm_campaign") || "";
+      var r = new URLSearchParams();
+      keep.forEach(function (k) { var v = q.get(k); if (v) r.set(k, v.slice(0, 100)); });
+      if (spot) r.set("utm_content", spot);
+      u.searchParams.set("referrer", r.toString());
+      a.href = u.toString();
+    });
+    document.querySelectorAll('a[href*="apps.apple.com"][href*="ct=site_"]').forEach(function (a) {
+      var u = new URL(a.href);
+      var ct = [src, q.get("utm_campaign")].filter(Boolean).join("-").replace(/[^A-Za-z0-9_-]/g, "").slice(0, 40);
+      u.searchParams.set("ct", ct);
+      a.href = u.toString();
+    });
+  })();
 </script>
 </body>
 </html>
