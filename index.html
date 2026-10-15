@@ -403,6 +403,33 @@
     }
   })();
 
+  // Store-button taps, counted for matching iPhone installs to the ad that brought them
+  // (iPhone tells the app nothing about where an install came from). Sends only which store,
+  // the ad's campaign tags from this page's URL, and which button: no cookie, no id.
+  // Runs before the pass-through below, which rewrites the links it reads the spot from.
+  (function () {
+    var q = new URLSearchParams(location.search);
+    var url = "https://us-central1-abide-27797.cloudfunctions.net/siteEvent";
+    document.querySelectorAll('a[href*="apps.apple.com"], a[href*="play.google.com"]').forEach(function (a) {
+      var u = new URL(a.href, location.href);
+      var ios = u.hostname === "apps.apple.com";
+      var spot = ios ? (u.searchParams.get("ct") || "").replace(/^site_/, "")
+                     : new URLSearchParams(u.searchParams.get("referrer") || "").get("utm_campaign") || "";
+      a.addEventListener("click", function () {
+        var body = JSON.stringify({
+          store: ios ? "ios" : "android",
+          utm_source: q.get("utm_source"), utm_medium: q.get("utm_medium"), utm_campaign: q.get("utm_campaign"),
+          spot: spot || null, page: "home"
+        });
+        try {
+          if (!(navigator.sendBeacon && navigator.sendBeacon(url, body))) {
+            fetch(url, { method: "POST", body: body, keepalive: true, mode: "cors" });
+          }
+        } catch (e) {}
+      });
+    });
+  })();
+
   // Campaign pass-through: a visitor who arrived from an ad (?utm_source=...) carries that
   // source into the store. Play gets it in the install referrer, which the app reads on first
   // launch; the App Store gets a ct= campaign tag that App Store Connect reports downloads by.
