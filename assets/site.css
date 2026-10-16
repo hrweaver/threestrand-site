@@ -195,7 +195,7 @@ footer .formerly { width: 100%; font-size: 0.85rem; }
 .stores .store:hover { transform: translateY(-1px); }
 .stores .store img { height: 54px; width: auto; }
 /* Google's badge carries its own transparent margin, so it is drawn larger to match Apple's. */
-.stores .store-android img { height: 64px; margin: -5px -8px; }
+.stores .store-android img { height: 80px; margin: -13px; }
 
 /* ---------- reviews ---------- */
 .quotes { background: var(--paper); padding: clamp(44px, 6vw, 80px) 0; }
