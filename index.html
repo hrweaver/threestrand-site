@@ -17,199 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --paper: #F7F2E9;
-    --paper-2: #EFE8DB;
-    --ink: #1C1A18;
-    --ink-2: #4B4541;
-    --muted: #7D7569;
-    --line: #E3DACB;
-    --peri: #5468D4;
-    --peri-deep: #3C4DB3;
-    --peri-wash: #E9ECFA;
-    --peri-light: #7C8FE8;
-    --radius: 22px;
-    --maxw: 1120px;
-    --gutter: 16px;
-    --font: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  }
-  /* The page is light on purpose: restate the tokens so a dark-mode viewer sees the same warm paper. */
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) { --paper: #F7F2E9; --paper-2: #EFE8DB; --ink: #1C1A18; --ink-2: #4B4541; --muted: #7D7569; --line: #E3DACB; }
-  }
-  :root[data-theme="dark"] { --paper: #F7F2E9; --paper-2: #EFE8DB; --ink: #1C1A18; --ink-2: #4B4541; --muted: #7D7569; --line: #E3DACB; }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: var(--font);
-    font-size: 17px;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-  a { color: inherit; text-decoration: none; }
-  img { display: block; max-width: 100%; }
-  p { margin: 0 0 1em; }
-  h1, h2, h3 { margin: 0; line-height: 1.12; letter-spacing: -0.02em; font-weight: 700; }
-  h1 { font-size: clamp(2.5rem, 6.4vw, 4.6rem); }
-  h2 { font-size: clamp(1.9rem, 4.2vw, 3rem); }
-  h3 { font-size: 1.2rem; letter-spacing: -0.01em; }
-  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
-  .lead { font-size: clamp(1.1rem, 1.9vw, 1.35rem); color: var(--ink-2); line-height: 1.55; }
-  .eyebrow { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--peri-deep); margin-bottom: 14px; }
-  .muted { color: var(--muted); }
-  section { padding: clamp(64px, 9vw, 120px) 0; }
-
-  /* ---------- brand lockup ---------- */
-  .lockup { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -0.03em; font-size: 1.45rem; line-height: 1; }
-  .lockup svg { width: 30px; height: 31px; }
-  .lockup .wm-strand { color: var(--peri); }
-
-  /* ---------- nav ---------- */
-  .nav {
-    position: sticky; top: 0; z-index: 20;
-    background: rgba(247, 242, 233, 0.82);
-    backdrop-filter: saturate(140%) blur(12px);
-    -webkit-backdrop-filter: saturate(140%) blur(12px);
-    border-bottom: 1px solid rgba(227, 218, 203, 0.6);
-  }
-  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; }
-  .nav-links { display: flex; align-items: center; gap: 26px; font-weight: 500; font-size: 0.95rem; color: var(--ink-2); }
-  .nav-links a:hover { color: var(--ink); }
-  .nav-links .links { display: flex; gap: 26px; }
-  @media (max-width: 720px) { .nav-links .links { display: none; } }
-
-  /* ---------- buttons ---------- */
-  .btn {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 13px 20px; border-radius: 999px;
-    font-weight: 600; font-size: 0.98rem; line-height: 1;
-    border: 1.5px solid transparent;
-    transition: transform .15s ease, background .15s ease, border-color .15s ease;
-    white-space: nowrap;
-  }
-  .btn:hover { transform: translateY(-1px); }
-  .btn svg { width: 20px; height: 20px; flex: none; }
-  .btn-ink { background: var(--ink); color: var(--paper); }
-  .btn-ink:hover { background: #2a2724; }
-  .btn-peri { background: var(--peri); color: #fff; }
-  .btn-peri:hover { background: var(--peri-deep); }
-  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
-  .btn-ghost:hover { background: rgba(28, 26, 24, 0.06); }
-  .btn-sm { padding: 10px 16px; font-size: 0.9rem; }
-  .stores { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-  .stores-note { font-size: 0.9rem; color: var(--muted); margin-top: 14px; }
-  .stores-note a { text-decoration: underline; text-underline-offset: 3px; }
-  /* platform awareness: phones see the one store that matters */
-  html.is-ios .store-android, html.is-android .store-ios { display: none; }
-  html.is-ios .other-ios, html.is-android .other-android { display: none; }
-  html.is-desktop .stores-other, html.is-unknown .stores-other { display: none; }
-
-  /* ---------- hero ---------- */
-  .hero { padding: clamp(48px, 7vw, 96px) 0; background: var(--paper-2); }
-  .hero-grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(28px, 5vw, 64px); align-items: center; }
-  .hero-inner { max-width: 560px; }
-  .hero h1 { margin-bottom: 20px; }
-  .hero .lead { margin-bottom: 30px; max-width: 540px; }
-  .hero-shot { margin: 0; }
-  .hero-shot img {
-    display: block; width: 100%; height: auto; border-radius: var(--radius);
-    box-shadow: 0 30px 60px -30px rgba(28,26,24,0.35);
-  }
-  .hero-shot figcaption { font-size: 0.95rem; color: var(--muted); margin-top: 14px; }
-  @media (max-width: 820px) {
-    .hero-grid { grid-template-columns: 1fr; }
-  }
-
-  /* ---------- three strands ---------- */
-  .strands { background: var(--paper); }
-  .strands-head { max-width: 640px; margin-bottom: 44px; }
-  .strand-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  .strand {
-    background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
-    padding: 28px 26px 26px;
-  }
-  .strand h3 { margin-bottom: 8px; }
-  .strand p { color: var(--ink-2); margin: 0; font-size: 1rem; }
-  @media (max-width: 820px) { .strand-grid { grid-template-columns: 1fr; } }
-
-  /* ---------- photo band ---------- */
-  .band {
-    position: relative; isolation: isolate; color: #fff;
-    padding: clamp(80px, 12vw, 160px) 0;
-  }
-  .band-bg { position: absolute; inset: 0; z-index: -2; background-size: cover; background-position: center; }
-  .band-wash { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(20,18,16,0.25), rgba(20,18,16,0.6)); }
-  .band .wrap { max-width: 860px; text-align: center; }
-  .band h2 { color: #fff; text-shadow: 0 2px 24px rgba(0,0,0,0.25); }
-  .band p { color: rgba(255,255,255,0.9); font-size: clamp(1.05rem, 1.8vw, 1.25rem); max-width: 620px; margin: 18px auto 0; }
-
-  /* ---------- table (coffee shop) ---------- */
-  .table-section { background: var(--paper-2); }
-  .two { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
-  .two .photo { border-radius: var(--radius); overflow: hidden; aspect-ratio: 5 / 4; box-shadow: 0 30px 60px -30px rgba(28,26,24,0.35); }
-  .two .photo img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.9); }
-  .steps { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 18px; }
-  .steps li { display: grid; grid-template-columns: 34px 1fr; gap: 14px; align-items: start; }
-  .steps .dot {
-    width: 34px; height: 34px; border-radius: 50%; background: var(--peri); color: #fff;
-    display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; margin-top: 2px;
-  }
-  .steps.uses li { grid-template-columns: 22px 1fr; }
-  .steps.uses .dot { width: 10px; height: 10px; margin: 10px 6px 0; }
-  .steps strong { display: block; margin-bottom: 2px; }
-  .steps span { color: var(--ink-2); }
-  .aside { margin-top: 30px; padding: 18px 20px; background: #fff; border: 1px solid var(--line); border-radius: 16px; font-size: 0.98rem; color: var(--ink-2); }
-  .aside a { color: var(--peri-deep); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
-  @media (max-width: 860px) {
-    .two { grid-template-columns: 1fr; }
-    .two .photo { aspect-ratio: 4 / 3; order: -1; }
-  }
-
-  /* ---------- how it works ---------- */
-  .how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
-  .how {
-    padding: 28px 26px; border-radius: var(--radius);
-    background: var(--peri-wash); color: var(--ink);
-  }
-  .how h3 { margin: 14px 0 8px; }
-  .how p { margin: 0; color: var(--ink-2); font-size: 1rem; }
-  .how svg { width: 28px; height: 28px; color: var(--peri-deep); }
-  .sees { margin-top: 28px; display: flex; gap: 14px; align-items: flex-start; padding: 22px 24px; border-radius: 16px; background: #fff; border: 1px solid var(--line); }
-  .sees svg { width: 24px; height: 24px; flex: none; color: var(--peri-deep); margin-top: 3px; }
-  .sees p { margin: 0; color: var(--ink-2); }
-  @media (max-width: 820px) { .how-grid { grid-template-columns: 1fr; } }
-
-  /* ---------- what we're after ---------- */
-  .about { background: var(--paper); }
-  .about .photo { aspect-ratio: 4 / 5; }
-  .about .about-p { color: var(--ink-2); font-size: 1.05rem; margin-top: 4px; }
-  @media (max-width: 860px) { .about .photo { aspect-ratio: 4 / 3; } }
-
-  /* ---------- close ---------- */
-  .close { position: relative; isolation: isolate; padding: clamp(90px, 13vw, 170px) 0; color: var(--ink); }
-  .close .band-bg { background-image: url("assets/photos/cafe-plants.jpg"); filter: saturate(0.8); }
-  .close .band-wash { background: linear-gradient(180deg, rgba(247,242,233,0.9), rgba(247,242,233,0.84)); }
-  .close .wrap { max-width: 720px; text-align: center; }
-  .close h2 { margin-bottom: 16px; }
-  .close .lead { margin-bottom: 30px; }
-  .close .stores { justify-content: center; }
-
-  /* ---------- footer ---------- */
-  footer { background: var(--paper); border-top: 1px solid var(--line); padding: 40px 0 48px; font-size: 0.92rem; color: var(--muted); }
-  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 18px; }
-  footer .links { display: flex; flex-wrap: wrap; gap: 20px; }
-  footer .links a:hover { color: var(--ink); }
-  footer .lockup { font-size: 1.15rem; color: var(--ink); }
-  footer .lockup svg { width: 24px; height: 25px; }
-  footer .formerly { width: 100%; font-size: 0.85rem; }
-
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn { transition: none; } }
-</style>
+<link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
 
@@ -238,13 +46,11 @@
       <h1>Less phone. More people.</h1>
       <p class="lead">We don't think the fix for phones is a better app. It's other people. Threestrand lets you put away the apps that waste your time. When you want one back, you ask someone you trust instead of deciding alone. That's it.</p>
       <div class="stores">
-        <a class="btn btn-ink store-ios" href="https://apps.apple.com/app/id6790784303?pt=129028331&ct=site_hero&mt=8">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.73c-.02-2.3 1.88-3.4 1.96-3.45-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.83-.81-3-.79-1.55.02-2.97.9-3.77 2.28-1.61 2.79-.41 6.92 1.16 9.18.77 1.11 1.68 2.35 2.88 2.31 1.16-.05 1.6-.75 3-.75s1.79.75 3.01.73c1.24-.02 2.03-1.13 2.79-2.24.88-1.29 1.24-2.54 1.26-2.6-.03-.01-2.42-.93-2.44-3.7zM14.08 6c.64-.78 1.07-1.85.95-2.93-.92.04-2.04.61-2.7 1.39-.59.69-1.11 1.79-.97 2.84 1.03.08 2.08-.52 2.72-1.3z"/></svg>
-          Download on the App Store
+        <a class="store store-ios" href="https://apps.apple.com/app/id6790784303?pt=129028331&ct=site_hero&mt=8">
+          <img src="/assets/stores/app-store-badge.svg" alt="Download on the App Store" width="162" height="54">
         </a>
-        <a class="btn btn-ink store-android" href="https://play.google.com/store/apps/details?id=com.anchorapp.focus&referrer=utm_source%3Dthreestrand%26utm_medium%3Dwebsite%26utm_campaign%3Dhero">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 3.6v16.8c0 .5.5.8.9.6l9.3-8.4L4.9 3C4.5 2.8 4 3.1 4 3.6zm11.3 7.9 2.6-1.5c.5-.3.5-1 0-1.3l-2.3-1.3-2.6 2.4 2.3 1.7zm-2.3 1.8-2.6 2.4 2.6 1.5 2.3-1.3c.5-.3.5-1 0-1.3l-2.3-1.3z"/></svg>
-          Get it on Google Play
+        <a class="store store-android" href="https://play.google.com/store/apps/details?id=com.anchorapp.focus&referrer=utm_source%3Dthreestrand%26utm_medium%3Dwebsite%26utm_campaign%3Dhero">
+          <img src="/assets/stores/google-play-badge.png" alt="Get it on Google Play" width="165" height="64">
         </a>
       </div>
       <p class="stores-note">
@@ -256,6 +62,27 @@
       <img src="assets/photos/cafe-phone-shield.jpg" width="1352" height="1012" alt="A phone on a cafe table showing the Threestrand screen: News. This app is away for now. With buttons for OK and Ask Harry.">
       <figcaption>Open a blocked app and this is what you get. Need it? Ask someone you trust.</figcaption>
     </figure>
+  </div>
+</section>
+
+<!-- ============ REVIEWS (quoted from public App Store reviews, word for word) ============ -->
+<section class="quotes" aria-label="What people say">
+  <div class="wrap">
+    <div class="quotes-head"><span class="stars" aria-hidden="true">★★★★★</span><span>5.0 on the App Store</span></div>
+    <div class="quote-grid">
+      <div class="quote">
+        <p>“Having to communicate with a friend really changes the self-willpower dynamic I’m used to losing over time.”</p>
+        <div class="who">App Store review</div>
+      </div>
+      <div class="quote">
+        <p>“Way more functionality than the Apple screen time function that has workarounds.”</p>
+        <div class="who">App Store review</div>
+      </div>
+      <div class="quote">
+        <p>“I've been more focused and present where it matters, and I have seen my screentime go down by 75%!”</p>
+        <div class="who">App Store review</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -361,13 +188,11 @@
     <h2>Pick a partner. Put the phone down.</h2>
     <p class="lead">It takes a few minutes to set up, and it stays out of your way after that.</p>
     <div class="stores">
-      <a class="btn btn-peri store-ios" href="https://apps.apple.com/app/id6790784303?pt=129028331&ct=site_close&mt=8">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.73c-.02-2.3 1.88-3.4 1.96-3.45-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.83-.81-3-.79-1.55.02-2.97.9-3.77 2.28-1.61 2.79-.41 6.92 1.16 9.18.77 1.11 1.68 2.35 2.88 2.31 1.16-.05 1.6-.75 3-.75s1.79.75 3.01.73c1.24-.02 2.03-1.13 2.79-2.24.88-1.29 1.24-2.54 1.26-2.6-.03-.01-2.42-.93-2.44-3.7zM14.08 6c.64-.78 1.07-1.85.95-2.93-.92.04-2.04.61-2.7 1.39-.59.69-1.11 1.79-.97 2.84 1.03.08 2.08-.52 2.72-1.3z"/></svg>
-        Download on the App Store
+      <a class="store store-ios" href="https://apps.apple.com/app/id6790784303?pt=129028331&ct=site_close&mt=8">
+        <img src="/assets/stores/app-store-badge.svg" alt="Download on the App Store" width="162" height="54">
       </a>
-      <a class="btn btn-peri store-android" href="https://play.google.com/store/apps/details?id=com.anchorapp.focus&referrer=utm_source%3Dthreestrand%26utm_medium%3Dwebsite%26utm_campaign%3Dclose">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 3.6v16.8c0 .5.5.8.9.6l9.3-8.4L4.9 3C4.5 2.8 4 3.1 4 3.6zm11.3 7.9 2.6-1.5c.5-.3.5-1 0-1.3l-2.3-1.3-2.6 2.4 2.3 1.7zm-2.3 1.8-2.6 2.4 2.6 1.5 2.3-1.3c.5-.3.5-1 0-1.3l-2.3-1.3z"/></svg>
-        Get it on Google Play
+      <a class="store store-android" href="https://play.google.com/store/apps/details?id=com.anchorapp.focus&referrer=utm_source%3Dthreestrand%26utm_medium%3Dwebsite%26utm_campaign%3Dclose">
+        <img src="/assets/stores/google-play-badge.png" alt="Get it on Google Play" width="165" height="64">
       </a>
     </div>
   </div>
@@ -390,71 +215,6 @@
   </div>
 </footer>
 
-<script>
-  // Platform awareness: a phone sees the store that applies to it; desktop sees both.
-  (function () {
-    var ua = navigator.userAgent || "";
-    var isIOS = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-    var isAndroid = /Android/.test(ua);
-    var cls = isIOS ? "is-ios" : isAndroid ? "is-android" : "is-desktop";
-    document.documentElement.classList.add(cls);
-    if (cls !== "is-desktop") {
-      document.querySelectorAll(".stores-both").forEach(function (el) { el.style.display = "none"; });
-    }
-  })();
-
-  // Store-button taps, counted for matching iPhone installs to the ad that brought them
-  // (iPhone tells the app nothing about where an install came from). Sends only which store,
-  // the ad's campaign tags from this page's URL, and which button: no cookie, no id.
-  // Runs before the pass-through below, which rewrites the links it reads the spot from.
-  (function () {
-    var q = new URLSearchParams(location.search);
-    var url = "https://us-central1-abide-27797.cloudfunctions.net/siteEvent";
-    document.querySelectorAll('a[href*="apps.apple.com"], a[href*="play.google.com"]').forEach(function (a) {
-      var u = new URL(a.href, location.href);
-      var ios = u.hostname === "apps.apple.com";
-      var spot = ios ? (u.searchParams.get("ct") || "").replace(/^site_/, "")
-                     : new URLSearchParams(u.searchParams.get("referrer") || "").get("utm_campaign") || "";
-      a.addEventListener("click", function () {
-        var body = JSON.stringify({
-          store: ios ? "ios" : "android",
-          utm_source: q.get("utm_source"), utm_medium: q.get("utm_medium"), utm_campaign: q.get("utm_campaign"),
-          spot: spot || null, page: "home"
-        });
-        try {
-          if (!(navigator.sendBeacon && navigator.sendBeacon(url, body))) {
-            fetch(url, { method: "POST", body: body, keepalive: true, mode: "cors" });
-          }
-        } catch (e) {}
-      });
-    });
-  })();
-
-  // Campaign pass-through: a visitor who arrived from an ad (?utm_source=...) carries that
-  // source into the store. Play gets it in the install referrer, which the app reads on first
-  // launch; the App Store gets a ct= campaign tag that App Store Connect reports downloads by.
-  // The button's own spot on the page (hero, close) rides along as utm_content.
-  (function () {
-    var q = new URLSearchParams(location.search);
-    var src = q.get("utm_source");
-    if (!src) return;
-    var keep = ["utm_source", "utm_medium", "utm_campaign", "utm_term"];
-    document.querySelectorAll('a[href*="play.google.com"][href*="referrer="]').forEach(function (a) {
-      var u = new URL(a.href);
-      var spot = new URLSearchParams(u.searchParams.get("referrer") || "").get("utm_campaign") || "";
-      var r = new URLSearchParams();
-      keep.forEach(function (k) { var v = q.get(k); if (v) r.set(k, v.slice(0, 100)); });
-      if (spot) r.set("utm_content", spot);
-      u.searchParams.set("referrer", r.toString());
-      a.href = u.toString();
-    });
-    document.querySelectorAll('a[href*="apps.apple.com"][href*="ct=site_"]').forEach(function (a) {
-      var u = new URL(a.href);
-      var ct = [src, q.get("utm_campaign")].filter(Boolean).join("-").replace(/[^A-Za-z0-9_-]/g, "").slice(0, 40);
-      u.searchParams.set("ct", ct);
-      a.href = u.toString();
-    });
-  })();
-</script>
+<script src="/assets/site.js"></script>
 </body>
 </html>
