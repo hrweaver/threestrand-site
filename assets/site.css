@@ -59,7 +59,7 @@ section { padding: clamp(64px, 9vw, 120px) 0; }
 }
 .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; }
 .nav-links { display: flex; align-items: center; gap: 26px; font-weight: 500; font-size: 0.95rem; color: var(--ink-2); }
-.nav-links a:hover { color: var(--ink); }
+.nav-links .links a:hover { color: var(--ink); }
 .nav-links .links { display: flex; gap: 26px; }
 @media (max-width: 720px) { .nav-links .links { display: none; } }
 
