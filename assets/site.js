@@ -37,6 +37,24 @@
   });
 })();
 
+// One page view per load, same endpoint and same fields as a tap, so a landing page's
+// store taps can be read against its visitors. Still no cookie, no id, no user agent.
+(function () {
+  var q = new URLSearchParams(location.search);
+  var url = "https://us-central1-abide-27797.cloudfunctions.net/siteEvent";
+  var c = document.documentElement.classList;
+  var body = JSON.stringify({
+    kind: "view", platform: c.contains("is-ios") ? "ios" : c.contains("is-android") ? "android" : "desktop",
+    utm_source: q.get("utm_source"), utm_medium: q.get("utm_medium"), utm_campaign: q.get("utm_campaign"),
+    page: document.body.getAttribute("data-page") || "home"
+  });
+  try {
+    if (!(navigator.sendBeacon && navigator.sendBeacon(url, body))) {
+      fetch(url, { method: "POST", body: body, keepalive: true, mode: "cors" });
+    }
+  } catch (e) {}
+})();
+
 // Campaign pass-through: a visitor who arrived from an ad (?utm_source=...) carries that
 // source into the store. Play gets it in the install referrer, which the app reads on first
 // launch; the App Store gets a ct= campaign tag that App Store Connect reports downloads by.
