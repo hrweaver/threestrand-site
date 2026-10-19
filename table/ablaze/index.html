@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Ablaze, without the scrolling</title>
+<link rel="icon" href="/assets/brand/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F7F2E9; --paper-2: #EFE8DB; --ink: #1C1A18; --ink-2: #4B4541; --muted: #7D7569; --line: #E3DACB;
+    --peri: #5468D4; --peri-deep: #3C4DB3; --peri-wash: #E9ECFA;
+    --font: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  /* Light on purpose, like the landing page: a dark-mode viewer sees the same warm paper. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --paper: #F7F2E9; --paper-2: #EFE8DB; --ink: #1C1A18; --ink-2: #4B4541; --muted: #7D7569; --line: #E3DACB; }
+  }
+  :root[data-theme="dark"] { --paper: #F7F2E9; --paper-2: #EFE8DB; --ink: #1C1A18; --ink-2: #4B4541; --muted: #7D7569; --line: #E3DACB; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font); font-size: 17px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  main { max-width: 480px; margin: 0 auto; padding: 56px 16px 72px; }
+  .wordmark { display: block; height: 34px; width: auto; margin-bottom: 40px; }
+  h1 { margin: 0 0 12px; font-size: 2.2rem; line-height: 1.12; letter-spacing: -0.02em; font-weight: 700; text-wrap: balance; }
+  .lead { margin: 0 0 32px; color: var(--ink-2); font-size: 1.1rem; line-height: 1.55; }
+  ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px; }
+  li { display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: start; }
+  .num { width: 40px; height: 40px; border-radius: 999px; background: var(--peri-wash); color: var(--peri-deep); font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+  li h2 { margin: 6px 0 4px; font-size: 1.15rem; letter-spacing: -0.01em; font-weight: 700; }
+  li p { margin: 0; color: var(--ink-2); }
+  .stores { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 12px; }
+  .store { display: inline-block; line-height: 0; border-radius: 8px; transition: transform .15s ease; }
+  .store:hover { transform: translateY(-1px); }
+  .store:focus-visible { outline: 3px solid var(--peri-deep); outline-offset: 3px; }
+  .store img { height: 54px; width: auto; }
+  /* Google's badge carries its own transparent margin, so it is drawn larger to match Apple's. */
+  .store-android img { height: 80px; margin: -13px; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 20px; border-radius: 999px; text-decoration: none;
+    font-weight: 600; font-size: 0.98rem; line-height: 1; border: 1.5px solid transparent;
+    background: var(--ink); color: var(--paper); transition: transform .15s ease, background .15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); background: #2a2724; }
+  .btn:focus-visible { outline: 3px solid var(--peri-deep); outline-offset: 3px; }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+  .btn-ghost:hover { background: rgba(28, 26, 24, 0.06); }
+  .hidden { display: none; }
+  .review { margin: 40px 0 0; padding: 22px 20px; border-radius: 18px; background: var(--paper-2); }
+  .review h2 { margin: 0 0 6px; font-size: 1.15rem; letter-spacing: -0.01em; font-weight: 700; }
+  .review p { margin: 0 0 14px; color: var(--ink-2); }
+  .review .btn { width: 100%; }
+  .fine { margin: 36px 0 0; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.9rem; }
+  .fine a { color: var(--peri-deep); }
+  @media (prefers-reduced-motion: reduce) { .btn, .store { transition: none; } .btn:hover, .store:hover { transform: none; } }
+</style>
+</head>
+<body>
+<main>
+  <a href="/"><img class="wordmark" src="/assets/brand/threestrand-lockup-horizontal-light.svg" alt="Threestrand"></a>
+  <h1>Just people, without the scrolling.</h1>
+  <p class="lead">You're at Ablaze with a Threestrand card. Your apps close for as long as you pick, and you can leave early. Calls still ring. No account needed.</p>
+  <p class="lead" style="margin-top:-20px">No time now? The card will be here next time.</p>
+  <ol>
+    <li>
+      <span class="num">1</span>
+      <div>
+        <h2>Get Threestrand</h2>
+        <p>Android or iPhone.</p>
+        <div class="stores">
+          <a id="getIos" class="store store-ios hidden" href="https://apps.apple.com/app/id6790784303?pt=129028331&ct=ablaze&mt=8">
+            <img src="/assets/stores/app-store-badge.svg" alt="Download on the App Store" width="162" height="54">
+          </a>
+          <a id="getAndroid" class="store store-android hidden" href="https://play.google.com/store/apps/details?id=com.anchorapp.focus&referrer=utm_source%3Dthreestrand%26utm_medium%3Dtable%26utm_campaign%3Dablaze">
+            <img src="/assets/stores/google-play-badge.png" alt="Get it on Google Play" width="207" height="80">
+          </a>
+        </div>
+      </div>
+    </li>
+    <li>
+      <span class="num">2</span>
+      <div>
+        <h2>Open it and tap “I’m at a table.”</h2>
+        <p>Your name, then two permissions: Screen Time on iPhone, or app blocking and notification access on Android. That's how the apps close. It doesn't read your messages or photos. About two minutes, once.</p>
+      </div>
+    </li>
+    <li>
+      <span class="num">3</span>
+      <div>
+        <h2>Hold the top of your phone on the card</h2>
+        <p>Pick how long. Your apps stay closed until the time's up, or until you leave. Calls still ring. Texts wait on Android; on iPhone you choose whether Messages closes too.</p>
+      </div>
+    </li>
+    <li>
+      <span class="num">4</span>
+      <div>
+        <h2>Everyone at the table can join</h2>
+        <p>Each person holds their phone on the card. Their apps close too, for the same amount of time.</p>
+      </div>
+    </li>
+  </ol>
+  <p class="fine">That's it. Enjoy the time. Want it for more than this? That's <a href="/">the rest of Threestrand</a>.</p>
+</main>
+<script>
+(function () {
+  var ua = navigator.userAgent || '';
+  var ios = /iPhone|iPad|iPod/.test(ua);
+  var android = /Android/.test(ua);
+  var gi = document.getElementById('getIos'), ga = document.getElementById('getAndroid');
+  var c = (location.search.match(/[?&]c=([a-z0-9]{1,8})/i) || [])[1];
+  if (c) {
+    gi.href = gi.href.replace('ct=ablaze', 'ct=ablaze-' + c);
+    ga.href = ga.href.replace('utm_campaign%3Dablaze', 'utm_campaign%3Dablaze-' + c);
+  }
+  if (ios) { gi.classList.remove('hidden'); }
+  else if (android) { ga.classList.remove('hidden'); }
+  else { gi.classList.remove('hidden'); ga.classList.remove('hidden'); }
+})();
+</script>
+</body>
+</html>
