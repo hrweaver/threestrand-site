@@ -54,8 +54,7 @@
   <a href="/"><img class="wordmark" src="/assets/brand/threestrand-lockup-horizontal-light.svg" alt="Threestrand"></a>
   <h1>Just people and coffee, without the scrolling.</h1>
   <p class="lead">You're at a table with a Threestrand card. Your apps close for as long as you pick, and you can leave early. Calls still ring. No account needed.</p>
-  <p class="lead" style="margin-top:-20px">Already have the app? Skip to step 3. No time now? The card will be here next time.</p>
-  <a id="openApp" class="btn btn-ghost hidden" style="margin:0 0 28px">Already have Threestrand? Open it</a>
+  <p class="lead" style="margin-top:-20px">No time now? The card will be here next time.</p>
   <ol>
     <li>
       <span class="num">1</span>
@@ -77,7 +76,7 @@
     <li>
       <span class="num">2</span>
       <div>
-        <h2>Open it and pick “Tapped a card at a table?”</h2>
+        <h2>Open it and tap “I’m at a table.”</h2>
         <p>Your name, then two permissions: Screen Time on iPhone, or app blocking and notification access on Android. That's how the apps close. It doesn't read your messages or photos. About two minutes, once.</p>
       </div>
     </li>
@@ -104,10 +103,6 @@
   var ios = /iPhone|iPad|iPod/.test(ua);
   var android = /Android/.test(ua);
   var gi = document.getElementById('getIos'), ga = document.getElementById('getAndroid');
-  // Arrived from a card (?t=<token>): the same token on join.anchorph.one, which both apps
-  // already claim, so one tap opens the app at this table (docs/TAP_HOST_CUTOVER.md).
-  var t = (location.search.match(/[?&]t=([A-Za-z0-9_-]{22})(?:&|$)/) || [])[1];
-  if (t) { var oa = document.getElementById('openApp'); oa.href = 'https://join.anchorph.one/t/' + t; oa.classList.remove('hidden'); }
   if (ios) { gi.classList.remove('hidden'); }
   else if (android) { ga.classList.remove('hidden'); }
   else { gi.classList.remove('hidden'); ga.classList.remove('hidden'); ga.classList.add('btn-ghost'); }
