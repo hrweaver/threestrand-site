@@ -145,6 +145,17 @@ html.is-desktop .stores-other, html.is-unknown .stores-other { display: none; }
 .steps span { color: var(--ink-2); }
 .aside { margin-top: 30px; padding: 18px 20px; background: #fff; border: 1px solid var(--line); border-radius: 16px; font-size: 0.98rem; color: var(--ink-2); }
 .aside a { color: var(--peri-deep); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.spots-strip { margin-top: clamp(36px, 5vw, 56px); display: grid; grid-template-columns: 1fr 1.4fr; gap: 0; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.spots-strip-list { padding: 24px 24px 22px; }
+.spots-strip-list h3 { font-size: 1.3rem; margin-bottom: 6px; }
+.spots-strip-list p { color: var(--ink-2); font-size: 0.98rem; margin-bottom: 14px; }
+.spots-strip-list ul { list-style: none; margin: 0 0 16px; padding: 0; }
+.spots-strip-list li { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); font-size: 0.98rem; }
+.spots-strip-list li a { font-weight: 600; }
+.spots-strip-list li span { color: var(--muted); }
+.spots-all { color: var(--peri-deep); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+#home-spots-map { min-height: 280px; background: var(--paper-2); z-index: 0; }
+@media (max-width: 860px) { .spots-strip { grid-template-columns: 1fr; } #home-spots-map { order: -1; min-height: 240px; } }
 @media (max-width: 860px) {
   .two { grid-template-columns: 1fr; }
   .two .photo { aspect-ratio: 4 / 3; order: -1; }

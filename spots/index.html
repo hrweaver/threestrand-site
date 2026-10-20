@@ -81,50 +81,22 @@
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="/assets/spots.js"></script>
 <script>
-// One entry per Pause Spot. Only places that said yes to being listed (Harry, 2026-10-20).
-var SPOTS = [
-  { name: "Selah Cafe Coffee & Market", town: "Boerne, TX", address: "616 N Main St, Boerne, TX 78006",
-    lat: 29.7988352, lng: -98.7346351, placeId: "ChIJq32JYxh3XIYRtJVRnrdK7hI", site: null },
-  { name: "Brevity Coffee Co.", town: "Boerne, TX", address: "428 W Bandera Rd, Boerne, TX 78006",
-    lat: 29.7812046, lng: -98.7358004, placeId: "ChIJgRJoUdh3XIYRHk70k5NIVOE", site: "https://brevitycoffee.com/" }
-];
-function directions(s) {
-  return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(s.name + ", " + s.address) + "&query_place_id=" + s.placeId;
-}
 var list = document.getElementById("list");
-SPOTS.forEach(function (s) {
+PAUSE_SPOTS.forEach(function (s) {
   var li = document.createElement("li"); li.className = "spot";
   var info = document.createElement("div");
   var h = document.createElement("h3"); h.textContent = s.name;
   var p = document.createElement("p"); p.textContent = s.address;
   info.appendChild(h); info.appendChild(p);
   var acts = document.createElement("div"); acts.className = "acts";
-  var dir = document.createElement("a"); dir.className = "primary"; dir.href = directions(s); dir.textContent = "Directions";
+  var dir = document.createElement("a"); dir.className = "primary"; dir.href = pauseSpotDirections(s); dir.textContent = "Directions";
   dir.target = "_blank"; dir.rel = "noopener"; acts.appendChild(dir);
   if (s.site) { var w = document.createElement("a"); w.href = s.site; w.textContent = "Website"; w.target = "_blank"; w.rel = "noopener"; acts.appendChild(w); }
   li.appendChild(info); li.appendChild(acts); list.appendChild(li);
 });
-if (window.L) {
-  var map = L.map("map", { scrollWheelZoom: false });
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19, attribution: "&copy; OpenStreetMap contributors"
-  }).addTo(map);
-  var pin = L.divIcon({ className: "", iconSize: [22, 22], iconAnchor: [11, 11],
-    html: '<div style="width:22px;height:22px;border-radius:50%;background:#5468D4;border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35)"></div>' });
-  var bounds = [];
-  SPOTS.forEach(function (s) {
-    var a = document.createElement("div");
-    var b = document.createElement("strong"); b.textContent = s.name; a.appendChild(b);
-    a.appendChild(document.createElement("br"));
-    var l = document.createElement("a"); l.href = directions(s); l.target = "_blank"; l.rel = "noopener"; l.textContent = "Directions"; a.appendChild(l);
-    L.marker([s.lat, s.lng], { icon: pin, title: s.name }).addTo(map).bindPopup(a);
-    bounds.push([s.lat, s.lng]);
-  });
-  map.fitBounds(bounds, { padding: [48, 48], maxZoom: 15 });
-} else {
-  document.getElementById("map").style.display = "none";
-}
+drawPauseSpotMap("map");
 </script>
 <script src="/assets/site.js"></script>
 </body>

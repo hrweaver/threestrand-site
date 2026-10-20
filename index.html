@@ -18,6 +18,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 </head>
 <body>
 
@@ -129,10 +130,21 @@
       <h2>Tap to join.</h2>
       <p class="lead" style="margin-top:16px">Threestrand has a physical side: a small tag, on the back of a phone or on a table. Hold your phone to it and you're in. A partner's tag says yes to a request on the spot. A table's tag puts phones away with whoever's there.</p>
       <div class="aside">
-        A few tables in the Texas Hill Country and around San Antonio have one. Want one for your shop or your group? <a href="mailto:support@anchorph.one?subject=A%20Threestrand%20tag%20for%20my%20table">Request a call</a>.
+        A shop with cards on its tables is a <a href="/spots/">Pause Spot</a>. Want one for your shop or your group? <a href="mailto:support@anchorph.one?subject=A%20Threestrand%20tag%20for%20my%20table">Request a call</a>.
       </div>
     </div>
     <div class="photo"><img src="assets/photos/table-card-phone.jpg" alt="A Threestrand table card on a cafe table next to a phone showing Phones away at Harry's table, 29:58 left."></div>
+  </div>
+  <div class="wrap">
+    <div class="spots-strip">
+      <div class="spots-strip-list">
+        <h3>Pause Spots</h3>
+        <p>Cards on the tables. Tap one and your apps pause while you're there.</p>
+        <ul id="home-spots"></ul>
+        <a class="spots-all" href="/spots/">See the map</a>
+      </div>
+      <div id="home-spots-map" role="img" aria-label="Map of Pause Spots"></div>
+    </div>
   </div>
 </section>
 
@@ -215,6 +227,22 @@
   </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="/assets/spots.js"></script>
+<script>
+(function () {
+  var ul = document.getElementById("home-spots");
+  if (!ul || !window.PAUSE_SPOTS) return;
+  PAUSE_SPOTS.forEach(function (s) {
+    var li = document.createElement("li");
+    var a = document.createElement("a"); a.href = pauseSpotDirections(s); a.target = "_blank"; a.rel = "noopener";
+    a.textContent = s.name; li.appendChild(a);
+    var t = document.createElement("span"); t.textContent = s.town; li.appendChild(t);
+    ul.appendChild(li);
+  });
+  drawPauseSpotMap("home-spots-map", { compact: true });
+})();
+</script>
 <script src="/assets/site.js"></script>
 </body>
 </html>
