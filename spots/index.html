@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pause Spots · Threestrand</title>
+<meta name="description" content="Places with a Threestrand card on the table. Hold your phone on the card, pick how long, and your apps pause while you're there. Calls still ring.">
+<meta property="og:title" content="Pause Spots · Threestrand">
+<meta property="og:description" content="Places with a Threestrand card on the table. Tap it and your apps pause while you're there.">
+<meta property="og:image" content="https://getthreestrand.com/assets/photos/lattes-together.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/brand/favicon-192.png">
+<link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+  .spots { padding: 56px 0 72px; }
+  .spots h1 { font-size: clamp(2.3rem, 5.6vw, 3.6rem); }
+  .spots .lead { max-width: 640px; margin-top: 16px; }
+  #map { height: 360px; border-radius: var(--radius); border: 1px solid var(--line); margin: 32px 0 28px; background: var(--paper-2); z-index: 0; }
+  .spot-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .spot { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; display: flex; gap: 16px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+  .spot h3 { margin-bottom: 4px; }
+  .spot p { margin: 0; color: var(--ink-2); font-size: 15px; }
+  .spot .acts { display: flex; gap: 10px; flex-wrap: wrap; }
+  .spot .acts a { font-size: 15px; font-weight: 600; padding: 9px 16px; border-radius: 999px; border: 1px solid var(--line); }
+  .spot .acts a.primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .how { margin-top: 40px; background: var(--paper-2); border-radius: var(--radius); padding: 24px 22px; }
+  .how h2 { font-size: 1.4rem; margin-bottom: 8px; }
+  .how p:last-child { margin-bottom: 0; }
+  .leaflet-popup-content { font-family: var(--font); font-size: 14px; }
+</style>
+</head>
+<body class="landing" data-page="spots">
+
+<header class="nav">
+  <div class="wrap">
+    <a class="lockup" href="/" aria-label="Threestrand home">
+      <svg viewBox="90 88 1612 1667" aria-hidden="true"><g transform="translate(0,1840) scale(0.1,-0.1)" fill="#5468D4"><path d="M1682 17508 c-396 -56 -717 -381 -771 -781 -15 -105 -15 -1059 0 -1164 56 -409 383 -733 790 -782 52 -6 772 -12 1884 -15 1881 -6 1871 -5 1937 -49 71 -48 81 -89 89 -370 33 -1125 315 -1850 995 -2556 411 -427 890 -751 1589 -1076 546 -254 922 -402 2460 -972 215 -79 476 -176 580 -215 237 -88 640 -248 805 -321 636 -280 823 -373 1184 -589 435 -261 709 -469 1036 -784 437 -424 714 -825 942 -1369 126 -300 180 -364 297 -353 90 9 153 84 216 260 100 280 154 601 176 1043 38 786 -138 1541 -500 2143 -435 726 -1205 1358 -2186 1797 -209 93 -348 151 -840 352 -1260 513 -2237 961 -2775 1273 -564 328 -885 681 -1039 1145 -86 259 -95 471 -23 556 47 57 97 71 282 80 91 4 1779 8 3752 8 2523 1 3610 4 3665 12 407 56 727 376 782 782 15 105 15 1059 0 1164 -55 406 -375 726 -782 782 -99 14 -14449 13 -14545 -1z"/><path d="M4499 13561 c-229 -90 -656 -556 -866 -946 -517 -961 -477 -2010 112 -2986 290 -479 798 -944 1473 -1348 588 -351 1682 -846 2677 -1211 834 -305 1641 -612 1988 -754 943 -388 1360 -615 1789 -972 667 -556 1048 -1112 1218 -1779 71 -278 95 -519 79 -785 -16 -254 2 -343 79 -395 107 -73 250 -6 549 258 277 244 485 487 647 756 278 459 401 895 400 1421 -1 772 -248 1384 -822 2033 -472 534 -1346 1054 -2552 1517 -342 131 -1606 605 -2000 750 -762 279 -1296 509 -1718 737 -1173 633 -1889 1320 -2361 2261 -161 321 -231 537 -321 989 -27 138 -58 272 -67 296 -59 150 -173 209 -304 158z"/><path d="M3515 8148 c-97 -36 -143 -122 -173 -323 -27 -191 -24 -855 6 -1055 139 -931 529 -1669 1162 -2195 518 -430 812 -585 2235 -1172 431 -178 970 -403 1235 -515 596 -254 959 -483 1285 -812 252 -253 397 -473 545 -821 182 -428 316 -479 866 -324 355 99 670 254 870 426 518 448 661 1332 340 2094 -189 446 -613 942 -1066 1244 -239 160 -715 408 -1075 562 -307 131 -1523 592 -2260 858 -1608 580 -2696 1144 -3610 1874 -190 152 -277 190 -360 159z"/></g></svg>
+      <span>three<span class="wm-strand">strand</span></span>
+    </a>
+    <nav class="nav-links">
+      <a class="btn btn-ink btn-sm" href="/#get">Get the app</a>
+    </nav>
+  </div>
+</header>
+
+<main class="spots">
+  <div class="wrap">
+    <h1>Pause Spots</h1>
+    <p class="lead">Places with a Threestrand card on the table. Hold your phone on the card, pick how long, and your apps pause while you're there. Calls still ring.</p>
+
+    <div id="map" role="img" aria-label="Map of Pause Spots"></div>
+
+    <ul class="spot-list" id="list"></ul>
+
+    <div class="how">
+      <h2>Want your place on here?</h2>
+      <p>If you run a coffee shop or anywhere people sit and talk, we'll bring cards for your tables. Email <a href="mailto:support@anchorph.one" style="color:var(--peri-deep);font-weight:600">support@anchorph.one</a>.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="lockup" href="/" aria-label="Threestrand">
+      <svg viewBox="90 88 1612 1667" aria-hidden="true"><g transform="translate(0,1840) scale(0.1,-0.1)" fill="#5468D4"><path d="M1682 17508 c-396 -56 -717 -381 -771 -781 -15 -105 -15 -1059 0 -1164 56 -409 383 -733 790 -782 52 -6 772 -12 1884 -15 1881 -6 1871 -5 1937 -49 71 -48 81 -89 89 -370 33 -1125 315 -1850 995 -2556 411 -427 890 -751 1589 -1076 546 -254 922 -402 2460 -972 215 -79 476 -176 580 -215 237 -88 640 -248 805 -321 636 -280 823 -373 1184 -589 435 -261 709 -469 1036 -784 437 -424 714 -825 942 -1369 126 -300 180 -364 297 -353 90 9 153 84 216 260 100 280 154 601 176 1043 38 786 -138 1541 -500 2143 -435 726 -1205 1358 -2186 1797 -209 93 -348 151 -840 352 -1260 513 -2237 961 -2775 1273 -564 328 -885 681 -1039 1145 -86 259 -95 471 -23 556 47 57 97 71 282 80 91 4 1779 8 3752 8 2523 1 3610 4 3665 12 407 56 727 376 782 782 15 105 15 1059 0 1164 -55 406 -375 726 -782 782 -99 14 -14449 13 -14545 -1z"/><path d="M4499 13561 c-229 -90 -656 -556 -866 -946 -517 -961 -477 -2010 112 -2986 290 -479 798 -944 1473 -1348 588 -351 1682 -846 2677 -1211 834 -305 1641 -612 1988 -754 943 -388 1360 -615 1789 -972 667 -556 1048 -1112 1218 -1779 71 -278 95 -519 79 -785 -16 -254 2 -343 79 -395 107 -73 250 -6 549 258 277 244 485 487 647 756 278 459 401 895 400 1421 -1 772 -248 1384 -822 2033 -472 534 -1346 1054 -2552 1517 -342 131 -1606 605 -2000 750 -762 279 -1296 509 -1718 737 -1173 633 -1889 1320 -2361 2261 -161 321 -231 537 -321 989 -27 138 -58 272 -67 296 -59 150 -173 209 -304 158z"/><path d="M3515 8148 c-97 -36 -143 -122 -173 -323 -27 -191 -24 -855 6 -1055 139 -931 529 -1669 1162 -2195 518 -430 812 -585 2235 -1172 431 -178 970 -403 1235 -515 596 -254 959 -483 1285 -812 252 -253 397 -473 545 -821 182 -428 316 -479 866 -324 355 99 670 254 870 426 518 448 661 1332 340 2094 -189 446 -613 942 -1066 1244 -239 160 -715 408 -1075 562 -307 131 -1523 592 -2260 858 -1608 580 -2696 1144 -3610 1874 -190 152 -277 190 -360 159z"/></g></svg>
+      <span>three<span class="wm-strand">strand</span></span>
+    </a>
+    <div class="links">
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
+      <a href="mailto:support@anchorph.one">Support</a>
+      <span>© 2026 Anchor Digital LLC</span>
+    </div>
+    <div class="formerly">Threestrand is the new name for Anchor. Same app, same people, same account.</div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+// One entry per Pause Spot. Only places that said yes to being listed (Harry, 2026-10-20).
+var SPOTS = [
+  { name: "Selah Cafe Coffee & Market", town: "Boerne, TX", address: "616 N Main St, Boerne, TX 78006",
+    lat: 29.7988352, lng: -98.7346351, placeId: "ChIJq32JYxh3XIYRtJVRnrdK7hI", site: null },
+  { name: "Brevity Coffee Co.", town: "Boerne, TX", address: "428 W Bandera Rd, Boerne, TX 78006",
+    lat: 29.7812046, lng: -98.7358004, placeId: "ChIJgRJoUdh3XIYRHk70k5NIVOE", site: "https://brevitycoffee.com/" }
+];
+function directions(s) {
+  return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(s.name + ", " + s.address) + "&query_place_id=" + s.placeId;
+}
+var list = document.getElementById("list");
+SPOTS.forEach(function (s) {
+  var li = document.createElement("li"); li.className = "spot";
+  var info = document.createElement("div");
+  var h = document.createElement("h3"); h.textContent = s.name;
+  var p = document.createElement("p"); p.textContent = s.address;
+  info.appendChild(h); info.appendChild(p);
+  var acts = document.createElement("div"); acts.className = "acts";
+  var dir = document.createElement("a"); dir.className = "primary"; dir.href = directions(s); dir.textContent = "Directions";
+  dir.target = "_blank"; dir.rel = "noopener"; acts.appendChild(dir);
+  if (s.site) { var w = document.createElement("a"); w.href = s.site; w.textContent = "Website"; w.target = "_blank"; w.rel = "noopener"; acts.appendChild(w); }
+  li.appendChild(info); li.appendChild(acts); list.appendChild(li);
+});
+if (window.L) {
+  var map = L.map("map", { scrollWheelZoom: false });
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19, attribution: "&copy; OpenStreetMap contributors"
+  }).addTo(map);
+  var pin = L.divIcon({ className: "", iconSize: [22, 22], iconAnchor: [11, 11],
+    html: '<div style="width:22px;height:22px;border-radius:50%;background:#5468D4;border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35)"></div>' });
+  var bounds = [];
+  SPOTS.forEach(function (s) {
+    var a = document.createElement("div");
+    var b = document.createElement("strong"); b.textContent = s.name; a.appendChild(b);
+    a.appendChild(document.createElement("br"));
+    var l = document.createElement("a"); l.href = directions(s); l.target = "_blank"; l.rel = "noopener"; l.textContent = "Directions"; a.appendChild(l);
+    L.marker([s.lat, s.lng], { icon: pin, title: s.name }).addTo(map).bindPopup(a);
+    bounds.push([s.lat, s.lng]);
+  });
+  map.fitBounds(bounds, { padding: [48, 48], maxZoom: 15 });
+} else {
+  document.getElementById("map").style.display = "none";
+}
+</script>
+<script src="/assets/site.js"></script>
+</body>
+</html>
