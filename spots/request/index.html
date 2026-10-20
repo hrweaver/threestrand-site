@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Request a Pause Spot · Threestrand</title>
+<meta name="description" content="Want Threestrand cards on your tables? Tell us about your place and we'll be in touch.">
+<meta property="og:title" content="Request a Pause Spot · Threestrand">
+<meta property="og:description" content="Places with a Threestrand card on the table. Tap it and your apps pause while you're there.">
+<meta property="og:image" content="https://getthreestrand.com/assets/photos/lattes-together.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/brand/favicon-192.png">
+<link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<style>
+  .req { padding: 56px 0 72px; }
+  .req .wrap { max-width: 720px; }
+  .req h1 { font-size: clamp(2.2rem, 5.4vw, 3.4rem); }
+  .req .lead { margin-top: 16px; }
+  .what { background: var(--paper-2); border-radius: var(--radius); padding: 20px 22px; margin: 28px 0 32px; }
+  .what h2 { font-size: 1.2rem; margin-bottom: 8px; }
+  .what ul { margin: 0; padding-left: 20px; color: var(--ink-2); }
+  .what li { margin: 4px 0; }
+  form { display: grid; gap: 18px; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 600px) { .row2 { grid-template-columns: 1fr; } }
+  label { display: grid; gap: 6px; font-weight: 600; font-size: 15px; }
+  label .opt { color: var(--muted); font-weight: 400; }
+  input, select, textarea { font: inherit; font-size: 16px; color: var(--ink); background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; width: 100%; }
+  textarea { min-height: 110px; resize: vertical; }
+  input:focus, select:focus, textarea:focus { outline: 2px solid var(--peri-light); outline-offset: 1px; border-color: var(--peri-light); }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  button { font: inherit; font-weight: 600; font-size: 16px; background: var(--ink); color: var(--paper); border: 0; border-radius: 999px; padding: 14px 26px; cursor: pointer; justify-self: start; }
+  button[disabled] { opacity: .6; cursor: default; }
+  .msg { padding: 16px 18px; border-radius: 14px; font-size: 15px; display: none; }
+  .msg.ok { display: block; background: var(--peri-wash); color: var(--ink); }
+  .msg.err { display: block; background: #FBE9E7; color: #8A2B1F; }
+</style>
+</head>
+<body class="landing" data-page="spot-request">
+
+<header class="nav">
+  <div class="wrap">
+    <a class="lockup" href="/" aria-label="Threestrand home">
+      <svg viewBox="90 88 1612 1667" aria-hidden="true"><g transform="translate(0,1840) scale(0.1,-0.1)" fill="#5468D4"><path d="M1682 17508 c-396 -56 -717 -381 -771 -781 -15 -105 -15 -1059 0 -1164 56 -409 383 -733 790 -782 52 -6 772 -12 1884 -15 1881 -6 1871 -5 1937 -49 71 -48 81 -89 89 -370 33 -1125 315 -1850 995 -2556 411 -427 890 -751 1589 -1076 546 -254 922 -402 2460 -972 215 -79 476 -176 580 -215 237 -88 640 -248 805 -321 636 -280 823 -373 1184 -589 435 -261 709 -469 1036 -784 437 -424 714 -825 942 -1369 126 -300 180 -364 297 -353 90 9 153 84 216 260 100 280 154 601 176 1043 38 786 -138 1541 -500 2143 -435 726 -1205 1358 -2186 1797 -209 93 -348 151 -840 352 -1260 513 -2237 961 -2775 1273 -564 328 -885 681 -1039 1145 -86 259 -95 471 -23 556 47 57 97 71 282 80 91 4 1779 8 3752 8 2523 1 3610 4 3665 12 407 56 727 376 782 782 15 105 15 1059 0 1164 -55 406 -375 726 -782 782 -99 14 -14449 13 -14545 -1z"/><path d="M4499 13561 c-229 -90 -656 -556 -866 -946 -517 -961 -477 -2010 112 -2986 290 -479 798 -944 1473 -1348 588 -351 1682 -846 2677 -1211 834 -305 1641 -612 1988 -754 943 -388 1360 -615 1789 -972 667 -556 1048 -1112 1218 -1779 71 -278 95 -519 79 -785 -16 -254 2 -343 79 -395 107 -73 250 -6 549 258 277 244 485 487 647 756 278 459 401 895 400 1421 -1 772 -248 1384 -822 2033 -472 534 -1346 1054 -2552 1517 -342 131 -1606 605 -2000 750 -762 279 -1296 509 -1718 737 -1173 633 -1889 1320 -2361 2261 -161 321 -231 537 -321 989 -27 138 -58 272 -67 296 -59 150 -173 209 -304 158z"/><path d="M3515 8148 c-97 -36 -143 -122 -173 -323 -27 -191 -24 -855 6 -1055 139 -931 529 -1669 1162 -2195 518 -430 812 -585 2235 -1172 431 -178 970 -403 1235 -515 596 -254 959 -483 1285 -812 252 -253 397 -473 545 -821 182 -428 316 -479 866 -324 355 99 670 254 870 426 518 448 661 1332 340 2094 -189 446 -613 942 -1066 1244 -239 160 -715 408 -1075 562 -307 131 -1523 592 -2260 858 -1608 580 -2696 1144 -3610 1874 -190 152 -277 190 -360 159z"/></g></svg>
+      <span>three<span class="wm-strand">strand</span></span>
+    </a>
+    <nav class="nav-links">
+      <a class="btn btn-ink btn-sm" href="/#get">Get the app</a>
+    </nav>
+  </div>
+</header>
+
+<main class="req">
+  <div class="wrap">
+    <h1>Request a Pause Spot</h1>
+    <p class="lead">Want Threestrand cards on your tables? Tell us a little about your place and we'll be in touch.</p>
+
+    <div class="what">
+      <h2>What you get</h2>
+      <ul>
+        <li>Cards for your tables, with your logo next to ours.</li>
+        <li>Your place on the <a href="/spots/" style="color:var(--peri-deep);font-weight:600">Pause Spots map</a>.</li>
+        <li>A page your customers land on when they tap, with a button to review you on Google.</li>
+      </ul>
+    </div>
+
+    <form id="req" novalidate>
+      <label><span>Name of your place</span>
+        <input name="place" required maxlength="120" autocomplete="organization">
+      </label>
+      <div class="row2">
+        <label><span>Town or city</span>
+          <input name="town" required maxlength="80" autocomplete="address-level2">
+        </label>
+        <label><span>What kind of place</span>
+          <select name="kind">
+            <option value="coffee">Coffee shop</option>
+            <option value="restaurant">Restaurant</option>
+            <option value="bar">Brewery or bar</option>
+            <option value="church">Church or group</option>
+            <option value="school">School</option>
+            <option value="other">Something else</option>
+          </select>
+        </label>
+      </div>
+      <div class="row2">
+        <label><span>Your name</span>
+          <input name="name" required maxlength="80" autocomplete="name">
+        </label>
+        <label><span>About how many tables <span class="opt">(optional)</span></span>
+          <input name="tables" maxlength="20" inputmode="numeric">
+        </label>
+      </div>
+      <div class="row2">
+        <label><span>Email</span>
+          <input name="email" type="email" required maxlength="200" autocomplete="email">
+        </label>
+        <label><span>Phone <span class="opt">(optional)</span></span>
+          <input name="phone" type="tel" maxlength="40" autocomplete="tel">
+        </label>
+      </div>
+      <label><span>Anything else <span class="opt">(optional)</span></span>
+        <textarea name="note" maxlength="1500"></textarea>
+      </label>
+      <div class="hp" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></div>
+      <div class="msg" id="msg" role="status"></div>
+      <button type="submit" id="send">Send request</button>
+    </form>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="lockup" href="/" aria-label="Threestrand">
+      <svg viewBox="90 88 1612 1667" aria-hidden="true"><g transform="translate(0,1840) scale(0.1,-0.1)" fill="#5468D4"><path d="M1682 17508 c-396 -56 -717 -381 -771 -781 -15 -105 -15 -1059 0 -1164 56 -409 383 -733 790 -782 52 -6 772 -12 1884 -15 1881 -6 1871 -5 1937 -49 71 -48 81 -89 89 -370 33 -1125 315 -1850 995 -2556 411 -427 890 -751 1589 -1076 546 -254 922 -402 2460 -972 215 -79 476 -176 580 -215 237 -88 640 -248 805 -321 636 -280 823 -373 1184 -589 435 -261 709 -469 1036 -784 437 -424 714 -825 942 -1369 126 -300 180 -364 297 -353 90 9 153 84 216 260 100 280 154 601 176 1043 38 786 -138 1541 -500 2143 -435 726 -1205 1358 -2186 1797 -209 93 -348 151 -840 352 -1260 513 -2237 961 -2775 1273 -564 328 -885 681 -1039 1145 -86 259 -95 471 -23 556 47 57 97 71 282 80 91 4 1779 8 3752 8 2523 1 3610 4 3665 12 407 56 727 376 782 782 15 105 15 1059 0 1164 -55 406 -375 726 -782 782 -99 14 -14449 13 -14545 -1z"/><path d="M4499 13561 c-229 -90 -656 -556 -866 -946 -517 -961 -477 -2010 112 -2986 290 -479 798 -944 1473 -1348 588 -351 1682 -846 2677 -1211 834 -305 1641 -612 1988 -754 943 -388 1360 -615 1789 -972 667 -556 1048 -1112 1218 -1779 71 -278 95 -519 79 -785 -16 -254 2 -343 79 -395 107 -73 250 -6 549 258 277 244 485 487 647 756 278 459 401 895 400 1421 -1 772 -248 1384 -822 2033 -472 534 -1346 1054 -2552 1517 -342 131 -1606 605 -2000 750 -762 279 -1296 509 -1718 737 -1173 633 -1889 1320 -2361 2261 -161 321 -231 537 -321 989 -27 138 -58 272 -67 296 -59 150 -173 209 -304 158z"/><path d="M3515 8148 c-97 -36 -143 -122 -173 -323 -27 -191 -24 -855 6 -1055 139 -931 529 -1669 1162 -2195 518 -430 812 -585 2235 -1172 431 -178 970 -403 1235 -515 596 -254 959 -483 1285 -812 252 -253 397 -473 545 -821 182 -428 316 -479 866 -324 355 99 670 254 870 426 518 448 661 1332 340 2094 -189 446 -613 942 -1066 1244 -239 160 -715 408 -1075 562 -307 131 -1523 592 -2260 858 -1608 580 -2696 1144 -3610 1874 -190 152 -277 190 -360 159z"/></g></svg>
+      <span>three<span class="wm-strand">strand</span></span>
+    </a>
+    <div class="links">
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
+      <a href="mailto:support@anchorph.one">Support</a>
+      <span>© 2026 Anchor Digital LLC</span>
+    </div>
+    <div class="formerly">Threestrand is the new name for Anchor. Same app, same people, same account.</div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var f = document.getElementById("req"), msg = document.getElementById("msg"), btn = document.getElementById("send");
+  function show(cls, text) { msg.className = "msg " + cls; msg.textContent = text; }
+  f.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var d = {};
+    Array.prototype.forEach.call(f.elements, function (el) { if (el.name) d[el.name] = el.value.trim(); });
+    if (!d.place || !d.town || !d.name || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)) {
+      show("err", "Please fill in the place, town, your name and a working email.");
+      return;
+    }
+    btn.disabled = true; btn.textContent = "Sending...";
+    fetch("https://us-central1-abide-27797.cloudfunctions.net/spotRequest", {
+      method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(d)
+    }).then(function (r) {
+      if (!r.ok) throw new Error(r.status);
+      f.querySelectorAll("label, .row2, button").forEach(function (el) { el.style.display = "none"; });
+      show("ok", "Thanks, " + d.name.split(" ")[0] + ". We got it and we'll be in touch soon.");
+    }).catch(function () {
+      btn.disabled = false; btn.textContent = "Send request";
+      show("err", "That didn't go through. Try again, or email support@anchorph.one.");
+    });
+  });
+})();
+</script>
+<script src="/assets/site.js"></script>
+</body>
+</html>
