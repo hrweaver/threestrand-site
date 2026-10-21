@@ -24,20 +24,16 @@ The live page is one screen per idea. Scroll, or use Page Down on a clicker:
 1. "Grab your phone." QR code and the anonymity promise, nothing else (showing every step up front made people balk)
 2. Question 1 on its own, small QR in the corner for latecomers
 3. Question 2 with iPhone/Android directions, the live "N people so far" count, small QR
-4. What we said is healthy (average)
-5. What our phones say (average) and the gap
-6. The gap as a movie, with a movie ticket: "The extra 2h 24m we spend each day? That's Forrest Gump." (picks the closest runtime from `MOVIES` in live/index.html; skipped if the gap is under 45 min)
-7. "X of N" of us are over our own number
-8. Hour histogram, healthy next to actual
-9. Days a year, per person
-10. Years of phone time, the whole room
-11. Ecclesiastes 4:12 (NIV), with "three strands" in blue and the threestrand wordmark under it
-12. "Less phone, more people.", "Find me at the table in the back.", and a "Get the app" QR code (`qr-get.svg`, points at getthreestrand.com/get)
+4. "On average, across N of us": what feels healthy, what our phones say (with the gap), and the gap as a movie ticket ("The extra 2h 24m a day? That's Forrest Gump.", closest runtime from `MOVIES` in live/index.html; the ticket hides if the gap is under 45 min), side by side
+5. "This room, together": X of N over their own number, days a year each, years of phone time for the whole room
+6. Ecclesiastes 4:12 (NIV), with "three strands" in blue and the threestrand wordmark under it
+7. "Less phone, more people.", "Find me at the table in the back.", and a "Get the app" QR code (`qr-get.svg`, points at getthreestrand.com/get)
 
 ## Choices made on purpose (don't undo without a reason)
 
 - **Healthy vs actual, not guess vs actual.** People guess high when they can tell what the exercise is. Nobody can game "what feels healthy," and nearly everyone ends up over their own number.
-- **No per-person marks.** The chart is counts per hour. Everything 7h and up shares one "7h+" bar, and there are no count labels, so one heavy user never stands out. It's meant to feel like "we," not "you."
+- **Averages and counts only, no distribution chart.** A histogram was cut (October 2026): in a small room the person at the far end can tell it's them. It's meant to feel like "we," not "you."
+- **Two data screens, not seven.** The talk is 5 minutes, so the numbers sit together and the room watches them move as answers come in, instead of a reveal per number.
 - **The verse comes after the data.** The numbers show the problem and the verse turns to the answer. Opening with it makes the numbers feel like a sermon.
 - **No movie posters.** They're copyrighted and this is a public company page; the ticket card is drawn in CSS.
 - **No Claude or other vendor branding.** It's a plain page on our own domain.
