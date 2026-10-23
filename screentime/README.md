@@ -14,13 +14,14 @@ People answer on their phones, and the room's totals build on the big screen.
 
 The phone page asks two questions, one per screen:
 
-1. "How much phone time a day feels healthy to you?" Then Next. There is no way back, so this answer can't be adjusted after seeing the real number.
+1. "How much phone time a day feels healthy to you?", with a one-line hint on what counts (screen time, not calls at your ear). Then Next. There is no way back, so this answer can't be adjusted after seeing the real number.
 2. "Now look it up." It gives iPhone and Android directions, then asks for the real daily number.
 
 Nothing is saved until the second answer is sent, so only complete pairs are counted.
 
-The live page is one screen per idea. Scroll, or use Page Down on a clicker:
+The live page is one screen per idea. The down/up arrows, Page Down/Up (a clicker) and space each move exactly one screen, with a slow 0.9 s glide (GLIDE_MS); scrolling works too:
 
+0. The Threestrand logo, big and alone, so the room isn't scanning while you introduce yourself. As you scroll it shrinks into the corner wordmark of the next screen.
 1. "Grab your phone." QR code and the anonymity promise, nothing else (showing every step up front made people balk)
 2. Question 1 on its own, small QR in the corner for latecomers
 3. Question 2 with iPhone/Android directions, the live "N people so far" count, small QR

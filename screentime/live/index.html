@@ -45,6 +45,9 @@
   .count b { color: var(--ink); font-variant-numeric: tabular-nums; }
   .wordmark { position: absolute; top: 5vh; left: 6vw; height: clamp(24px, 3vh, 44px); }
   #join { position: relative; }
+  /* Intro: the big logo rides the scroll into the join screen's top-left wordmark, then hands off to it */
+  .hero-logo { position: fixed; z-index: 4; height: auto; pointer-events: none; }
+  .hero-logo[hidden] { display: none; }
 
   /* Data screens: three numbers side by side, so the room watches them move as answers come in */
   .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4vw; align-items: start; margin-top: 2vh; }
@@ -85,6 +88,9 @@
 </head>
 <body>
 <p id="test" class="test" hidden></p>
+
+<section id="intro" aria-label="Threestrand"></section>
+<img id="heroLogo" class="hero-logo" src="/assets/brand/threestrand-lockup-horizontal-light.svg" alt="Threestrand">
 
 <section id="join">
   <img class="wordmark" src="/assets/brand/threestrand-lockup-horizontal-light.svg" alt="Threestrand">
@@ -185,6 +191,58 @@
   </div>
 </section>
 
+<script>
+  // Its own script, so the intro still works if the Firebase load fails.
+  // Scroll-linked, not a fade on enter (those didn't fire reliably). At the top of the join screen the
+  // big logo sits exactly on the small wordmark, so the swap is invisible.
+  const hero = document.getElementById("heroLogo"), mark = document.querySelector("#join .wordmark");
+  function placeHero() {
+    const p = Math.min(1, Math.max(0, scrollY / innerHeight));
+    const e = p * p * (3 - 2 * p);
+    const bw = Math.min(innerWidth * 0.56, 1100), bh = bw * (mark.offsetHeight / mark.offsetWidth || 0.25);
+    const bx = (innerWidth - bw) / 2, by = (innerHeight - bh) / 2;
+    const w = bw + (mark.offsetWidth - bw) * e;
+    hero.style.width = w + "px";
+    hero.style.left = bx + (mark.offsetLeft - bx) * e + "px";
+    hero.style.top = by + (mark.offsetTop - by) * e + "px";
+    hero.hidden = p >= 1;
+    mark.style.visibility = p >= 1 ? "visible" : "hidden";
+  }
+  addEventListener("scroll", () => requestAnimationFrame(placeHero), { passive: true });
+  addEventListener("resize", placeHero);
+  if (mark.complete) placeHero(); else mark.addEventListener("load", placeHero);
+
+  // Arrow keys and clicker keys move exactly one screen, instead of nudging the scroll.
+  const NEXT = ["ArrowDown", "ArrowRight", "PageDown", " "], PREV = ["ArrowUp", "ArrowLeft", "PageUp"];
+  addEventListener("keydown", ev => {
+    const dir = NEXT.includes(ev.key) ? (ev.shiftKey && ev.key === " " ? -1 : 1) : PREV.includes(ev.key) ? -1 : 0;
+    if (!dir || ev.metaKey || ev.ctrlKey || ev.altKey) return;
+    ev.preventDefault();
+    const screens = [...document.querySelectorAll("body > section")].filter(s => !s.hidden);
+    // A quick second press counts from where the first one was headed, not from mid-scroll.
+    const here = performance.now() - lastPress < 1000 ? lastTo
+      : screens.reduce((best, s, i) => Math.abs(s.offsetTop - scrollY) < Math.abs(screens[best].offsetTop - scrollY) ? i : best, 0);
+    lastTo = Math.min(screens.length - 1, Math.max(0, here + dir)); lastPress = performance.now();
+    glide(screens[lastTo].offsetTop);
+  });
+  let lastTo = 0, lastPress = -Infinity;
+
+  // About twice as slow as the browser's own smooth scroll. Snap is off while it runs, or it would grab each frame.
+  const GLIDE_MS = matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 900;
+  let glideId = 0;
+  function glide(top) {
+    const root = document.documentElement, from = scrollY, id = ++glideId, t0 = performance.now();
+    root.style.scrollSnapType = "none";
+    (function step(now) {
+      if (id !== glideId) return;
+      const p = GLIDE_MS ? Math.min(1, (now - t0) / GLIDE_MS) : 1;
+      const e = p < 0.5 ? 4 * p * p * p : 1 - (-2 * p + 2) ** 3 / 2;
+      scrollTo({ top: from + (top - from) * e, behavior: "instant" });
+      if (p < 1) requestAnimationFrame(step); else root.style.scrollSnapType = "";
+    })(t0);
+  }
+</script>
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -205,6 +263,7 @@
   }
 
   const $ = id => document.getElementById(id);
+
   const fmt = mins => { mins = Math.round(mins); const h = Math.floor(mins / 60), m = mins % 60; return h ? (m ? `${h}h ${m}m` : `${h}h`) : `${m}m`; };
   const MAX = 16 * 60; // the form and the database rules both cap at 16 hours
   const ok = v => Number.isInteger(v) && v >= 0 && v <= MAX;
