@@ -65,7 +65,8 @@
   .stats.compact { margin-top: 3vh; }
   .stats.compact .num { font-size: clamp(44px, 6vw, 130px); }
   .stats.compact .ticket { max-width: 420px; padding: 3vh 2.4vw; gap: 1.6vh; }
-  .stats.two { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 72vw; }
+  .stats.two { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 84vw; }
+  .stats.two .num { font-size: clamp(48px, 6.4vw, 140px); }
   @media (max-width: 760px) { .stats, .stats.two { grid-template-columns: 1fr; max-width: none; } }
 
   /* Movie ticket: the punchline card */
@@ -162,13 +163,13 @@
   <div class="stats two">
     <div class="stat">
       <p class="label">Each of us, every year</p>
-      <p class="num"><span id="days">–</span><span class="unit"> waking days</span></p>
-      <p class="note">on our phone, counting a 16-hour waking day</p>
+      <p class="num" id="days">–</p>
+      <p class="note">of waking time on our phone, counting a 16-hour day</p>
     </div>
     <div class="stat">
       <p class="label">All of us, every year</p>
-      <p class="num accent"><span id="years">–</span><span class="unit"> waking years</span></p>
-      <p class="note">of phone time in this room</p>
+      <p class="num accent" id="years">–</p>
+      <p class="note">of waking time on our phones, just this room</p>
     </div>
   </div>
 </section>
@@ -290,11 +291,23 @@
     showMovie(avgA - avgG);
     // Waking time, not 24-hour days: sleep isn't what the phone takes from us. 16 hours assumes 8 of sleep.
     const WAKE = 16 * 60;
-    $("days").textContent = Math.round(avgA * 365 / WAKE);
+    // Each of us: waking days a year, shown as months and days. The room: waking years, as years and months.
+    const MONTH = 365 / 12;
+    const days = Math.round(avgA * 365 / WAKE);
+    let mo = Math.floor(days / MONTH), d = Math.round(days - mo * MONTH);
+    if (d >= 30) { mo++; d = 0; }
+    $("days").innerHTML = twoPart(mo, "month", d, "day");
     // minutes a day × 365 days ÷ waking minutes in a year = waking years
-    const yrs = sumA / WAKE;
-    $("years").textContent = yrs < 10 ? yrs.toFixed(1) : Math.round(yrs);
+    const months = Math.round(sumA / WAKE * 12), y = Math.floor(months / 12), m = months % 12;
+    $("years").innerHTML = twoPart(y, "year", m, "month");
   });
+
+  // "3 months 14 days": numbers big, words a size down. A zero part is dropped unless it's the only one.
+  function twoPart(big, bigWord, small, smallWord) {
+    const part = (n, w) => `${n}<span class="unit"> ${w}${n === 1 ? "" : "s"}</span>`;
+    if (!big) return part(small, smallWord);
+    return part(big, bigWord) + (small ? " " + part(small, smallWord) : "");
+  }
 
   function trimmedMean(xs) {
     const k = Math.floor(xs.length * 0.05), kept = [...xs].sort((a, b) => a - b).slice(k, xs.length - k);
