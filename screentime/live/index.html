@@ -108,7 +108,7 @@
 
 <section class="alt">
   <p class="eyebrow">Question 1</p>
-  <h1 style="max-width:18ch">How much phone time a day feels healthy to you?</h1>
+  <h1 style="max-width:18ch">How much phone time a day would you be happy with?</h1>
   <p class="sub">Just your gut. There's no right answer.</p>
   <div class="mini-qr"><img src="/screentime/qr.svg" alt=""><p>getthreestrand.com/<br>screentime</p></div>
 </section>
@@ -128,7 +128,7 @@
   <p class="eyebrow">On average, across <span id="n2">0</span> of us</p>
   <div class="stats">
     <div class="stat">
-      <p class="label">What feels healthy</p>
+      <p class="label">What we'd be happy with</p>
       <p class="num" id="avgG">–</p>
       <p class="note">a day</p>
     </div>
@@ -280,7 +280,7 @@
     const over = rows.filter(r => r.actual > r.healthy).length;
     $("avgG").textContent = fmt(avgG);
     $("avgA").textContent = fmt(avgA);
-    $("gap").textContent = avgA > avgG ? `a day. That's ${fmt(avgA - avgG)} more than we said is healthy.` : "a day";
+    $("gap").textContent = avgA > avgG ? `a day. That's ${fmt(avgA - avgG)} more than we said we'd be happy with.` : "a day";
     $("over").textContent = over;
     showMovie(avgA - avgG);
     $("days").textContent = Math.round(avgA * 365 / 1440);

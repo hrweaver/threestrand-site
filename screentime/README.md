@@ -14,7 +14,7 @@ People answer on their phones, and the room's totals build on the big screen.
 
 The phone page asks two questions, one per screen:
 
-1. "How much phone time a day feels healthy to you?", with a one-line hint on what counts (screen time, not calls at your ear). Then Next. There is no way back, so this answer can't be adjusted after seeing the real number.
+1. "How much phone time a day would you be happy with?", with a one-line hint on what counts (screen time, not calls at your ear). Then Next. There is no way back, so this answer can't be adjusted after seeing the real number.
 2. "Now look it up." It gives iPhone and Android directions, then asks for the real daily number.
 
 Nothing is saved until the second answer is sent, so only complete pairs are counted.
@@ -25,14 +25,15 @@ The live page is one screen per idea. The down/up arrows, Page Down/Up (a clicke
 1. "Grab your phone." QR code and the anonymity promise, nothing else (showing every step up front made people balk)
 2. Question 1 on its own, small QR in the corner for latecomers
 3. Question 2 with iPhone/Android directions, the live "N people so far" count, small QR
-4. "On average, across N of us": what feels healthy, what our phones say (with the gap), and the gap as a movie ticket ("The extra 2h 24m a day? That's Forrest Gump.", closest runtime from `MOVIES` in live/index.html; the ticket hides if the gap is under 45 min), side by side
+4. "On average, across N of us": what we'd be happy with, what our phones say (with the gap), and the gap as a movie ticket ("The extra 2h 24m a day? That's Forrest Gump.", closest runtime from `MOVIES` in live/index.html; the ticket hides if the gap is under 45 min), side by side
 5. "This room, together": X of N over their own number, days a year each, years of phone time for the whole room
 6. Ecclesiastes 4:12 (NIV), with "three strands" in blue and the threestrand wordmark under it
 7. "Less phone, more people.", "Find me at the table in the back.", and a "Get the app" QR code (`qr-get.svg`, points at getthreestrand.com/get)
 
 ## Choices made on purpose (don't undo without a reason)
 
-- **Healthy vs actual, not guess vs actual.** People guess high when they can tell what the exercise is. Nobody can game "what feels healthy," and nearly everyone ends up over their own number.
+- **Happy-with vs actual, not guess vs actual.** People guess high when they can tell what the exercise is. Nobody can game "what would you be happy with," and nearly everyone ends up over their own number.
+- **"Happy with," not "healthy."** Changed 2026-10-25. "Healthy" sounded like a right answer someone was grading, and pulled people toward an expert-sounding number. The stored field is still named `healthy`, so the rules and old data didn't change.
 - **Averages and counts only, no distribution chart.** A histogram was cut (October 2026): in a small room the person at the far end can tell it's them. It's meant to feel like "we," not "you."
 - **Two data screens, not seven.** The talk is 5 minutes, so the numbers sit together and the room watches them move as answers come in, instead of a reveal per number.
 - **The verse comes after the data.** The numbers show the problem and the verse turns to the answer. Opening with it makes the numbers feel like a sermon.

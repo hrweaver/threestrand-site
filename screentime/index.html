@@ -67,7 +67,7 @@
   <form id="form" novalidate>
    <div id="step1" class="step">
     <p class="eyebrow">Question 1 of 2</p>
-    <h1>How much phone time a day feels healthy to you?</h1>
+    <h1>How much phone time a day would you be happy with?</h1>
     <p class="hint">Count time looking at your screen: apps, texting, browsing, video. Calls with the phone at your ear don't count.</p>
     <div class="row">
       <label>Hours<select id="gH" required></select></label>
@@ -114,7 +114,7 @@
   <section id="done" class="step" hidden>
     <h1>Thanks. You're all set.</h1>
     <div class="result">
-      <div class="tile"><span>You said healthy is</span><strong id="youG"></strong></div>
+      <div class="tile"><span>You'd be happy with</span><strong id="youG"></strong></div>
       <div class="tile"><span>Your phone says</span><strong id="youA"></strong></div>
     </div>
     <p class="lead" style="margin:0 0 20px">If you want help changing that number, find me at the table in the back.</p>
@@ -167,7 +167,7 @@
     let msg = "";
     if (a !== null && a > MAX_H * 60) msg = "That's more than 16 hours. Check the number again.";
     else if (a !== null && a < 5) msg = "That's under 5 minutes. Check the number again.";
-    else if (g !== null && g > MAX_H * 60) msg = "Pick 16 hours or less for the healthy number.";
+    else if (g !== null && g > MAX_H * 60) msg = "Pick 16 hours or less for the number you'd be happy with.";
     const big = !msg && ((a !== null && a > 12 * 60) || (g !== null && g > 12 * 60));
     if (big && !confirmed) msg = "Over 12 hours a day. Double-check it, then tap again to send.";
     warn.textContent = msg;
