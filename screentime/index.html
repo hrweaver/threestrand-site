@@ -21,6 +21,7 @@
   main { max-width: 480px; margin: 0 auto; padding: 40px 16px 72px; }
   .wordmark { display: block; height: 30px; width: auto; margin-bottom: 36px; }
   h1 { margin: 0 0 10px; font-size: 2rem; line-height: 1.15; letter-spacing: -0.02em; font-weight: 700; text-wrap: balance; }
+  .clip { display: block; width: 100%; max-width: 240px; margin: 4px auto 0; border-radius: 14px; border: 1.5px solid var(--line); background: #FFFDF9; }
   .hint { margin: 0; color: var(--ink-2); font-size: 0.97rem; }
   .lead { margin: 0 0 28px; color: var(--ink-2); font-size: 1.05rem; }
   .step { display: flex; flex-direction: column; gap: 14px; }
@@ -86,8 +87,10 @@
         <li>Tap <b>Screen Time</b></li>
         <li>Tap <b>See All App &amp; Website Activity</b></li>
         <li>Make sure <b>Week</b> is selected at the top</li>
-        <li>Use the <b>Daily Average</b> number</li>
+        <li>Swipe the chart right to go back to <b>last week</b> (this week isn't over yet)</li>
+        <li>Use <b>Last Week's Average</b></li>
       </ol>
+      <video class="clip" src="/screentime/iphone-screen-time.mp4" autoplay muted loop playsinline preload="auto" aria-label="Screen recording: Settings, Screen Time, See All App and Website Activity, Week, swipe back to last week, and Last Week's Average circled"></video>
     </div>
     <div class="how" data-os="android">
       <p class="os">On your Android</p>
@@ -138,7 +141,7 @@
 
   // ?e=test for rehearsals; the night itself uses the default.
   const event = (new URLSearchParams(location.search).get("e") || "stpeters").replace(/[^a-z0-9-]/gi, "").slice(0, 40) || "stpeters";
-  const doneKey = "ts-poll-" + event;
+  const doneKey = "ts-poll-" + event, q1Key = doneKey + "-q1";
 
   // Dropdowns only, capped at 16 hours, so nobody can fat-finger 4000.
   const MAX_H = 16;
@@ -177,11 +180,19 @@
   }
   form.addEventListener("change", () => { confirmed = false; check(); $("next").disabled = val("gH", "gM") === null; });
   // One question per screen, and no going back, so the first answer stands on its own.
+  // Next locks the first answer on this phone, so a refresh or the browser's back arrow can't reopen it
+  // after seeing Question 2.
   $("next").addEventListener("click", () => {
-    if (val("gH", "gM") === null) return;
-    $("step1").hidden = true; $("step2").hidden = false;
-    window.scrollTo(0, 0);
+    const g = val("gH", "gM");
+    if (g === null) return;
+    try { localStorage.setItem(q1Key, String(g)); } catch {}
+    toStep2();
   });
+  function toStep2() {
+    $("step1").hidden = true; $("step2").hidden = false;
+    for (const v of document.querySelectorAll(".clip")) if (v.offsetParent) v.play().catch(() => {}); // autoplay can skip a video that started out hidden
+    window.scrollTo(0, 0);
+  }
 
   form.addEventListener("submit", async e => {
     e.preventDefault();
@@ -213,12 +224,16 @@
     : (/iphone|ipad|ipod/i.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1)) ? "ios" : "";
   if (os) {
     for (const el of document.querySelectorAll(".how[data-os]")) el.hidden = el.dataset.os !== os;
-    $("askA").textContent = os === "android" ? "What was yesterday's total?" : "What's your Daily Average?";
+    $("askA").textContent = os === "android" ? "What was yesterday's total?" : "What was last week's average?";
   }
 
   // One entry per phone, so a refresh doesn't count twice. ?reset clears it (for rehearsals).
-  if (new URLSearchParams(location.search).has("reset")) { try { localStorage.removeItem(doneKey); } catch {} history.replaceState(null, "", location.pathname + (event === "stpeters" ? "" : "?e=" + event)); }
-  try { const prev = JSON.parse(localStorage.getItem(doneKey)); if (prev) showDone(prev.g, prev.a); } catch {}
+  if (new URLSearchParams(location.search).has("reset")) { try { localStorage.removeItem(doneKey); localStorage.removeItem(q1Key); } catch {} history.replaceState(null, "", location.pathname + (event === "stpeters" ? "" : "?e=" + event)); }
+  try {
+    const prev = JSON.parse(localStorage.getItem(doneKey)), q1 = localStorage.getItem(q1Key);
+    if (prev) showDone(prev.g, prev.a);
+    else if (q1 !== null && Number.isInteger(+q1)) { $("gH").value = Math.floor(q1 / 60); $("gM").value = q1 % 60; toStep2(); check(); }
+  } catch {}
 </script>
 </body>
 </html>
