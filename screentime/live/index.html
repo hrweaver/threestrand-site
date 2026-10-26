@@ -20,6 +20,7 @@
   html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
   body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font); -webkit-font-smoothing: antialiased; color-scheme: light; }
   section { min-height: 100vh; scroll-snap-align: start; padding: 6vh 6vw; display: flex; flex-direction: column; justify-content: center; gap: 3vh; }
+  section[hidden] { display: none; }
   section.alt { background: var(--paper-2); }
   section.dark { background: var(--ink); color: var(--paper); }
   .eyebrow { margin: 0; font-size: clamp(16px, 1.6vw, 30px); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--peri-deep); }
@@ -62,9 +63,16 @@
   .dark .stat .note { color: #CFC7BA; }
   /* The lead screen: "X of N are over" is the headline, the averages sit under it a size down */
   .headline { max-width: 24ch; font-variant-numeric: tabular-nums; }
-  .stats.compact { margin-top: 3vh; }
-  .stats.compact .num { font-size: clamp(44px, 6vw, 130px); }
-  .stats.compact .ticket { max-width: 420px; padding: 3vh 2.4vw; gap: 1.6vh; }
+  /* Data screens sit centered: one idea per screen */
+  section.center { align-items: center; text-align: center; }
+  section.center .headline, section.center .sub { margin-left: auto; margin-right: auto; }
+  .center .stats { justify-items: center; width: 100%; max-width: 88vw; }
+  .center .stat { align-items: center; }
+  .center .stats:not(.two) .num { font-size: clamp(52px, 7vw, 150px); }
+  .center .ticket { text-align: left; }
+  .center .footnote { left: 0; right: 0; text-align: center; }
+  /* Two averages and no ticket (small gap): don't leave a hole on the right */
+  .stats:has(> #movieScreen[hidden]) { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 70vw; }
   .stats.two { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 84vw; }
   .footnote { position: absolute; left: 6vw; bottom: 6vh; margin: 0; font-size: clamp(14px, 1.3vw, 26px); color: var(--muted); }
   .dark .footnote { color: #9C9488; }
@@ -133,11 +141,15 @@
   <div class="mini-qr"><img src="/screentime/qr.svg" alt=""><p>getthreestrand.com/<br>screentime</p></div>
 </section>
 
-<section class="alt">
+<section class="alt center" id="leadScreen">
   <p class="eyebrow">Over our own number</p>
   <h1 class="headline"><span class="accent" id="over">–</span> of <span id="n3">0</span> of us are over the number we'd be happy with.</h1>
   <p class="sub">If that's you, you're not the only one.</p>
-  <div class="stats compact">
+</section>
+
+<section class="center" id="gapScreen">
+  <p class="eyebrow">The gap</p>
+  <div class="stats">
     <div class="stat">
       <p class="label">What we'd be happy with</p>
       <p class="num" id="avgG">–</p>
@@ -160,7 +172,7 @@
   </div>
 </section>
 
-<section class="dark">
+<section class="dark center" id="roomScreen">
   <p class="eyebrow">This room, together</p>
   <div class="stats two">
     <div class="stat">
@@ -289,7 +301,8 @@
     const sumA = avgA * n; // the room's total: trimmed average × everyone who answered
     $("avgG").textContent = fmt(avgG);
     $("avgA").textContent = fmt(avgA);
-    $("gap").textContent = avgA > avgG ? `a day. That's ${fmt(avgA - avgG)} more than we said we'd be happy with.` : "a day";
+    // Within 15 minutes either way reads as "on our number", so a close room never shows "0m more" or a negative gap
+    $("gap").textContent = avgA - avgG >= 15 ? `a day. That's ${fmt(avgA - avgG)} more than we said we'd be happy with.` : "a day. Right about where we said we'd be.";
     $("over").textContent = over;
     showMovie(avgA - avgG);
     // Waking time, not 24-hour days: sleep isn't what the phone takes from us. 16 hours assumes 8 of sleep.
