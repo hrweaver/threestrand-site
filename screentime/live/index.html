@@ -66,6 +66,8 @@
   .stats.compact .num { font-size: clamp(44px, 6vw, 130px); }
   .stats.compact .ticket { max-width: 420px; padding: 3vh 2.4vw; gap: 1.6vh; }
   .stats.two { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 84vw; }
+  .footnote { position: absolute; left: 6vw; bottom: 6vh; margin: 0; font-size: clamp(14px, 1.3vw, 26px); color: var(--muted); }
+  .dark .footnote { color: #9C9488; }
   .stats.two .num { font-size: clamp(48px, 6.4vw, 140px); }
   @media (max-width: 760px) { .stats, .stats.two { grid-template-columns: 1fr; max-width: none; } }
 
@@ -164,14 +166,15 @@
     <div class="stat">
       <p class="label">Each of us, every year</p>
       <p class="num" id="days">–</p>
-      <p class="note">of waking time on our phone, counting a 16-hour day</p>
+      <p class="note">of waking time* on our phone</p>
     </div>
     <div class="stat">
       <p class="label">All of us, every year</p>
       <p class="num accent" id="years">–</p>
-      <p class="note">of waking time on our phones, just this room</p>
+      <p class="note">of waking time* on our phones, just this room</p>
     </div>
   </div>
+  <p class="footnote">* Waking time counts a 16-hour day, assuming 8 hours of sleep.</p>
 </section>
 
 <section class="verse">
