@@ -26,7 +26,7 @@ The live page is one screen per idea. The down/up arrows, Page Down/Up (a clicke
 2. Question 1 on its own, small QR in the corner for latecomers
 3. Question 2 with iPhone/Android directions, the live "N people so far" count, small QR
 4. Lead: "X of N of us are over the number we'd be happy with." as the headline (don't bury it), then under it what we'd be happy with, what our phones say (with the gap), and the gap as a movie ticket ("The extra 2h 24m a day? That's Forrest Gump.", closest runtime from `MOVIES` in live/index.html; the ticket hides if the gap is under 45 min), side by side
-5. "This room, together": days a year each, years of phone time for the whole room
+5. "This room, together": waking days a year each, waking years of phone time for the whole room. Both use a 16-hour waking day (8 hours of sleep, a round number, not a measured average), because sleep isn't what the phone takes; 24-hour days understated it by a third.
 6. Ecclesiastes 4:12 (NIV), with "three strands" in blue and the threestrand wordmark under it
 7. "Less phone, more people.", "Find me at the table in the back.", and a "Get the app" QR code (`qr-get.svg`, points at getthreestrand.com/get)
 

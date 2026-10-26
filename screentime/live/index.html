@@ -162,12 +162,12 @@
   <div class="stats two">
     <div class="stat">
       <p class="label">Each of us, every year</p>
-      <p class="num"><span id="days">–</span><span class="unit"> days</span></p>
-      <p class="note">full days on our phone</p>
+      <p class="num"><span id="days">–</span><span class="unit"> waking days</span></p>
+      <p class="note">on our phone, counting a 16-hour waking day</p>
     </div>
     <div class="stat">
       <p class="label">All of us, every year</p>
-      <p class="num accent"><span id="years">–</span><span class="unit"> years</span></p>
+      <p class="num accent"><span id="years">–</span><span class="unit"> waking years</span></p>
       <p class="note">of phone time in this room</p>
     </div>
   </div>
@@ -288,9 +288,11 @@
     $("gap").textContent = avgA > avgG ? `a day. That's ${fmt(avgA - avgG)} more than we said we'd be happy with.` : "a day";
     $("over").textContent = over;
     showMovie(avgA - avgG);
-    $("days").textContent = Math.round(avgA * 365 / 1440);
-    // minutes a day × 365 days ÷ minutes in a year = years
-    const yrs = sumA / 1440;
+    // Waking time, not 24-hour days: sleep isn't what the phone takes from us. 16 hours assumes 8 of sleep.
+    const WAKE = 16 * 60;
+    $("days").textContent = Math.round(avgA * 365 / WAKE);
+    // minutes a day × 365 days ÷ waking minutes in a year = waking years
+    const yrs = sumA / WAKE;
     $("years").textContent = yrs < 10 ? yrs.toFixed(1) : Math.round(yrs);
   });
 
