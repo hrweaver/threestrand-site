@@ -25,22 +25,19 @@
   .wordmark { display: block; height: 34px; width: auto; margin-bottom: 40px; }
   h1 { margin: 0 0 12px; font-size: 2.1rem; line-height: 1.12; letter-spacing: -0.02em; font-weight: 700; text-wrap: balance; }
   .lead { margin: 0 0 28px; color: var(--ink-2); font-size: 1.1rem; line-height: 1.55; }
-  .stores { display: flex; flex-direction: column; gap: 12px; }
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-    padding: 15px 20px; border-radius: 999px; text-decoration: none;
-    font-weight: 600; font-size: 0.98rem; line-height: 1; border: 1.5px solid transparent;
-    background: var(--ink); color: var(--paper); transition: transform .15s ease, background .15s ease;
-  }
-  .btn:hover { transform: translateY(-1px); background: #2a2724; }
-  .btn:focus-visible { outline: 3px solid var(--peri-deep); outline-offset: 3px; }
-  .btn svg { width: 20px; height: 20px; flex: none; }
-  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
-  .btn-ghost:hover { background: rgba(28, 26, 24, 0.06); }
+  /* Official store badges, same files as the landing page. Google's badge PNG carries its own
+     padding, so it is drawn taller than Apple's to make the two black boxes match. */
+  .stores { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+  .store { display: inline-block; line-height: 0; border-radius: 8px; transition: transform .15s ease; }
+  .store:hover { transform: translateY(-1px); }
+  .store:focus-visible { outline: 3px solid var(--peri-deep); outline-offset: 3px; }
+  .store img { display: block; height: auto; max-width: 100%; }
+  .store-ios img { width: 162px; }
+  .store-android img { width: 207px; margin-left: -13px; }
   .note { color: var(--muted); font-size: 0.9rem; margin: 24px 0 0; }
   .note a { color: var(--peri-deep); }
   .hidden { display: none; }
-  @media (prefers-reduced-motion: reduce) { .btn { transition: none; } .btn:hover { transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .store { transition: none; } .store:hover { transform: none; } }
 </style>
 </head>
 <body>
@@ -49,13 +46,11 @@
   <h1>Less phone. More people.</h1>
   <p class="lead">Threestrand lets you block what wastes your time and gives someone you trust the say on when it opens. Get it here.</p>
   <div class="stores">
-    <a id="getIos" class="btn hidden" href="https://apps.apple.com/app/id6790784303?pt=129028331&ct=get&mt=8">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.73c-.02-2.3 1.88-3.4 1.96-3.45-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.83-.81-3-.79-1.55.02-2.97.9-3.77 2.28-1.61 2.79-.41 6.92 1.16 9.18.77 1.11 1.68 2.35 2.88 2.31 1.16-.05 1.6-.75 3-.75s1.79.75 3.01.73c1.24-.02 2.03-1.13 2.79-2.24.88-1.29 1.24-2.54 1.26-2.6-.03-.01-2.42-.93-2.44-3.7zM14.08 6c.64-.78 1.07-1.85.95-2.93-.92.04-2.04.61-2.7 1.39-.59.69-1.11 1.79-.97 2.84 1.03.08 2.08-.52 2.72-1.3z"/></svg>
-      Download on the App Store
+    <a id="getIos" class="store store-ios hidden" href="https://apps.apple.com/app/id6790784303?pt=129028331&ct=get&mt=8">
+      <img src="/assets/stores/app-store-badge.svg" alt="Download on the App Store" width="162" height="54">
     </a>
-    <a id="getAndroid" class="btn hidden" href="https://play.google.com/store/apps/details?id=com.anchorapp.focus&referrer=utm_source%3Dthreestrand%26utm_medium%3Dget">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 3.6v16.8c0 .5.5.8.9.6l9.3-8.4L4.9 3C4.5 2.8 4 3.1 4 3.6zm11.3 7.9 2.6-1.5c.5-.3.5-1 0-1.3l-2.3-1.3-2.6 2.4 2.3 1.7zm-2.3 1.8-2.6 2.4 2.6 1.5 2.3-1.3c.5-.3.5-1 0-1.3l-2.3-1.3z"/></svg>
-      Get it on Google Play
+    <a id="getAndroid" class="store store-android hidden" href="https://play.google.com/store/apps/details?id=com.anchorapp.focus&referrer=utm_source%3Dthreestrand%26utm_medium%3Dget">
+      <img src="/assets/stores/google-play-badge.png" alt="Get it on Google Play" width="207" height="80">
     </a>
   </div>
   <p class="note">Android and iPhone. Partners can be on either. Already have Threestrand? Someone can invite you by holding your phone to their Threestrand Tag. <a href="/">About Threestrand</a></p>
@@ -68,7 +63,7 @@
   var gi = document.getElementById('getIos'), ga = document.getElementById('getAndroid');
   if (ios) { gi.classList.remove('hidden'); location.replace(gi.href); }
   else if (android) { ga.classList.remove('hidden'); location.replace(ga.href); }
-  else { gi.classList.remove('hidden'); ga.classList.remove('hidden'); ga.classList.add('btn-ghost'); }
+  else { gi.classList.remove('hidden'); ga.classList.remove('hidden'); }
 })();
 </script>
 </body>
