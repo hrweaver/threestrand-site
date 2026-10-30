@@ -4,7 +4,9 @@ var PAUSE_SPOTS = [
   { name: "Selah Cafe Coffee & Market", town: "Boerne", address: "616 N Main St, Boerne, TX 78006",
     lat: 29.7988352, lng: -98.7346351, placeId: "ChIJq32JYxh3XIYRtJVRnrdK7hI", site: null },
   { name: "Brevity Coffee Co.", town: "Boerne", address: "428 W Bandera Rd, Boerne, TX 78006",
-    lat: 29.7812046, lng: -98.7358004, placeId: "ChIJgRJoUdh3XIYRHk70k5NIVOE", site: "https://brevitycoffee.com/" }
+    lat: 29.7812046, lng: -98.7358004, placeId: "ChIJgRJoUdh3XIYRHk70k5NIVOE", site: "https://brevitycoffee.com/" },
+  { name: "Revive Organics", town: "Fredericksburg", address: "102 E Ufer St, Fredericksburg, TX 78624",
+    lat: 30.2719213, lng: -98.8749218, placeId: "ChIJ3YPsxvPBW4YR3rpoMIg4f4U", site: "https://reviveorganicstx.com/" }
 ];
 
 function pauseSpotDirections(s) {
