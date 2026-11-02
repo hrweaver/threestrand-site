@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Unlisted: linked from nowhere on the site, kept out of search. -->
+<meta name="robots" content="noindex, nofollow">
+<title>Threestrand for Mac</title>
+<link rel="icon" href="/assets/brand/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F7F2E9; --ink: #1C1A18; --ink-2: #4B4541; --muted: #7D7569; --peri-deep: #3C4DB3; --card: #EFE8DC;
+    --font: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  /* Light on purpose, like the rest of the site. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --paper: #F7F2E9; --ink: #1C1A18; --ink-2: #4B4541; --muted: #7D7569; }
+  }
+  :root[data-theme="dark"] { --paper: #F7F2E9; --ink: #1C1A18; --ink-2: #4B4541; --muted: #7D7569; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font); font-size: 17px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  main { max-width: 520px; margin: 0 auto; padding: 56px 16px 72px; }
+  .wordmark { display: block; height: 34px; width: auto; margin-bottom: 40px; }
+  h1 { margin: 0 0 12px; font-size: 2.1rem; line-height: 1.12; letter-spacing: -0.02em; font-weight: 700; text-wrap: balance; }
+  h2 { margin: 36px 0 10px; font-size: 1.15rem; font-weight: 700; }
+  .lead { margin: 0 0 28px; color: var(--ink-2); font-size: 1.1rem; line-height: 1.55; }
+  .download { display: inline-flex; align-items: center; gap: 10px; background: var(--ink); color: var(--paper);
+    text-decoration: none; font-weight: 600; padding: 14px 22px; border-radius: 12px; transition: transform .15s ease; }
+  .download:hover { transform: translateY(-1px); }
+  .download:focus-visible { outline: 3px solid var(--peri-deep); outline-offset: 3px; }
+  .meta { color: var(--muted); font-size: 0.9rem; margin: 10px 0 0; }
+  ol { padding-left: 1.2em; margin: 0; }
+  li { margin: 0 0 10px; color: var(--ink-2); }
+  li strong { color: var(--ink); }
+  .card { background: var(--card); border-radius: 14px; padding: 16px 18px; color: var(--ink-2); font-size: 0.95rem; }
+  .note { color: var(--muted); font-size: 0.9rem; margin: 28px 0 0; }
+  .note a { color: var(--peri-deep); }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.9em; }
+  @media (prefers-reduced-motion: reduce) { .download { transition: none; } .download:hover { transform: none; } }
+</style>
+</head>
+<body>
+<main>
+  <a href="/"><img class="wordmark" src="/assets/brand/threestrand-lockup-horizontal-light.svg" alt="Threestrand"></a>
+  <h1>Threestrand for Mac</h1>
+  <p class="lead">Answer requests from the people you're paired with right from your menu bar, without picking up your phone. You can also block websites on your Mac if you want to.</p>
+
+  <a class="download" id="download" href="Threestrand-0.2.0.zip">Download for Mac</a>
+  <p class="meta" id="meta">Version 0.2.0 · macOS 13 or later · Early version</p>
+
+  <h2>Set it up</h2>
+  <ol>
+    <li><strong>Open the download</strong> and drag Threestrand into your Applications folder. It has to live there for website blocking to work.</li>
+    <li><strong>Open Threestrand.</strong> Its icon shows up at the top of your screen, in the menu bar. Click it to see a code.</li>
+    <li><strong>Scan the code with your phone.</strong> On iPhone, use the camera. On Android, open Threestrand, then Settings, Partners, Connect a computer. Check that the four numbers match, and tap Connect.</li>
+  </ol>
+  <p class="note" style="margin-top:12px">No account needed. Your Mac joins whatever your phone already uses.</p>
+
+  <h2>Blocking websites (optional)</h2>
+  <div class="card">Click Threestrand in the menu bar, then Set up next to website blocking. Pick sites and when they're blocked. macOS asks you to allow it twice, once in System Settings and once to filter network content. Your list stays on your Mac. The person you're paired with only sees a site when you ask for it.</div>
+
+  <p class="note">Needs the latest Threestrand on your phone. <a href="/">About Threestrand</a></p>
+</main>
+</body>
+</html>
