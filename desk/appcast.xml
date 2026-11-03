@@ -3,12 +3,12 @@
   <channel>
     <title>Threestrand for Mac</title>
     <item>
-      <title>Version 0.2.8</title>
-      <pubDate>Tue, 03 Nov 2026 03:00:01 +0000</pubDate>
-      <sparkle:version>28</sparkle:version>
-      <sparkle:shortVersionString>0.2.8</sparkle:shortVersionString>
+      <title>Version 0.2.9</title>
+      <pubDate>Tue, 03 Nov 2026 03:11:00 +0000</pubDate>
+      <sparkle:version>29</sparkle:version>
+      <sparkle:shortVersionString>0.2.9</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
-      <enclosure url="https://getthreestrand.com/desk/Threestrand-0.2.8.zip" type="application/octet-stream" sparkle:edSignature="zQq9usfE7swB1aRYVv/kDUA8cDm3aUs52i+yIFuOC3QgQxGSk9EPwpdhU3nkkK/LmnAJuRew2NUetnV9vor4DA==" length="12530462"/>
+      <enclosure url="https://getthreestrand.com/desk/Threestrand-0.2.9.zip" type="application/octet-stream" sparkle:edSignature="YY6dGPx9zaWHRZk/0SYtTin+qtSgQtbjW/xSJfiREd7LWdZ6h8HXcW/CyaNw//LYE4pcq703VZASJgdqDDHqCw==" length="12532908"/>
     </item>
   </channel>
 </rss>
