@@ -19,6 +19,7 @@ Photos are from Unsplash (Unsplash license). Photo ids, in case a credit is ever
 | dinner-table.jpg | 1414235077428-338989a2e8c0 |
 | cafe-room.jpg | 1554118811-1e0d58224f24 |
 | cafe-plants.jpg | 1600093463592-8e36ae95ef56 |
+| family-couch-reading.jpg | 1585945180888-a2397737fa81 |
 
 ## Other pages
 
