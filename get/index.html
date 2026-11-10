@@ -40,13 +40,13 @@
   @media (prefers-reduced-motion: reduce) { .store { transition: none; } .store:hover { transform: none; } }
 </style>
 </head>
-<body>
+<body data-page="get">
 <main>
   <a href="/"><img class="wordmark" src="/assets/brand/threestrand-lockup-horizontal-light.svg" alt="Threestrand"></a>
   <h1>Less phone. More people.</h1>
   <p class="lead">Threestrand lets you block what wastes your time and gives someone you trust the say on when it opens. Get it here.</p>
   <div class="stores">
-    <a id="getIos" class="store store-ios hidden" href="https://apps.apple.com/app/id6790784303?pt=129028331&ct=get&mt=8">
+    <a id="getIos" class="store store-ios hidden" href="https://apps.apple.com/app/id6790784303?pt=129028331&ct=site_get&mt=8">
       <img src="/assets/stores/app-store-badge.svg" alt="Download on the App Store" width="162" height="54">
     </a>
     <a id="getAndroid" class="store store-android hidden" href="https://play.google.com/store/apps/details?id=com.anchorapp.focus&referrer=utm_source%3Dthreestrand%26utm_medium%3Dget">
@@ -55,6 +55,7 @@
   </div>
   <p class="note">Android and iPhone. Partners can be on either. Already have Threestrand? Someone can invite you by holding your phone to their Threestrand Tag. <a href="/">About Threestrand</a></p>
 </main>
+<script src="/assets/site.js"></script>
 <script>
 (function () {
   var ua = navigator.userAgent || '';
