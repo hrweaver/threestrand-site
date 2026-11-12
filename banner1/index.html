@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Threestrand</title>
+<script>
+// Banner 1: the cream 33x81 retractable banner (first used at SEEK 2027, Jan 1 to 4).
+// The QR printed on it points here forever. To send it somewhere else for another event,
+// change DEST and push. utm_source/utm_campaign ride through /get into the store links,
+// so installs from the banner show up by event in App Store Connect and Play.
+var DEST = "/get/?utm_source=banner1&utm_campaign=seek27";
+location.replace(DEST);
+</script>
+<style>body{margin:0;background:#F7F2E9;color:#1C1A18;font:17px/1.5 system-ui,-apple-system,sans-serif}main{max-width:440px;margin:0 auto;padding:56px 16px}a{color:#3C4DB3}</style>
+</head>
+<body>
+<main><p>One second. If nothing happens, <a id="go" href="/get/">get Threestrand here</a>.</p></main>
+<script>document.getElementById('go').href = DEST;</script>
+</body>
+</html>
